@@ -1,5 +1,5 @@
-import type { Config } from "tailwindcss"
-import animate from "tailwindcss-animate"
+import type { Config } from "tailwindcss";
+import animate from "tailwindcss-animate";
 
 const config: Config = {
   darkMode: "class",
@@ -85,7 +85,9 @@ const config: Config = {
           "50%": { transform: "translateY(-10px)" },
         },
         "text-flicker": {
-          "0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100%": { opacity: "1" },
+          "0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100%": {
+            opacity: "1",
+          },
           "20%, 21.999%, 63%, 63.999%, 65%, 69.999%": { opacity: "0.33" },
         },
         "scale-up-down": {
@@ -96,7 +98,8 @@ const config: Config = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "pulse-ring": "pulse-ring 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite",
+        "pulse-ring":
+          "pulse-ring 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite",
         "rotate-slow": "rotate-slow 12s linear infinite",
         float: "float 6s ease-in-out infinite",
         "bounce-slight": "bounce-slight 3s ease-in-out infinite",
@@ -111,8 +114,6 @@ const config: Config = {
     },
   },
   plugins: [animate],
-}
+};
 
-
-export default config
-
+export default config;

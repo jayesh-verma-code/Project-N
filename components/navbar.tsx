@@ -136,7 +136,7 @@ export default function Navbar({ scrolled }: NavbarProps) {
                   />
                   <span className="font-bold text-black relative z-10">N</span>
                 </motion.div>
-                <span className="text-xl font-bold tracking-tight text-white">NIRVEON&apos;X</span>
+                <span className="text-xl font-bold tracking-tight text-white">NirveonX</span>
               </motion.div>
             </Link>
 

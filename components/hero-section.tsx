@@ -62,7 +62,7 @@ export default function HeroSection() {
   }, [])
 
   // Text to split
-  const titleText = "NIRVEON'X"
+  const titleText = "NirveonX"
   const subtitleText = "One AI, Infinite Care – Health, Wellness & Beyond."
 
   return (
