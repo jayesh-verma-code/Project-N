@@ -149,7 +149,7 @@ export default function ParticlesBackground() {
           if (distance < maxDistance) {
             const opacity = 1 - distance / maxDistance;
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(255, 255, 255, ${opacity * 0.5})`; // Slightly increased from 0.1
+            ctx.strokeStyle = `rgba(255, 255, 255, ${opacity * 0.52})`; // Slightly increased from 0.1
             ctx.lineWidth = 0.4; // Increased from 0.3 for slightly more visible connections
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);

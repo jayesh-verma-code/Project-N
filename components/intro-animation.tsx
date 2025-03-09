@@ -93,7 +93,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
     },
   }
 
-  const titleText = "NIRVEON'X"
+  const titleText = "NirveonX"
   const taglineText = "One AI, Infinite Care – Health, Wellness & Beyond."
 
   return (
