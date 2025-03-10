@@ -167,7 +167,7 @@ export default function Navbar({ scrolled }: NavbarProps) {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Button className="bg-white text-black hover:bg-gray-200 relative overflow-hidden group">
+              <Button className="bg-white text-black hover:bg-gray-200 relative overflow-hidden group max-md:hidden">
                 <span className="relative z-10">Get Started</span>
                 <motion.span
                   className="absolute inset-0 bg-gray-300"
