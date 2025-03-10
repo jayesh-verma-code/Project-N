@@ -41,7 +41,7 @@ export default function Home() {
         ref={containerRef}
         className="relative min-h-screen bg-gradient-to-b from-black to-gray-900 dark:from-black dark:to-gray-900 text-white overflow-hidden"
       >
-        <CustomCursor containerRef={containerRef} />
+        <CustomCursor containerRef={containerRef as React.RefObject<HTMLDivElement>} />
         <ScrollProgress scrollYProgress={scrollYProgress} />
         <NoiseTexture />
         <ParticlesBackground />

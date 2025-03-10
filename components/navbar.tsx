@@ -10,6 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import Link from "next/link";
+import ThemeToggle from "@/components/theme-toggle"; // Import the ThemeToggle component
 
 interface NavbarProps {
   scrolled: boolean;
@@ -161,6 +162,8 @@ export default function Navbar({ scrolled }: NavbarProps) {
                   onLeave={() => setHoveredItem(null)}
                 />
               ))}
+              {/* Add ThemeToggle here */}
+              <ThemeToggle />
             </div>
             <motion.div
               className="ml-4"
@@ -300,6 +303,11 @@ export default function Navbar({ scrolled }: NavbarProps) {
                     {social}
                   </motion.a>
                 ))}
+              </motion.div>
+
+              {/* Add ThemeToggle here for mobile */}
+              <motion.div variants={itemVariants} className="mt-8 flex justify-center">
+                <ThemeToggle />
               </motion.div>
             </motion.div>
           </motion.div>
