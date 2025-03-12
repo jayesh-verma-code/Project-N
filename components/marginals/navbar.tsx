@@ -142,7 +142,12 @@ export default function Navbar({ scrolled }: NavbarProps) {
                       ease: "linear",
                     }}
                   />
-                  <span className="font-bold text-black relative z-10">N</span>
+                  {/* Replace the text "N" with an image */}
+                  <img
+                    src="https://res.cloudinary.com/dqqyuvg1v/image/upload/v1741797055/favicon_wlxa7n.ico"
+                    alt="NirveonX Logo"
+                    className="w-6 h-6 relative z-10"
+                  />
                 </motion.div>
                 <span className="text-xl font-bold tracking-tight text-white">
                   NirveonX
@@ -306,7 +311,10 @@ export default function Navbar({ scrolled }: NavbarProps) {
               </motion.div>
 
               {/* Add ThemeToggle here for mobile */}
-              <motion.div variants={itemVariants} className="mt-8 flex justify-center">
+              <motion.div
+                variants={itemVariants}
+                className="mt-8 flex justify-center"
+              >
                 <ThemeToggle />
               </motion.div>
             </motion.div>
