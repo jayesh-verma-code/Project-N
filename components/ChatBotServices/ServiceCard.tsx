@@ -1,3 +1,4 @@
+import React, {useState, useRef } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import {
   Card,
@@ -8,7 +9,6 @@ import {
   CardTitle,
 } from "../ui/card";
 import { Button } from "../ui/button";
-import { useRef } from "react";
 import {
   ITEM_VARIANTS,
   SERVICES,
@@ -247,7 +247,7 @@ export function ServiceCard({
 
 // Example of how to use in a grid
 export function ServiceCardGrid() {
-  const [activeIndex, setActiveIndex] = React.useState<number | null>(null);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
   
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
