@@ -7,7 +7,7 @@ import ChatbotServices from "@/components/chatbot-services";
 import AuthSection from "@/components/auth-section";
 import FloatingChatbot from "@/components/floating-chatbot";
 import { ThemeProvider } from "next-themes";
-import HeroSection from "@/components/hero-section";
+import HeroSection from "@/sections/Hero/hero-section";
 import FeaturesSection from "@/components/features-section";
 import TestimonialsSection from "@/components/testimonial-section"
 import FaqSection from "@/components/faq-section";

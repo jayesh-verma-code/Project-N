@@ -10,7 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import Link from "next/link";
-import ThemeToggle from "@/components/theme-toggle"; // Import the ThemeToggle component
+// import ThemeToggle from "@/components/theme-toggle"; // Import the ThemeToggle component
 
 interface NavbarProps {
   scrolled: boolean;
@@ -168,7 +168,7 @@ export default function Navbar({ scrolled }: NavbarProps) {
                 />
               ))}
               {/* Add ThemeToggle here */}
-              <ThemeToggle />
+              {/* <ThemeToggle /> */}
             </div>
             <motion.div
               className="ml-4"
@@ -315,7 +315,7 @@ export default function Navbar({ scrolled }: NavbarProps) {
                 variants={itemVariants}
                 className="mt-8 flex justify-center"
               >
-                <ThemeToggle />
+                {/* <ThemeToggle /> */}
               </motion.div>
             </motion.div>
           </motion.div>
