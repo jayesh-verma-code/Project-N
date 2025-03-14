@@ -21,7 +21,7 @@ interface FeatureCardProps {
   variants: Variants;
 }
 
-export function FeatureCard({ feature, variants }: FeatureCardProps) {
+export function FeatureCard({ feature, variants }: FeatureCardProps){
   const [isHovered, setIsHovered] = useState(false);
   const cardRef = useRef(null);
   const x = useMotionValue(0);
