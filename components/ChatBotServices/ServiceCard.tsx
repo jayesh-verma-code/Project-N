@@ -220,9 +220,9 @@ export function ServiceCard({
           <CardFooter className="relative z-10">
             <motion.button className="w-full">
               <Button
-                className={`w-full bg-gradient-to-r ${service.color || `from-${buttonColor.split('-')[1]} to-${buttonColor.split('-')[3]}`} hover:opacity-90 text-white border border-white/20 group overflow-hidden`}
+                className={`w-full bg-gradient-to-r ${service.color || `from-${buttonColor.split('-')[1]} to-${buttonColor.split('-')[3]}`} hover:opacity-90 hover:text-black text-white border border-white/20 group overflow-hidden`}
               >
-                <span className="relative z-10">Get Started</span>
+                <span className="relative z-10 hover:text-black text-white">Get Started</span>
                 <motion.span
                   className="absolute inset-0 bg-white/10"
                   initial={{ x: "-100%" }}
