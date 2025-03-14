@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import IntroAnimation from "@/components/intro-animation";
-import Navbar from "@/components/marginals/navbar";
+import Navbar from "@/sections/marginals/navbar";
 import ChatbotServices from "@/components/chatbot-services";
 import AuthSection from "@/components/auth-section";
 import FloatingChatbot from "@/components/floating-chatbot";
@@ -11,7 +11,7 @@ import HeroSection from "@/components/hero-section";
 import FeaturesSection from "@/components/features-section";
 import TestimonialsSection from "@/components/testimonial-section"
 import FaqSection from "@/components/faq-section";
-import Footer from "@/components/marginals/footer";
+import Footer from "@/sections/marginals/footer";
 import ParticlesBackground from "@/components/particle-background";
 import CustomCursor from "@/components/custom-cursor";
 import ScrollProgress from "@/components/scroll-progress";

@@ -59,6 +59,7 @@ export default function FaqSection() {
       opacity: 1,
       transition: {
         duration: 0.5,
+        ease: "easeOut",
       },
     },
   }
@@ -74,7 +75,7 @@ export default function FaqSection() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">Frequently Asked Questions</h2>
@@ -110,7 +111,7 @@ export default function FaqSection() {
                     animate={{
                       opacity: hoveredItem === `item-${index}` ? 1 : 0,
                     }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
                   />
 
                   <AccordionTrigger className="px-6 py-4 hover:bg-white/5 transition-all text-left">
@@ -119,7 +120,7 @@ export default function FaqSection() {
                       animate={{
                         x: hoveredItem === `item-${index}` ? 5 : 0,
                       }}
-                      transition={{ duration: 0.3 }}
+                      transition={{ duration: 0.3, ease: "easeOut" }}
                     >
                       {faq.question}
                     </motion.span>
@@ -129,7 +130,7 @@ export default function FaqSection() {
                     <motion.div
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.3 }}
+                      transition={{ duration: 0.3, ease: "easeOut" }}
                     >
                       {faq.answer}
                     </motion.div>
@@ -143,4 +144,3 @@ export default function FaqSection() {
     </section>
   )
 }
-
