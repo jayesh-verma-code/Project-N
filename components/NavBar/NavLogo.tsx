@@ -25,7 +25,7 @@ export const Logo = () => (
             }}
           />
           <img
-            src="https://res.cloudinary.com/dqqyuvg1v/image/upload/v1741797055/favicon_wlxa7n.ico"
+            src="https://res.cloudinary.com/dqqyuvg1v/image/upload/v1741948683/Vector_z4x9e1.png"
             alt="NirveonX Logo"
             className="w-6 h-6 relative z-10"
           />

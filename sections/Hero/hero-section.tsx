@@ -108,7 +108,7 @@ export default function HeroSection() {
         style={{ scale }}
       >
         {/* Logo */}
-        <AnimatedLogo />
+        <AnimatedLogo cloudinaryUrl="https://res.cloudinary.com/dqqyuvg1v/image/upload/v1741797055/favicon_wlxa7n.ico" />
 
         {/* Title with character-by-character animation */}
         <div className={`split-text ${isVisible ? "split-text-visible" : ""}`}>

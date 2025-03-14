@@ -1,45 +1,45 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface IntroAnimationProps {
-  onComplete: () => void
+  onComplete: () => void;
 }
 
 export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
-  const [step, setStep] = useState(0)
-  const [textVisible, setTextVisible] = useState(false)
-  const [glitchActive, setGlitchActive] = useState(false)
+  const [step, setStep] = useState(0);
+  const [textVisible, setTextVisible] = useState(false);
+  const [glitchActive, setGlitchActive] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(
       () => {
         if (step < 3) {
-          setStep(step + 1)
+          setStep(step + 1);
         } else {
-          onComplete()
+          onComplete();
         }
       },
-      step === 0 ? 1000 : step === 1 ? 2000 : 2000,
-    )
+      step === 0 ? 1000 : step === 1 ? 2000 : 2000
+    );
 
-    return () => clearTimeout(timer)
-  }, [step, onComplete])
+    return () => clearTimeout(timer);
+  }, [step, onComplete]);
 
   useEffect(() => {
     if (step === 1) {
-      setTimeout(() => setTextVisible(true), 300)
+      setTimeout(() => setTextVisible(true), 300);
 
       // Add glitch effect periodically
       const glitchInterval = setInterval(() => {
-        setGlitchActive(true)
-        setTimeout(() => setGlitchActive(false), 200)
-      }, 2000)
+        setGlitchActive(true);
+        setTimeout(() => setGlitchActive(false), 200);
+      }, 2000);
 
-      return () => clearInterval(glitchInterval)
+      return () => clearInterval(glitchInterval);
     }
-  }, [step])
+  }, [step]);
 
   const logoVariants = {
     hidden: { scale: 0, opacity: 0 },
@@ -60,7 +60,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
         ease: "easeInOut",
       },
     },
-  }
+  };
 
   const textContainerVariants = {
     hidden: { opacity: 0 },
@@ -79,7 +79,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
         duration: 0.5,
       },
     },
-  }
+  };
 
   const letterVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -91,10 +91,10 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
         ease: "easeOut",
       },
     },
-  }
+  };
 
-  const titleText = "NirveonX"
-  const taglineText = "One AI, Infinite Care – Health, Wellness & Beyond."
+  const titleText = "NirveonX";
+  const taglineText = "One AI, Infinite Care – Health, Wellness & Beyond.";
 
   return (
     <div className="fixed inset-0 bg-black flex items-center justify-center z-50">
@@ -120,8 +120,8 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
               }}
             >
               <svg
-                width="120"
-                height="120"
+                width="80"
+                height="80"
                 viewBox="0 0 120 120"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -176,7 +176,10 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
             transition={{ duration: 0.8 }}
             className="text-center"
           >
-            <div className={`mb-4 ${glitchActive ? "glitch" : ""}`} data-text="NIRVEON'X">
+            <div
+              className={`mb-4 ${glitchActive ? "glitch" : ""}`}
+              data-text="NIRVEON'X"
+            >
               <motion.div
                 variants={textContainerVariants}
                 initial="hidden"
@@ -187,7 +190,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
                   <motion.span
                     key={index}
                     variants={letterVariants}
-                    className="text-5xl md:text-7xl font-bold inline-block"
+                    className="text-4xl md:text-5xl font-bold inline-block"
                   >
                     {char}
                   </motion.span>
@@ -198,7 +201,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.2, duration: 0.8 }}
-              className="text-xl md:text-2xl text-white typing overflow-hidden whitespace-nowrap"
+              className="text-lg md:text-xl text-white typing overflow-hidden whitespace-nowrap"
             >
               {taglineText}
             </motion.p>
@@ -206,9 +209,12 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
         )}
 
         {step === 2 && (
-          <motion.div key="particles" className="absolute inset-0 overflow-hidden">
+          <motion.div
+            key="particles"
+            className="absolute inset-0 overflow-hidden"
+          >
             <div className="absolute inset-0">
-              {Array.from({ length: 30 }).map((_, i) => (
+              {Array.from({ length: 20 }).map((_, i) => (
                 <motion.div
                   key={i}
                   initial={{
@@ -219,7 +225,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
                   }}
                   animate={{
                     opacity: [0, 1, 0],
-                    scale: [0, Math.random() * 2 + 0.5, 0],
+                    scale: [0, Math.random() * 1.5 + 0.5, 0],
                     x: Math.random() * window.innerWidth,
                     y: Math.random() * window.innerHeight,
                     rotate: [0, Math.random() * 360],
@@ -239,7 +245,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
               transition={{ delay: 1, duration: 0.5 }}
               className="absolute inset-0 flex items-center justify-center"
             >
-              <div className="text-center text-white text-xl">
+              <div className="text-center text-white text-lg">
                 <motion.p
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -254,6 +260,5 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
         )}
       </AnimatePresence>
     </div>
-  )
+  );
 }
-

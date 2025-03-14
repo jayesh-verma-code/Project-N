@@ -1,52 +1,180 @@
-import { motion } from "framer-motion";
+"use client";
 
-export const AnimatedLogo = () => (
+import { motion, useAnimationControls } from "framer-motion";
+import { useEffect } from "react";
+
+export const AnimatedLogo = ({ cloudinaryUrl }: { cloudinaryUrl: string }) => {
+  const controls = useAnimationControls();
+
+  useEffect(() => {
+    controls.start({
+      scale: 1,
+      opacity: 1,
+      transition: { duration: 1, ease: "easeOut" },
+    });
+  }, [controls]);
+
+  const containerVariants = {
+    initial: { scale: 0.8, opacity: 0 },
+    animate: {
+      scale: 1,
+      opacity: 1,
+      transition: {
+        duration: 0.8,
+        ease: [0.6, -0.05, 0.01, 0.99],
+      },
+    },
+  };
+
+  const pulseVariants = {
+    animate: {
+      scale: [1, 1.02, 1],
+      opacity: [0.7, 1, 0.7],
+      boxShadow: [
+        "0 0 0 0px rgba(255, 255, 255, 0.2)",
+        "0 0 0 10px rgba(255, 255, 255, 0)",
+        "0 0 0 0px rgba(255, 255, 255, 0.2)",
+      ],
+    },
+  };
+
+  const logoVariants = {
+    initial: { scale: 0.8, rotate: -10 },
+    animate: {
+      scale: 1,
+      rotate: 0,
+      transition: {
+        type: "spring",
+        stiffness: 200,
+        damping: 20,
+      },
+    },
+    hover: {
+      scale: 1.05,
+      rotate: 5,
+      transition: {
+        type: "spring",
+        stiffness: 400,
+        damping: 10,
+      },
+    },
+  };
+
+  const cornerVariants = {
+    initial: { scale: 0, opacity: 0 },
+    animate: (i: number) => ({
+      scale: 1,
+      opacity: 1,
+      transition: {
+        delay: i * 0.1,
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    }),
+  };
+
+  return (
     <motion.div
-      initial={{ scale: 0.8, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      transition={{ duration: 0.8, delay: 0.4 }}
+      variants={containerVariants}
+      initial="initial"
+      animate="animate"
       className="mb-6 mx-auto"
     >
-      <div className="relative w-24 h-24 mx-auto mb-6">
+      <div className="relative w-32 h-32 mx-auto mb-6">
+        {/* Outer glowing effect */}
         <motion.div
-          className="absolute inset-0 rounded-full bg-white animate-pulse-ring opacity-50"
-          animate={{
-            scale: [1, 1.5, 1],
-            opacity: [0.5, 0, 0.5],
-          }}
+          className="absolute inset-0 rounded-xl bg-gradient-to-r from-white/20 to-white/30"
+          variants={pulseVariants}
+          animate="animate"
           transition={{
             duration: 3,
-            repeat: Number.POSITIVE_INFINITY,
-            repeatType: "loop",
+            repeat: Infinity,
+            repeatType: "reverse",
+            ease: "easeInOut",
           }}
         />
+
+        {/* Main container with glass effect */}
         <motion.div
-          className="absolute inset-2 rounded-full bg-black flex items-center justify-center"
-          animate={{ rotate: [0, 360] }}
+          className="absolute inset-2 bg-white/10 backdrop-blur-sm rounded-lg flex items-center justify-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.8 }}
+        >
+          {/* Logo container with hover effect */}
+          <motion.div
+            className="relative w-20 h-20 flex items-center justify-center"
+            variants={logoVariants}
+            initial="initial"
+            animate="animate"
+            whileHover="hover"
+            whileTap={{ scale: 0.95 }}
+          >
+            <motion.img
+              src={cloudinaryUrl}
+              alt="Company Logo"
+              className="w-16 h-16 object-contain"
+              style={{
+                filter: "drop-shadow(0 0 8px rgba(255, 255, 255, 0.3))",
+              }}
+            />
+          </motion.div>
+        </motion.div>
+
+        {/* Enhanced corner accents */}
+        {[0, 1, 2, 3].map((i) => (
+          <motion.div
+            key={i}
+            className="absolute w-4 h-4"
+            custom={i}
+            variants={cornerVariants}
+            initial="initial"
+            animate="animate"
+          >
+            <motion.div
+              className="w-full h-full border-2 border-white/80"
+              style={{
+                position: "absolute",
+                borderRadius: "2px",
+                borderWidth: "2px 0 0 2px",
+                transform: `rotate(${i * 90}deg)`,
+                top: i < 2 ? -2 : "auto",
+                bottom: i >= 2 ? -2 : "auto",
+                left: i % 2 === 0 ? -2 : "auto",
+                right: i % 2 === 1 ? -2 : "auto",
+              }}
+              animate={{
+                opacity: [0.6, 1, 0.6],
+                scale: [1, 1.1, 1],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                repeatType: "reverse",
+                delay: i * 0.2,
+              }}
+            />
+          </motion.div>
+        ))}
+
+        {/* Subtle rotating background effect */}
+        <motion.div
+          className="absolute inset-0 rounded-lg"
+          style={{
+            background:
+              "linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%)",
+            filter: "blur(8px)",
+          }}
+          animate={{
+            rotate: [0, 360],
+          }}
           transition={{
             duration: 20,
-            repeat: Number.POSITIVE_INFINITY,
+            repeat: Infinity,
             ease: "linear",
           }}
-        >
-          <svg
-            width="60"
-            height="60"
-            viewBox="0 0 60 60"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="text-white"
-          >
-            <path
-              d="M30 10C18.954 10 10 18.954 10 30C10 41.046 18.954 50 30 50C41.046 50 50 41.046 50 30C50 18.954 41.046 10 30 10ZM30 15C38.284 15 45 21.716 45 30C45 38.284 38.284 45 30 45C21.716 45 15 38.284 15 30C15 21.716 21.716 15 30 15Z"
-              fill="white"
-            />
-            <path
-              d="M30 20C24.477 20 20 24.477 20 30C20 35.523 24.477 40 30 40C35.523 40 40 35.523 40 30C40 24.477 35.523 20 30 20ZM30 25C32.761 25 35 27.239 35 30C35 32.761 32.761 35 30 35C27.239 35 25 32.761 25 30C25 27.239 27.239 25 30 25Z"
-              fill="white"
-            />
-          </svg>
-        </motion.div>
+        />
       </div>
     </motion.div>
   );
+};
