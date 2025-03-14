@@ -9,7 +9,6 @@ import {
 import { Shield, Zap, BarChart, Clock, Users, Globe } from "lucide-react";
 import { FeatureCard } from "@/components/Features/FeatureCard";
 
-// Feature data with unique color schemes using Tailwind's default colors
 const FEATURES = [
   {
     title: "AI-Powered Diagnostics",
