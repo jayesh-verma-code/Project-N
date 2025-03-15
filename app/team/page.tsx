@@ -48,6 +48,50 @@ export default function TeamPage() {
   const isHeaderInView = useInView(headerRef);
 
   const teamMembers: TeamMember[] = [
+    //leadership
+    {
+      id: "founder",
+      name: "Kavali Deekshith",
+      role: "Founder",
+      category: "leadership",
+      education: "BTECH(AIML) , JNTUH",
+      avatar:
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742072034/kavali_c7yr5a.jpg",
+    },
+    {
+      id: "advisor",
+      name: "Nikhil Sanka",
+      role: "Advisory Board Member ",
+      category: "leadership",
+      avatar:
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742072035/nikhil_redxth.jpg",
+    },
+    {
+      id: "CEO",
+      name: "Ayush Kumar Sahoo",
+      role: "CEO",
+      category: "leadership",
+      education: "BTECH(Chemical Eng.) , NIT Rourkela",
+      avatar:
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742072033/ayush_ds1dbl.jpg",
+    },
+    {
+      id: "cto",
+      name: "Shaik Ashraf",
+      role: "CTO & Co-Founder ",
+      category: "leadership",
+      avatar:
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742072031/ashraf_fi67fu.jpg",
+    },
+    {
+      id: "Co-founder",
+      name: "Sumedha Musunuri ",
+      role: "CWO & Co-Founder",
+      category: "leadership",
+      avatar:
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742072032/sumedha_kfh7lh.jpg",
+    },
+    //employees
     {
       id: "kasu-naren-karthik-raju",
       name: "Kasu Naren Karthik Raju",
@@ -57,6 +101,7 @@ export default function TeamPage() {
       avatar:
         "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742070165/raju_kfslnu.jpg",
     },
+    //interns
     {
       id: "sybrite",
       name: "Harsh Verma",
@@ -274,7 +319,6 @@ export default function TeamPage() {
         "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067852/snita_m18apl.jpg",
     },
   ];
-
 
   useEffect(() => {
     // Simulate loading delay
