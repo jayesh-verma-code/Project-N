@@ -16,6 +16,7 @@ export interface TeamMember {
   role: string;
   avatar: string;
   category: "leadership" | "employee" | "intern";
+  education?: string; // Optional education field
 }
 
 const containerVariants = {
@@ -47,96 +48,233 @@ export default function TeamPage() {
   const isHeaderInView = useInView(headerRef);
 
   const teamMembers: TeamMember[] = [
-    // Leadership
     {
-      id: "sarah-johnson",
-      name: "Sarah Johnson",
-      role: "Chief Executive Officer",
-      category: "leadership",
-      avatar: "/placeholder.svg?height=400&width=400",
-    },
-    {
-      id: "michael-chen",
-      name: "Michael Chen",
-      role: "Chief Technology Officer",
-      category: "leadership",
-      avatar: "/placeholder.svg?height=400&width=400",
-    },
-    {
-      id: "elena-rodriguez",
-      name: "Elena Rodriguez",
-      role: "Chief Medical Officer",
-      category: "leadership",
-      avatar: "/placeholder.svg?height=400&width=400",
-    },
-    {
-      id: "james-wilson",
-      name: "James Wilson",
-      role: "Co-Founder & Chief Product Officer",
-      category: "leadership",
-      avatar: "/placeholder.svg?height=400&width=400",
-    },
-
-    // Employees
-    {
-      id: "alex-patel",
-      name: "Alex Patel",
-      role: "Senior AI Engineer",
+      id: "kasu-naren-karthik-raju",
+      name: "Kasu Naren Karthik Raju",
+      role: "Managing Director & Co-Founder",
       category: "employee",
-      avatar: "/placeholder.svg?height=400&width=400",
+      education: "BTECH(AIML) , JNTUH",
+      avatar:
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742070165/raju_kfslnu.jpg",
     },
     {
-      id: "olivia-kim",
-      name: "Olivia Kim",
-      role: "UX/UI Design Lead",
-      category: "employee",
-      avatar: "/placeholder.svg?height=400&width=400",
-    },
-    {
-      id: "marcus-johnson",
-      name: "Marcus Johnson",
-      role: "Data Science Manager",
-      category: "employee",
-      avatar: "/placeholder.svg?height=400&width=400",
-    },
-    {
-      id: "priya-sharma",
-      name: "Priya Sharma",
-      role: "Senior Backend Engineer",
-      category: "employee",
-      avatar: "/placeholder.svg?height=400&width=400",
-    },
-    {
-      id: "david-nguyen",
-      name: "David Nguyen",
-      role: "Marketing Director",
-      category: "employee",
-      avatar: "/placeholder.svg?height=400&width=400",
-    },
-
-    // Interns
-    {
-      id: "zoe-williams",
-      name: "Zoe Williams",
-      role: "AI Research Intern",
+      id: "sybrite",
+      name: "Harsh Verma",
+      role: "Full Stack Developer Intern & Dev. Team Lead",
       category: "intern",
-      avatar: "/placeholder.svg?height=400&width=400",
+      education: "BTECH(Chemical Eng.) , NIT Rourkela",
+      avatar:
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742066448/me_nawvbg.jpg",
     },
     {
-      id: "tyler-jackson",
-      name: "Tyler Jackson",
-      role: "Frontend Development Intern",
+      id: "ashwani-senapati",
+      name: "Ashwani Senapati",
+      role: "Full Stack Developer Intern",
       category: "intern",
-      avatar: "/placeholder.svg?height=400&width=400",
+      education: "BTECH (EI) , NIT Rourkela",
+      avatar:
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067863/ashwani_njndlo.jpg",
     },
     {
-      id: "maya-patel",
-      name: "Maya Patel",
-      role: "UX Research Intern",
+      id: "sandeep-kumawat",
+      name: "Sandeep Kumawat",
+      role: "AI/ML Intern & Team Lead",
       category: "intern",
-      avatar: "/placeholder.svg?height=400&width=400",
+      education: "IIT Roorkee (MSc Mathematics)",
+      avatar:
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742066888/sandeep_ezmka2.jpg",
+    },
+    {
+      id: "ayushman-paul",
+      name: "Ayushman Paul",
+      role: "AI/ML Intern & Team Lead",
+      category: "intern",
+      education: "BTECH (Mechanical Eng.) , IIT Kharagpur",
+      avatar:
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742066983/Ayushman_lbakbe.jpg",
+    },
+    {
+      id: "samyak-jain",
+      name: "Samyak Jain",
+      role: "AI/ML Intern & Team Lead",
+      category: "intern",
+      education: "BTECH (Computer Science) , JUET",
+      avatar:
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067091/samyak_c2ykmn.jpg",
+    },
+    {
+      id: "bharath-bojanna-a-k",
+      name: "Bharath Bojanna A K",
+      role: "AI/ML Intern & Team Lead",
+      category: "intern",
+      education: "BTECH(AIML), JSSATE",
+      avatar:
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067150/bojanna_qwvaxt.jpg",
+    },
+    {
+      id: "suhana-rafic",
+      name: "Suhana Rafic",
+      role: "UI/UX Designer Intern & Team Lead",
+      category: "intern",
+      education: "BE(Computer Science) , VTU ",
+      avatar:
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067318/suhana_p3pezh.jpg",
+    },
+    {
+      id: "ria-dsouza",
+      name: "Ria D’Souza",
+      role: "Founder’s Office Intern",
+      category: "intern",
+      education: "BE(Computer Science) , VTU",
+      avatar:
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067488/ria_fvp1va.jpg",
+    },
+    {
+      id: "saumik-chakraborty",
+      name: "Saumik Chakraborty",
+      role: "AI/ML Intern",
+      category: "intern",
+      education: "BTECH(Computer Science) , NIST",
+      avatar:
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067866/saumik_sdawre.png",
+    },
+    {
+      id: "bobbara-pardhasaradhi-naidu",
+      name: "Bobbara Pardhasaradhi Naidu ",
+      role: "Project Management Intern",
+      category: "intern",
+      education: "BTECH(Computer Science), LBRCE",
+      avatar:
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067865/naidu_sxl55s.jpg",
+    },
+    {
+      id: "sreyashi-nag",
+      name: "Sreyashi Nag",
+      role: "UIUX Designer Intern",
+      category: "intern",
+      education: "PG Diploma(Product Design) , IIT Roorkee",
+      avatar:
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067864/shreyashi_lucyhh.jpg",
+    },
+    {
+      id: "anjali-sharma",
+      name: "Anjali Sharma",
+      role: "AI/ML Intern",
+      category: "intern",
+      education: "BTECH ( Cyber Security ) , GEC Ajmer",
+      avatar:
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067864/anjali_ewjoqn.jpg",
+    },
+    {
+      id: "ankur-mukhopadhyay",
+      name: "Ankur Mukhopadhyay",
+      role: "AI/ML Intern",
+      category: "intern",
+      education: "BTECH (Computer Science) , DSU",
+      avatar:
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067861/ankur_sh3ymd.jpg",
+    },
+    {
+      id: "nishant-kumbhar",
+      name: "Nishant Kumbhar",
+      role: "AI/ML Intern",
+      category: "intern",
+      education: "BTECH (Computer Science) , DYPIT (Pune)",
+      avatar:
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067861/nishant_vpq6mv.jpg",
+    },
+    {
+      id: "Payal Das",
+      name: "Payal Das",
+      role: "Full stack Developer Intern",
+      category: "intern",
+      education: "BTECH (EI) , NIT Rourkela",
+      avatar:
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067858/payal_rmmwyr.jpg",
+    },
+    {
+      id: "paridhi-singhal",
+      name: "Paridhi Singhal",
+      role: "AI/ML Intern",
+      category: "intern",
+      education: "BTECH , JSSATEN",
+      avatar:
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067858/singhal_aqgcxu.jpg",
+    },
+    {
+      id: "pranshu-jaiswal",
+      name: "Pranshu Jaiswal",
+      role: "Frontend Developer Intern",
+      category: "intern",
+      education: "BTECH ( CS & DS) , VPCET",
+      avatar:
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067857/pranshu_lstwgg.jpg",
+    },
+    {
+      id: "riddhi-gupta",
+      name: "Riddhi Gupta",
+      role: "AI/ML Intern",
+      category: "intern",
+      education: "BCA (DS) , Bennett University",
+      avatar:
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067857/riddhi_yy5gen.jpg",
+    },
+    {
+      id: "tanbir-aproose-laskar",
+      name: "Tanbir Aproose Laskar",
+      role: "AI/ML Intern",
+      category: "intern",
+      education: "BTECH (Civil) , NIT Silchar",
+      avatar:
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067854/laskar_bcmn8f.jpg",
+    },
+    {
+      id: "suhas-tg",
+      name: "Suhas TG",
+      role: "AI/ML Intern",
+      category: "intern",
+      education: "BE (ISE) , RIT",
+      avatar:
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067853/suhas_kweijj.jpg",
+    },
+    {
+      id: "teja-tanush",
+      name: "Teja Tanush",
+      role: "AIML Intern & Data Analyst Intern",
+      category: "intern",
+      education: "BTECH ( Computer Science ) , IIIT Bhopal",
+      avatar:
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067853/teja_mhj3lg.jpg",
+    },
+    {
+      id: "md-musharaf-ahmed",
+      name: "MD Musharaf Ahmed",
+      role: "Full Stack Developer Intern",
+      category: "intern",
+      education: "BTECH ( AIML ) , JNTUH",
+      avatar:
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067852/ashmed_fnlfbg.jpg",
+    },
+    {
+      id: "padma-banda",
+      name: "B Padma",
+      role: "UI/UX Designer Intern",
+      category: "intern",
+      education: "BPharm , VCE",
+      avatar:
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067852/padma_hbty8v.jpg",
+    },
+    {
+      id: "snita-das",
+      name: "Snita Das",
+      role: "UIUX Designer Intern",
+      category: "intern",
+      education: "MTech , GCECT",
+      avatar:
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067852/snita_m18apl.jpg",
     },
   ];
+
 
   useEffect(() => {
     // Simulate loading delay
@@ -203,8 +341,8 @@ export default function TeamPage() {
             }
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Meet the passionate individuals behind NirveonX who are
-            dedicated to transforming healthcare through AI innovation.
+            Meet the passionate individuals behind NirveonX who are dedicated to
+            transforming healthcare through AI innovation.
           </motion.p>
 
           <motion.div
