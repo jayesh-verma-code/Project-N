@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import TeamClient from "@/components/TeamClient";
 
 export const metadata: Metadata = {
-  title: "Our Team | NIRVEON'X",
+  title: "Our Team | NirveonX",
   description:
-    "Meet the passionate individuals behind NIRVEON'X who are dedicated to transforming healthcare through AI innovation.",
+    "Meet the passionate individuals behind NirveonX who are dedicated to transforming healthcare through AI innovation.",
 };
 
 export default function TeamLayout({
