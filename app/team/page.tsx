@@ -63,6 +63,7 @@ export default function TeamPage() {
       name: "Nikhil Sanka",
       role: "Advisory Board Member ",
       category: "leadership",
+      education: "Chief Manager at Canada transportation department",
       avatar:
         "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742072035/nikhil_redxth.jpg",
     },
@@ -80,6 +81,7 @@ export default function TeamPage() {
       name: "Shaik Ashraf",
       role: "CTO & Co-Founder ",
       category: "leadership",
+      education: "BTECH(AIML) , JNTUH",
       avatar:
         "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742072031/ashraf_fi67fu.jpg",
     },
@@ -88,6 +90,7 @@ export default function TeamPage() {
       name: "Sumedha Musunuri ",
       role: "CWO & Co-Founder",
       category: "leadership",
+      education: "MBBS , GEMS",
       avatar:
         "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742072032/sumedha_kfh7lh.jpg",
     },
