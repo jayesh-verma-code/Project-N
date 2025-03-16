@@ -56,7 +56,7 @@ export default function TeamPage() {
       category: "leadership",
       education: "BTECH(AIML) , JNTUH",
       avatar:
-        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742072034/kavali_c7yr5a.jpg",
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742123891/deekshith_gzmwvn.jpg",
     },
     {
       id: "advisor",
@@ -70,7 +70,7 @@ export default function TeamPage() {
     {
       id: "CEO",
       name: "Ayush Kumar Sahoo",
-      role: "CEO",
+      role: "CEO & Co-Founder",
       category: "leadership",
       education: "BTECH(Chemical Eng.) , NIT Rourkela",
       avatar:
@@ -92,17 +92,17 @@ export default function TeamPage() {
       category: "leadership",
       education: "MBBS , GEMS",
       avatar:
-        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742072032/sumedha_kfh7lh.jpg",
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742123892/sumedha_l9tju5.jpg",
     },
     //employees
     {
       id: "kasu-naren-karthik-raju",
       name: "Kasu Naren Karthik Raju",
-      role: "Managing Director & Co-Founder",
+      role: "Managing Director",
       category: "employee",
       education: "BTECH(AIML) , JNTUH",
       avatar:
-        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742070165/raju_kfslnu.jpg",
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742124409/kartik_fi4al2.png",
     },
     //interns
     {
@@ -121,7 +121,7 @@ export default function TeamPage() {
       category: "intern",
       education: "BTECH (EI) , NIT Rourkela",
       avatar:
-        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067863/ashwani_njndlo.jpg",
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742124405/ashwani_pqhesg.png",
     },
     {
       id: "sandeep-kumawat",
@@ -130,7 +130,7 @@ export default function TeamPage() {
       category: "intern",
       education: "IIT Roorkee (MSc Mathematics)",
       avatar:
-        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742066888/sandeep_ezmka2.jpg",
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742124429/sandeep_vlpdud.png",
     },
     {
       id: "ayushman-paul",
@@ -139,7 +139,7 @@ export default function TeamPage() {
       category: "intern",
       education: "BTECH (Mechanical Eng.) , IIT Kharagpur",
       avatar:
-        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742066983/Ayushman_lbakbe.jpg",
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742124410/asyuhsman_eiwgis.png",
     },
     {
       id: "samyak-jain",
@@ -148,7 +148,7 @@ export default function TeamPage() {
       category: "intern",
       education: "BTECH (Computer Science) , JUET",
       avatar:
-        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067091/samyak_c2ykmn.jpg",
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742124410/samyak_hrdmml.png",
     },
     {
       id: "bharath-bojanna-a-k",
@@ -202,7 +202,7 @@ export default function TeamPage() {
       category: "intern",
       education: "PG Diploma(Product Design) , IIT Roorkee",
       avatar:
-        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067864/shreyashi_lucyhh.jpg",
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742124412/sreyashi_w7asna.png",
     },
     {
       id: "anjali-sharma",
@@ -211,7 +211,7 @@ export default function TeamPage() {
       category: "intern",
       education: "BTECH ( Cyber Security ) , GEC Ajmer",
       avatar:
-        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067864/anjali_ewjoqn.jpg",
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742124408/anjali_hff7rv.png",
     },
     {
       id: "ankur-mukhopadhyay",
@@ -247,7 +247,7 @@ export default function TeamPage() {
       category: "intern",
       education: "BTECH , JSSATEN",
       avatar:
-        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067858/singhal_aqgcxu.jpg",
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742123894/pradhini_n6rxuz.png",
     },
     {
       id: "pranshu-jaiswal",
@@ -310,7 +310,7 @@ export default function TeamPage() {
       category: "intern",
       education: "BPharm , VCE",
       avatar:
-        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067852/padma_hbty8v.jpg",
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742124083/padma_akq1la.png",
     },
     {
       id: "snita-das",
@@ -319,7 +319,7 @@ export default function TeamPage() {
       category: "intern",
       education: "MTech , GCECT",
       avatar:
-        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067852/snita_m18apl.jpg",
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742124085/snita_r9v5si.png",
     },
   ];
 
