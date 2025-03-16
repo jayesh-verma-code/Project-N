@@ -19,6 +19,7 @@ import NoiseTexture from "@/components/shared/noise-texture";
 import MarqueeText from "@/components/marquee-text";
 import VerticalMenuIndicator from "@/components/shared/vertical-menu-indicator";
 import { useScroll } from "framer-motion";
+import About from "@/components/About/About";
 
 
 export default function Home() {
@@ -56,6 +57,7 @@ export default function Home() {
           <>
             <Navbar scrolled={scrolled} />
             <HeroSection />
+            <About/>
             <MarqueeText />
             <FeaturesSection />
             <ChatbotServices />
