@@ -52,7 +52,7 @@ export default function TeamPage() {
     {
       id: "founder",
       name: "Kavali Deekshith",
-      role: "Founder",
+      role: "Founder & Chairman",
       category: "leadership",
       education: "BTECH(AIML) , JNTUH",
       avatar:
