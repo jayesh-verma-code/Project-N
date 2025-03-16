@@ -98,7 +98,7 @@ export default function AboutUs() {
             <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-b from-gray-900 to-gray-800 text-white backdrop-blur-md rounded-2xl [backface-visibility:hidden] p-8 text-center overflow-hidden">
               <h1 className="text-3xl font-bold mb-6">Join Us in Redefining Healthcare</h1>
               <p className="text-lg mb-8">
-                At <strong>NirveonX</strong>, we're on a mission to make healthcare accessible, affordable, and truly personalized.
+                At <strong>NirveonX</strong>, we&apos;re on a mission to make healthcare accessible, affordable, and truly personalized.
               </p>
               <span className="animate-pulse text-blue-300">Tap to explore our mission →</span>
             </div>
