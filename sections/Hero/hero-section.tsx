@@ -5,8 +5,8 @@ import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { AnimatedCharacter } from "@/components/Hero/AnimatedCharacter";
 import { AnimatedLogo } from "@/components/Hero/AnimatedLogo";
 import { CTAButtons } from "@/components/Hero/CallToAction";
-import { ScrollIndicator } from "@/components/Hero/ScrollIndicator";
 import { ClerkProvider } from "@clerk/nextjs";
+
 
 // Extracted constants
 const TITLE_TEXT = "NirveonX";
@@ -16,9 +16,6 @@ const DESCRIPTION =
 
 // Spring configuration for smoother animations
 const SPRING_CONFIG = { damping: 30, stiffness: 400, mass: 1 };
-
-// Scroll indicator component
-
 
 export default function HeroSection() {
   const ref = useRef<HTMLDivElement>(null);
@@ -160,9 +157,6 @@ export default function HeroSection() {
         </ClerkProvider>
        
       </motion.div>
-
-      {/* Scroll indicator */}
-      <ScrollIndicator />
     </section>
   );
 }
