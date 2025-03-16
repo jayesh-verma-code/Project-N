@@ -125,18 +125,33 @@ export default function TeamPage() {
             }
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <Tabs
-              defaultValue="all"
-              value={activeTab}
-              onValueChange={setActiveTab}
-            >
-              <TabsList className="bg-gray-800/50 border border-gray-700 overflow-x-auto flex-wrap">
-                <TabsTrigger value="all">All Team</TabsTrigger>
-                <TabsTrigger value="leadership">Leadership</TabsTrigger>
-                <TabsTrigger value="employee">Employees</TabsTrigger>
-                <TabsTrigger value="intern">Interns</TabsTrigger>
-              </TabsList>
-            </Tabs>
+            <div className="md:hidden w-full">
+              <select
+                className="w-full p-2 rounded bg-gray-800/90 border border-gray-700 text-white"
+                value={activeTab}
+                onChange={(e) => setActiveTab(e.target.value)}
+              >
+                <option value="all">All Team</option>
+                <option value="leadership">Leadership</option>
+                <option value="employee">Employees</option>
+                <option value="intern">Interns</option>
+              </select>
+            </div>
+
+            <div className="hidden md:block">
+              <Tabs
+                defaultValue="all"
+                value={activeTab}
+                onValueChange={setActiveTab}
+              >
+                <TabsList className="bg-gray-800/50 border border-gray-700 overflow-x-auto flex-wrap">
+                  <TabsTrigger value="all">All Team</TabsTrigger>
+                  <TabsTrigger value="leadership">Leadership</TabsTrigger>
+                  <TabsTrigger value="employee">Employees</TabsTrigger>
+                  <TabsTrigger value="intern">Interns</TabsTrigger>
+                </TabsList>
+              </Tabs>
+            </div>
           </motion.div>
         </div>
       </header>
