@@ -1,45 +1,27 @@
 "use client";
 
 import type React from "react";
-import { useRef, useState } from "react";
+import { JSX, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { Brain, Heart, Users, PawPrintIcon as Paw } from "lucide-react";
 import {
   GradientBackground,
   ServiceCard,
 } from "@/components/ChatBotServices/ServiceCard";
+import { SERVICES} from "../../contents/chatbot-services";
 
+
+type IconType = {
+  [key: string]: JSX.Element;
+};
 // Constants
-export const SERVICES = [
-  {
-    title: "HealthMate",
-    description:
-      "AI-powered healthcare assistant for personalized health monitoring and advice.",
-    icon: <Heart className="h-12 w-12 text-white" />,
-    color: "from-white/10 to-white/5",
-  },
-  {
-    title: "MindEase",
-    description:
-      "Mental health and hobby guide to help you relax, focus, and find balance.",
-    icon: <Brain className="h-12 w-12 text-white" />,
-    color: "from-white/10 to-white/5",
-  },
-  {
-    title: "GoldenCare",
-    description:
-      "Specialized elder care support for seniors and their caregivers.",
-    icon: <Users className="h-12 w-12 text-white" />,
-    color: "from-white/10 to-white/5",
-  },
-  {
-    title: "PetAI",
-    description:
-      "Virtual veterinary assistant for all your pet health and wellness needs.",
-    icon: <Paw className="h-12 w-12 text-white" />,
-    color: "from-white/10 to-white/5",
-  },
-];
+const ICONS: IconType = {
+  Heart: <Heart className="h-12 w-12 text-white" />,
+  Brain: <Brain className="h-12 w-12 text-white" />,
+  Users: <Users className="h-12 w-12 text-white" />,
+  Paw: <Paw className="h-12 w-12 text-white" />,
+};
+
 
 export const CONTAINER_VARIANTS = {
   hidden: { opacity: 0 },
@@ -95,7 +77,10 @@ export default function ChatbotServices() {
           {SERVICES.map((service, index) => (
             <ServiceCard
               key={index}
-              service={service}
+              service={{
+                ...service,
+                icon: ICONS[service.icon],
+              }}
               index={index}
               isActive={activeIndex === index}
               setActive={setActiveIndex}
