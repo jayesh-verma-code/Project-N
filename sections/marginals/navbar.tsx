@@ -8,6 +8,13 @@ import { NavLink } from "@/components/NavBar/NavLink";
 import { Logo } from "@/components/NavBar/NavLogo";
 import { HamburgerButton } from "@/components/NavBar/HamburgerButton";
 import { MobileMenu } from "@/components/NavBar/MobileMenu";
+import {
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
 
 // Constants
 export const NAV_ITEMS = [
@@ -125,22 +132,60 @@ export default function Navbar({ scrolled }: NavbarProps) {
               ))}
               {/* Theme toggle placeholder */}
             </div>
+            <div className="flex flex-row gap-3">
+              {/* Sign In Button */}
+              <SignedOut>
+                <motion.div
+                  className=""
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Button className="bg-black text-white hover:bg-gray-800 relative overflow-hidden group max-md:hidden">
+                    <SignInButton />
+                  </Button>
+                </motion.div>
+              </SignedOut>
 
-            <motion.div
-              className="ml-4"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Button className="bg-white text-black hover:bg-gray-200 relative overflow-hidden group max-md:hidden">
-                <span className="relative z-10">Get Started</span>
-                <motion.span
-                  className="absolute inset-0 bg-gray-300"
-                  initial={{ y: "100%" }}
-                  whileHover={{ y: "0%" }}
-                  transition={{ duration: 0.3, ease: [0.33, 1, 0.68, 1] }}
-                />
-              </Button>
-            </motion.div>
+              {/* User Button when signed in */}
+              <SignedIn>
+                <motion.div
+                  className=""
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Button className="bg-black text-white hover:bg-gray-800 relative overflow-hidden group max-md:hidden">
+                    <UserButton showName 
+                     appearance={{
+                      elements: {
+                        userButtonBox: "text-white",
+                        userButtonText: "text-white",
+                        userButtonOuterIdentifier: "text-white",
+                        userButtonTrigger: "text-white"
+                      }
+                    }}/>
+                  </Button>
+                </motion.div>
+              </SignedIn>
+
+              {/* Sign Up Button */}
+              <SignedOut>
+                <motion.div
+                  className=""
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Button className="bg-black text-white hover:bg-gray-800 relative overflow-hidden group max-md:hidden">
+                    <SignUpButton />
+                    <motion.span
+                      className="absolute inset-0 bg-gray-800"
+                      initial={{ y: "100%" }}
+                      whileHover={{ y: "0%" }}
+                      transition={{ duration: 0.3, ease: [0.33, 1, 0.68, 1] }}
+                    />
+                  </Button>
+                </motion.div>
+              </SignedOut>
+            </div>
 
             {/* Hamburger Menu Button (mobile only) */}
             <div className="md:hidden">

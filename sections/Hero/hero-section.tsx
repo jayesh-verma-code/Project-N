@@ -6,6 +6,7 @@ import { AnimatedCharacter } from "@/components/Hero/AnimatedCharacter";
 import { AnimatedLogo } from "@/components/Hero/AnimatedLogo";
 import { CTAButtons } from "@/components/Hero/CallToAction";
 import { ScrollIndicator } from "@/components/Hero/ScrollIndicator";
+import { ClerkProvider } from "@clerk/nextjs";
 
 // Extracted constants
 const TITLE_TEXT = "NirveonX";
@@ -151,10 +152,13 @@ export default function HeroSection() {
         </motion.p>
 
         {/* Call-to-action buttons */}
+        <ClerkProvider>
         <CTAButtons
           buttonHovered={buttonHovered}
           setButtonHovered={setButtonHovered}
         />
+        </ClerkProvider>
+       
       </motion.div>
 
       {/* Scroll indicator */}
