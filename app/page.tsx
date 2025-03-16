@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import IntroAnimation from "@/components/shared/intro-animation";
 import Navbar from "@/sections/marginals/navbar";
 import ChatbotServices from "@/sections/ChatBotServices/chatbot-services";
-import AuthSection from "@/components/auth-section";
+//import AuthSection from "@/components/auth-section";
 import FloatingChatbot from "@/components/shared/floating-chatbot";
 import { ThemeProvider } from "next-themes";
 import HeroSection from "@/sections/Hero/hero-section";
@@ -19,6 +19,7 @@ import NoiseTexture from "@/components/shared/noise-texture";
 import MarqueeText from "@/components/marquee-text";
 import VerticalMenuIndicator from "@/components/shared/vertical-menu-indicator";
 import { useScroll } from "framer-motion";
+
 
 export default function Home() {
   const [introComplete, setIntroComplete] = useState(false);
@@ -60,7 +61,7 @@ export default function Home() {
             <ChatbotServices />
             <TestimonialsSection />
             <FaqSection />
-            <AuthSection />
+            {/* <AuthSection /> */}
             <Footer />
             <FloatingChatbot />
           </>
