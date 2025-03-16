@@ -70,7 +70,7 @@ export default function TeamPage() {
     {
       id: "CEO",
       name: "Ayush Kumar Sahoo",
-      role: "CEO",
+      role: "CEO & Co-Founder",
       category: "leadership",
       education: "BTECH(Chemical Eng.) , NIT Rourkela",
       avatar:
