@@ -136,12 +136,12 @@ export default function TeamMembersSection() {
                 className="absolute w-full max-w-[320px] xs:max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-4xl"
               >
                 <Card className="bg-black/50 border-white/10 backdrop-blur-sm shadow-lg overflow-hidden">
-                  <CardContent className="p-0">
+                  <CardContent className="p-1">
                     {/* Modified layout for better responsiveness */}
                     <div className="flex flex-col sm:flex-row">
                       {/* Left side - Image with fixed dimensions */}
                       <motion.div
-                        className="w-full sm:w-2/5 relative overflow-hidden h-[250px] sm:h-[500px]"
+                        className="w-full sm:w-2/5 relative overflow-hidden h-[300px] sm:h-[700px]"
                         initial={{ opacity: 0, x: direction > 0 ? 50 : -50 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.1, duration: 0.3 }}
