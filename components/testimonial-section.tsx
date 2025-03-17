@@ -5,6 +5,8 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+
 
 export interface TeamMember {
   id: string;
@@ -23,6 +25,11 @@ export default function TeamMembersSection() {
     isMobile: false,
     isTablet: false,
   });
+  const router=useRouter();
+
+  const handleMeet=()=>{
+     router.push('/team');
+  }
  // console.log(screenSize);
   // Enhanced viewport size detection
   useEffect(() => {
@@ -324,8 +331,22 @@ export default function TeamMembersSection() {
               </Button>
             </motion.div>
           </div>
+          <div className="space h-12 w-full"></div>
+      <div className="w-full h-2 flex flex-row justify-center items-center">
+      <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={handleMeet}
+                className="bg-[#8F00FF]"
+              >
+                Meet Our Team
+              </Button>
+            </motion.div>
+      </div>
         </motion.div>
       </div>
+     
     </section>
   );
 }
