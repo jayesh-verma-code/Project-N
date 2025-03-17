@@ -4,12 +4,10 @@ import { useEffect, useState, useRef } from "react";
 import IntroAnimation from "@/components/shared/intro-animation";
 import Navbar from "@/sections/marginals/navbar";
 import ChatbotServices from "@/sections/ChatBotServices/chatbot-services";
-//import AuthSection from "@/components/auth-section";
 import FloatingChatbot from "@/components/shared/floating-chatbot";
 import { ThemeProvider } from "next-themes";
 import HeroSection from "@/sections/Hero/hero-section";
 import FeaturesSection from "@/sections/Features/features-section";
-import TestimonialsSection from "@/components/testimonial-section";
 import FaqSection from "@/sections/FAQs/faq-section";
 import Footer from "@/sections/marginals/footer";
 import ParticlesBackground from "@/components/shared/particle-background";
@@ -19,6 +17,8 @@ import NoiseTexture from "@/components/shared/noise-texture";
 import MarqueeText from "@/components/marquee-text";
 import VerticalMenuIndicator from "@/components/shared/vertical-menu-indicator";
 import { useScroll } from "framer-motion";
+import About from "@/components/About/About";
+import TeamMembersSection from "@/components/pioneer";
 
 
 export default function Home() {
@@ -56,12 +56,12 @@ export default function Home() {
           <>
             <Navbar scrolled={scrolled} />
             <HeroSection />
+            <About/>
             <MarqueeText />
             <FeaturesSection />
             <ChatbotServices />
-            <TestimonialsSection />
+            <TeamMembersSection />
             <FaqSection />
-            {/* <AuthSection /> */}
             <Footer />
             <FloatingChatbot />
           </>

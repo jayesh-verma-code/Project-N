@@ -3,44 +3,12 @@
 import { useRef, useState } from "react"
 import { motion, useInView } from "framer-motion"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-
-const faqs = [
-  {
-    question: "How does NIRVEON'X's AI technology work?",
-    answer:
-      "NIRVEON'X uses advanced machine learning algorithms and natural language processing to analyze health data, identify patterns, and provide personalized recommendations. Our AI continuously learns from new data to improve accuracy and effectiveness over time.",
-  },
-  {
-    question: "Is my health data secure with NIRVEON'X?",
-    answer:
-      "Absolutely. We employ military-grade encryption and strict privacy protocols to ensure your health data remains confidential. We comply with all major health data regulations including HIPAA, and you maintain complete control over who can access your information.",
-  },
-  {
-    question: "Can NIRVEON'X replace my doctor?",
-    answer:
-      "NIRVEON'X is designed to complement, not replace, professional healthcare. While our AI can provide valuable insights, preliminary assessments, and ongoing monitoring, we always recommend consulting with qualified healthcare professionals for diagnosis and treatment.",
-  },
-  {
-    question: "How accurate are the AI health assessments?",
-    answer:
-      "Our AI health assessments have demonstrated over 95% accuracy in clinical trials when compared to diagnoses from healthcare professionals. However, we continuously emphasize that our assessments are preliminary and should be confirmed by medical professionals.",
-  },
-  {
-    question: "What devices is NIRVEON'X compatible with?",
-    answer:
-      "NIRVEON'X is available on iOS and Android mobile devices, web browsers, and integrates with popular wearable health devices including Apple Watch, Fitbit, Garmin, and more. This allows for seamless health monitoring across all your devices.",
-  },
-  {
-    question: "How much does NIRVEON'X cost?",
-    answer:
-      "NIRVEON'X offers several subscription tiers to meet different needs. We have a free basic plan with limited features, and premium plans starting at $9.99/month. Enterprise solutions for healthcare providers are available with custom pricing based on organization size and needs.",
-  },
-]
+import { faqs } from "../../contents/faq-section";
 
 export default function FaqSection() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, amount: 0.2 })
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
     <section ref={ref} id="faq" className="py-24 px-4 relative overflow-hidden">
@@ -114,5 +82,5 @@ export default function FaqSection() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }

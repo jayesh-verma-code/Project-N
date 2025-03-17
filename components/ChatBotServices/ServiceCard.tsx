@@ -11,8 +11,8 @@ import {
 import { Button } from "../ui/button";
 import {
   ITEM_VARIANTS,
-  SERVICES,
 } from "@/sections/ChatBotServices/chatbot-services";
+import { SERVICES} from "../../contents/chatbot-services"
 export const GradientBackground = () => (
   <div className="absolute inset-0 z-0">
     <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-radial from-gray-800/20 to-transparent opacity-30" />
