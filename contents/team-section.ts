@@ -45,7 +45,7 @@ export const teamMembers: TeamMember[] = [
     category: "leadership",
     education: "MBBS , GEMS",
     avatar:
-      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742123892/sumedha_l9tju5.jpg",
+      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742245692/WhatsApp_Image_2025-03-18_at_00.42.37_hwsgiw.jpg",
   },
   //employees
   //interns
