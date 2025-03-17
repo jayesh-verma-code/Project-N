@@ -51,7 +51,7 @@ export default function Footer() {
 
           {/* Quick Links */}
           <FooterSection title="Quick Links" delay={staggerDelay}>
-            {["Home", "Features", "Services", "Testimonials", "FAQ"].map(
+            {["Home", "Features", "Services", "Pioneers", "FAQ"].map(
               (item) => (
                 <FooterLink key={item} href={`#${item.toLowerCase()}`}>
                   {item}
