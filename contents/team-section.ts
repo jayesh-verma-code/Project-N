@@ -48,15 +48,6 @@ export const teamMembers: TeamMember[] = [
       "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742123892/sumedha_l9tju5.jpg",
   },
   //employees
-  {
-    id: "kasu-naren-karthik-raju",
-    name: "Kasu Naren Karthik Raju",
-    role: "Managing Director",
-    category: "employee",
-    education: "BTECH(AIML) , JNTUH",
-    avatar:
-      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742124409/kartik_fi4al2.png",
-  },
   //interns
   {
     id: "sybrite",
@@ -112,15 +103,15 @@ export const teamMembers: TeamMember[] = [
     avatar:
       "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067150/bojanna_qwvaxt.jpg",
   },
-  {
-    id: "suhana-rafic",
-    name: "Suhana Rafic",
-    role: "UI/UX Designer Intern & Team Lead",
-    category: "intern",
-    education: "BE(Computer Science) , VTU ",
-    avatar:
-      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067318/suhana_p3pezh.jpg",
-  },
+  // {
+  //   id: "suhana-rafic",
+  //   name: "Suhana Rafic",
+  //   role: "UI/UX Designer Intern & Team Lead",
+  //   category: "intern",
+  //   education: "BE(Computer Science) , VTU ",
+  //   avatar:
+  //     "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067318/suhana_p3pezh.jpg",
+  // },
   {
     id: "ria-dsouza",
     name: "Ria D’Souza",
