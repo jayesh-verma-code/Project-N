@@ -9,7 +9,7 @@ export const pioneers: TeamMember[] = [
       description:
         "Kavali Deekshith is the Founder & Chairman of NirveonX, an AI-powered healthcare ecosystem revolutionizing healthcare accessibility, mental wellness, elder care, and veterinary support. With a strong background in Artificial Intelligence, Machine Learning, and Business Strategy, he is committed to leveraging advanced technology to drive innovation in healthcare and improve lives. Currently pursuing a B.Tech in AI & ML at JNTUH, Deekshith has gained extensive experience in business development, AI-driven analytics, and strategic growth through key roles at organizations such as Furno Xpress, Evident, and Triaaright Solutions LLP. He has also made significant contributions as a Wellness Advisor and Senior Team Leader at Ayuzera, playing a pivotal role in health and wellness initiatives. Beyond his technical and entrepreneurial pursuits, Deekshith is an accomplished artist and singer, blending creativity with analytical thinking to drive meaningful impact. His vision for NirveonX is to create an all-encompassing AI-driven healthcare ecosystem that empowers individuals through cutting-edge innovation and personalized solutions.",
       avatar:
-        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742072034/kavali_c7yr5a.jpg",
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742217328/WhatsApp_Image_2025-03-17_at_18.41.36_skxf9p.jpg",
     },
     {
       id: "advisor",
