@@ -74,8 +74,8 @@ export default function AboutUs() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-black/50">
-      <div className="w-4/5 h-[80vh]">
+    <div className="flex items-center justify-center min-h-screen mt-0 pt-0 bg-black/50">
+      <div className="md:w-3/5 w-4/5 h-[100vh] md:h-[80vh]">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -86,7 +86,7 @@ export default function AboutUs() {
         </motion.div>
 
         <div
-          className="relative w-full h-[calc(80vh-80px)] [perspective:1500px]"
+          className="relative w-full md:h-[calc(80vh-80px)] h-[calc(70vh-75px)] [perspective:1500px]"
           onClick={() => setFlipped(!flipped)}
         >
           <motion.div
