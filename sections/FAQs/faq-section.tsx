@@ -37,11 +37,6 @@ const faqs = [
   },
 ]
 
-const FAQ_ITEM_VARIANTS = {
-  hidden: { y: 20, opacity: 0 },
-  visible: { y: 0, opacity: 1, transition: { duration: 0.5, ease: "easeOut" } },
-}
-
 export default function FaqSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, amount: 0.2 })
@@ -63,7 +58,7 @@ export default function FaqSection() {
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="text-center mb-16"
         >
@@ -75,56 +70,45 @@ export default function FaqSection() {
 
         {/* FAQ List */}
         <motion.div
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          variants={{
-            visible: { transition: { staggerChildren: 0.1 } },
-            hidden: {},
-          }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.4 }}
           className="max-w-3xl mx-auto space-y-4"
         >
           <Accordion type="single" collapsible>
             {faqs.map((faq, index) => (
-              <motion.div
+              <div
                 key={index}
-                variants={FAQ_ITEM_VARIANTS}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
+                className="mb-4"
               >
                 <AccordionItem
-                  value={`item-${index}`}
+                  value={`item-${index}`}      
                   className="border border-white/10 rounded-lg bg-black/50 backdrop-blur-sm overflow-hidden relative"
                 >
                   {/* Background Highlight */}
-                  <motion.div
-                    className="absolute inset-0 bg-white/5"
-                    animate={{ opacity: hoveredIndex === index ? 1 : 0 }}
-                    transition={{ duration: 0.3 }}
+                  <div
+                    className="absolute inset-0 bg-white/5 transition-opacity duration-300"
+                    style={{ opacity: hoveredIndex === index ? 1 : 0 }}
                   />
 
-                  {/* Question */}
-                  <AccordionTrigger className="px-6 py-4 text-left hover:bg-white/5 transition">
-                    <motion.span
-                      animate={{ x: hoveredIndex === index ? 5 : 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="text-lg font-medium"
+                  {/* Question - Make the entire trigger area clickable */}
+                  <AccordionTrigger  className="px-6 py-4 text-left hover:bg-white/5 transition w-full">
+                    <span 
+                      className="text-lg font-medium transition-transform duration-300 block w-full"
+                      style={{ transform: hoveredIndex === index ? 'translateX(5px)' : 'translateX(0)' }}
                     >
                       {faq.question}
-                    </motion.span>
+                    </span>
                   </AccordionTrigger>
 
                   {/* Answer */}
                   <AccordionContent className="px-6 pb-4 pt-2 text-gray-400">
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      {faq.answer}
-                    </motion.div>
+                    {faq.answer}
                   </AccordionContent>
                 </AccordionItem>
-              </motion.div>
+              </div>
             ))}
           </Accordion>
         </motion.div>
