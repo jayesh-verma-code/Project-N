@@ -254,7 +254,7 @@ export const teamMembers: TeamMember[] = [
     category: "intern",
     education: "BTECH ( AIML ) , JNTUH",
     avatar:
-      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067852/ashmed_fnlfbg.jpg",
+      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742211836/ahmed_neqdj5.png",
   },
   {
     id: "padma-banda",

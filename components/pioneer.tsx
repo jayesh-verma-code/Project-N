@@ -7,7 +7,6 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
-
 export interface TeamMember {
   id: string;
   name: string;
@@ -25,12 +24,12 @@ export default function TeamMembersSection() {
     isMobile: false,
     isTablet: false,
   });
-  const router=useRouter();
+  const router = useRouter();
 
-  const handleMeet=()=>{
-     router.push('/team');
-  }
- // console.log(screenSize);
+  const handleMeet = () => {
+    router.push("/team");
+  };
+  // console.log(screenSize);
   // Enhanced viewport size detection
   useEffect(() => {
     const checkScreenSize = () => {
@@ -66,7 +65,7 @@ export default function TeamMembersSection() {
       description:
         "With over 8 years of experience in AI-driven solutions, business analytics, and technical leadership, Nikhil Sanka has been at the forefront of software development, cloud infrastructure, and process automation. As a Senior Business Analyst, AI Solutions Leader, and Technical Team Lead, he has successfully developed and deployed scalable AI-powered solutions that enhance operational efficiency and drive business growth. His expertise spans across AI/ML, automation, cloud computing, and data-driven architecture, with a strong technical background in C#, .NET Core, React, AWS, and Power BI. He has led the development of AI-powered knowledge management tools, predictive analytics models, and scalable reporting solutions, significantly improving user engagement and decision-making processes. Throughout his career at Parsons Corporation and Index Web Marketing, he has played a key role in mentoring cross-functional teams, optimizing workflows, and delivering cutting-edge AI and business intelligence solutions. His ability to bridge technology and business strategy makes him a valuable asset in guiding NirveonX's AI-driven healthcare innovations and digital transformation efforts.",
       avatar:
-        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742072035/nikhil_redxth.jpg",
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742210980/nikhil_phqtqs.png",
     },
     {
       id: "CEO",
@@ -75,7 +74,7 @@ export default function TeamMembersSection() {
       description:
         "Ayush Kumar Sahoo is the CEO & Co-Founder of NirveonX, an AI-driven healthcare innovation company dedicated to transforming healthcare accessibility, patient outcomes, and digital solutions. With expertise in Artificial Intelligence, Business Analytics, and Strategic Consulting, he is passionate about leveraging cutting-edge technology to create impactful and scalable solutions in the healthcare sector. Currently pursuing a B.Tech in Chemical Engineering at NIT Rourkela, he has collaborated with leading organizations such as Redient Security, Innomatics Research Labs, and IIT Guwahati, contributing to business development, AI-driven data analytics, and strategic decision-making. His leadership, innovation mindset, and expertise in AI-powered solutions position him at the forefront of advancing healthcare through intelligent automation and predictive analytics. An avid Swimmer and Team Leader, he brings the same discipline, resilience, and strategic mindset from his sports journey to entrepreneurship—developing high-impact AI solutions that bridge the gap between technology and real-world healthcare challenges.",
       avatar:
-        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742072033/ayush_ds1dbl.jpg",
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742210998/ayush_xogo5d.png",
     },
     {
       id: "cto",
@@ -84,7 +83,7 @@ export default function TeamMembersSection() {
       description:
         "Shaik Ashraf is the Chief Technical Officer & Co-Founder of NirveonX, a cutting-edge organization specializing in Machine Learning, Deep Learning, and Data Analytics. With a passion for leveraging AI-driven insights, he is committed to transforming industries through data-driven innovation and intelligent automation. Certified in Machine Learning, Deep Learning, and Data Analytics by SAP and TASK, he possesses expertise in building predictive models, AI-powered solutions, and scalable data-driven applications. His technical acumen extends to big data processing, model optimization, and AI strategy, driving impactful business solutions. With experience in data analytics, AI development, and strategic decision-making, he has contributed to renowned organizations, excelling in business intelligence, AI model deployment, and analytical problem-solving. Beyond technology, he is an avid cricket and football enthusiast, balancing his analytical mindset with a passion for sports. His dedication to both data science and athletics reflects his drive for continuous improvement, teamwork, and strategic thinking, making him a visionary leader in the AI and data analytics space.",
       avatar:
-        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742072031/ashraf_fi67fu.jpg",
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742210995/ashref_f5vrhu.png",
     },
     {
       id: "Co-founder",
@@ -93,7 +92,7 @@ export default function TeamMembersSection() {
       description:
         "Sumedha Musunuri is the Co-Founder and Chief Wellness Officer at NirveonX, an AI-powered healthcare ecosystem dedicated to transforming healthcare accessibility, mental wellness, elder care, and veterinary support. Currently pursuing her MBBS at Great Eastern Medical School and Hospital, Sumedha has developed a strong academic foundation with specialization in Human Physiology, Biochemistry, Pathology, and Microbiology, and has gained valuable clinical exposure, further enhancing her hands-on experience in patient care and medical practice. Recognized for her academic excellence, she was awarded the prestigious Pratibha Award for her outstanding performance in the 10th Board exams. Beyond her medical expertise, Sumedha is a passionate artist, singer, dancer, and fashion designer. She has garnered numerous awards for her creativity, demonstrating her diverse talent and commitment to the arts. With a unique blend of scientific knowledge, clinical experience, and artistic passion, Sumedha is driven to make a significant impact in the healthcare and wellness sectors.",
       avatar:
-        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742072032/sumedha_kfh7lh.jpg",
+        "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742123892/sumedha_l9tju5.jpg",
     },
   ];
 
@@ -138,35 +137,6 @@ export default function TeamMembersSection() {
       },
     }),
   };
-
-  // Enhanced TypewriterText for both mobile and desktop
-  // const TypewriterText = ({ text }: { text: string }) => {
-  //   return (
-  //     <motion.p
-  //       className="text-gray-300 text-xs sm:text-sm md:text-base leading-relaxed"
-  //       initial={{ opacity: 0 }}
-  //       animate={{ opacity: 1 }}
-  //       transition={{ duration: 0.5 }}
-  //     >
-  //       {text.split("").map((char, i) => (
-  //         <motion.span
-  //           key={i}
-  //           initial={{ opacity: 0, y: 5 }}
-  //           animate={{
-  //             opacity: 1,
-  //             y: 0,
-  //             transition: {
-  //               delay: i * (screenSize.isMobile ? 0.04 : 0.01),
-  //               duration: 0.2,
-  //             },
-  //           }}
-  //         >
-  //           {char}
-  //         </motion.span>
-  //       ))}
-  //     </motion.p>
-  //   );
-  // };
 
   return (
     <section
@@ -271,7 +241,9 @@ export default function TeamMembersSection() {
                                   initial={{ opacity: 0, y: 10 }}
                                   animate={{ opacity: 1, y: 0 }}
                                   transition={{
-                                    delay: wordIndex * (screenSize.isMobile? 0.03:0.02),
+                                    delay:
+                                      wordIndex *
+                                      (screenSize.isMobile ? 0.03 : 0.02),
                                     duration: 0.3,
                                     ease: "easeOut",
                                   }}
@@ -332,21 +304,20 @@ export default function TeamMembersSection() {
             </motion.div>
           </div>
           <div className="space h-12 w-full"></div>
-      <div className="w-full h-2 flex flex-row justify-center items-center">
-      <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+          <div className="w-full h-2 flex flex-row justify-center items-center">
+            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
               <Button
                 variant="outline"
                 size="lg"
                 onClick={handleMeet}
-                className="bg-[#8F00FF]"
+                className="bg-[#f9f9fb] text-black hover:text-white"
               >
                 Meet Our Team
               </Button>
             </motion.div>
-      </div>
+          </div>
         </motion.div>
       </div>
-     
     </section>
   );
 }
