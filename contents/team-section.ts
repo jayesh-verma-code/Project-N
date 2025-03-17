@@ -103,15 +103,15 @@ export const teamMembers: TeamMember[] = [
     avatar:
       "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067150/bojanna_qwvaxt.jpg",
   },
-  // {
-  //   id: "suhana-rafic",
-  //   name: "Suhana Rafic",
-  //   role: "UI/UX Designer Intern & Team Lead",
-  //   category: "intern",
-  //   education: "BE(Computer Science) , VTU ",
-  //   avatar:
-  //     "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067318/suhana_p3pezh.jpg",
-  // },
+  {
+    id: "suhana-rafic",
+    name: "Suhana Rafic",
+    role: "UI/UX Designer Intern & Team Lead",
+    category: "intern",
+    education: "BE(Computer Science) , VTU ",
+    avatar:
+      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067318/suhana_p3pezh.jpg",
+  },
   {
     id: "ria-dsouza",
     name: "Ria D’Souza",
