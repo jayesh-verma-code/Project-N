@@ -23,7 +23,7 @@ export const pioneers: TeamMember[] = [
     role: "CEO",
     description:
     "Ayush Kumar Sahoo, CEO & Co-Founder of NirveonX, drives innovation in AI-powered healthcare solutions. Currently pursuing B.Tech in Chemical Engineering at NIT Rourkela, he has collaborated with Redient Security and Innomatics Research Labs, focusing on AI analytics and strategic development. His expertise in intelligent automation and predictive analytics strengthens NirveonX's mission to enhance healthcare accessibility through technology.",
-    avatar: "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742245978/WhatsApp_Image_2025-03-18_at_02.19.02_zglfji.jpg",
+    avatar: "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742285267/WhatsApp_Image_2025-03-18_at_02.54.10_zk0air.jpg",
   },
   {
     id: "cto",

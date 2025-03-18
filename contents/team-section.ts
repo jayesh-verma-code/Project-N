@@ -27,7 +27,7 @@ export const teamMembers: TeamMember[] = [
     category: "leadership",
     education: "BTECH(Chemical Eng.) , NIT Rourkela",
     avatar:
-      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742072033/ayush_ds1dbl.jpg",
+      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742285267/WhatsApp_Image_2025-03-18_at_02.57.26_vownwq.jpg",
   },
   {
     id: "cto",
