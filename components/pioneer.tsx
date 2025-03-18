@@ -40,86 +40,6 @@ const useScreenSize = () => {
   return screenSize;
 };
 
-// Loading Spinner Component
-const LoadingSpinner = () => {
-  const circleVariants = {
-    animate: {
-      rotate: [0, 360],
-      scale: [1, 1.2, 1],
-    },
-  };
-
-  const pulseVariants = {
-    animate: {
-      scale: [1, 1.2, 1],
-      opacity: [0.5, 1, 0.5],
-    },
-  };
-
-  return (
-    <motion.div
-      className="flex flex-col items-center justify-center p-8"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="relative">
-        {/* Outer rotating circle */}
-        <motion.div
-          className="absolute inset-0 w-20 h-20 border-4 border-blue-500/30 rounded-full"
-          animate={circleVariants.animate}
-          transition={{
-            rotate: { duration: 3, repeat: Infinity, ease: "linear" },
-            scale: { duration: 2, repeat: Infinity, ease: "easeInOut" },
-          }}
-        />
-
-        {/* Inner pulsing circle */}
-        <motion.div
-          className="w-20 h-20 border-4 border-blue-500 rounded-full"
-          animate={pulseVariants.animate}
-          transition={{
-            duration: 1.5,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-
-        {/* Center dot */}
-        <motion.div
-          className="absolute top-1/2 left-1/2 w-4 h-4 -mt-2 -ml-2 bg-blue-500 rounded-full"
-          animate={{
-            scale: [1, 1.5, 1],
-          }}
-          transition={{
-            duration: 1,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-      </div>
-
-      {/* Loading text with gradient */}
-      <motion.div
-        className="mt-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600 font-semibold text-lg"
-        initial={{ opacity: 0, y: 10 }}
-        animate={{
-          opacity: [0, 1, 0],
-          y: [10, 0, -10],
-        }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          ease: "easeInOut",
-          times: [0, 0.5, 1],
-        }}
-      >
-        Loading team members...
-      </motion.div>
-    </motion.div>
-  );
-};
-
 // CardWithLoading Component
 const CardWithLoading = ({
   member,
@@ -128,53 +48,20 @@ const CardWithLoading = ({
   member: TeamMember;
   direction: number;
 }) => {
-  const [isImageLoading, setIsImageLoading] = useState(true);
   const screenSize = useScreenSize();
-
-  useEffect(() => {
-    // Simulate a loading delay of 2 seconds (2000ms)
-    const loadingTimeout = setTimeout(() => {
-      setIsImageLoading(false);
-    }, 2000);
-
-    // Clear the timeout when the component unmounts or member changes
-    return () => clearTimeout(loadingTimeout);
-  }, [member]); // Reset loading state when member changes
 
   return (
     <Card className="bg-black/10 border-white/10 backdrop-blur-sm shadow-lg overflow-hidden transition-all duration-300 hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:border-white/20">
       <CardContent className="p-1">
         <div className="flex flex-col sm:flex-row">
-          {/* Left side - Image with loading animation */}
           <motion.div
-            className="w-full sm:w-2/5 relative overflow-hidden h-[250px] sm:h-[500px]"
+            className="w-full sm:w-2/5 relative overflow-hidden h-[200px] sm:h-[450px]"
             initial={{ opacity: 0, x: direction > 0 ? 50 : -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.1, duration: 0.3 }}
           >
-            {/* Loading animation (skeleton or spinner) */}
-            {isImageLoading && (
-              <motion.div
-                className="w-full h-full bg-gray-700/50 rounded-lg flex items-center justify-center"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.3 }}
-              >
-                {/* Custom spinner animation */}
-                <motion.div
-                  className="w-12 h-12 border-4 border-t-blue-500 border-r-transparent border-b-blue-500 border-l-transparent rounded-full"
-                  animate={{ rotate: 360 }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                />
-              </motion.div>
-            )}
-
             {/* Image with whileHover animation */}
-            {!isImageLoading && (
+            {
               <motion.img
                 src={member.avatar}
                 alt={member.name}
@@ -187,7 +74,7 @@ const CardWithLoading = ({
                   transition: { duration: 0.3 },
                 }}
               />
-            )}
+            }
           </motion.div>
 
           {/* Right side - Content with scrollable description */}
@@ -246,17 +133,12 @@ const CardWithLoading = ({
 };
 
 export default function TeamMembersSection() {
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const router = useRouter();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 1500);
-    return () => clearTimeout(timer);
-  }, []);
 
   const handleMeet = () => router.push("/team");
 
@@ -307,11 +189,6 @@ export default function TeamMembersSection() {
       className="py-8 sm:py-12 md:py-16 lg:py-24 px-2 sm:px-4 relative overflow-hidden"
       ref={ref}
     >
-      {isLoading && (
-        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
-          <LoadingSpinner />
-        </div>
-      )}
       <div className="absolute inset-0 z-0">
         <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-radial from-gray-800/20 to-transparent opacity-30" />
         <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-gradient-radial from-gray-800/20 to-transparent opacity-30" />

@@ -6,39 +6,44 @@ export const pioneers: TeamMember[] = [
     name: "Kavali Deekshith",
     role: "Founder & Chairman",
     description:
-    "As Founder & Chairman of NirveonX, Kavali Deekshith leads the development of an AI-powered healthcare ecosystem. With expertise in AI/ML and Business Strategy, he focuses on revolutionizing healthcare accessibility through technological innovation. Currently pursuing B.Tech in AI & ML at JNTUH, his experience spans business development and AI analytics through roles at Furno Xpress, Evident, and Triaaright Solutions LLP. His leadership as Wellness Advisor at Ayuzera has strengthened healthcare initiatives. Deekshith combines technical acumen with creative thinking to drive NirveonX's mission of delivering personalized healthcare solutions.",
-    avatar: "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742245693/WhatsApp_Image_2025-03-18_at_01.49.48_mdd3mo.jpg",
+      "Kavali Deekshith is the Founder & Chairman of NirveonX, an AI-driven healthcare ecosystem revolutionizing healthcare, mental wellness, elder care, and veterinary support. With expertise in AI, ML, and Business Strategy, he aims to drive innovation in healthcare. Currently pursuing a B.Tech in AI & ML at JNTUH, he has contributed to business development and AI analytics at Furno Xpress, Evident, and Triaaright Solutions LLP and served as a Wellness Advisor at Ayuzera. An artist and singer by passion, he blends creativity with technology to create meaningful impact.",
+    avatar:
+      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742245693/WhatsApp_Image_2025-03-18_at_01.49.48_mdd3mo.jpg",
   },
   {
     id: "advisor",
     name: "Nikhil Sanka",
     role: "Advisory Board Member",
     description:
-    "Nikhil Sanka brings 8+ years of expertise in AI solutions and technical leadership. As Senior Business Analyst and AI Solutions Leader, he specializes in developing scalable AI-powered systems and cloud infrastructure. His technical proficiency encompasses C#, .NET Core, React, AWS, and Power BI. At Parsons Corporation and Index Web Marketing, he established AI-driven knowledge management systems and predictive analytics models. His strategic approach to technology integration guides NirveonX's healthcare innovations.",
-    avatar: "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742210980/nikhil_phqtqs.png",
+      "Nikhil Sanka is an Advisory Board Member at NirveonX, with 8+ years of experience in AI-driven solutions, business analytics, and technical leadership. He has led AI/ML, automation, and cloud computing initiatives, developing scalable AI solutions for Parsons Corporation and Index Web Marketing. With expertise in C#, .NET Core, React, AWS, and Power BI, he bridges technology and business strategy, driving AI innovations at NirveonX.",
+    avatar:
+      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742210980/nikhil_phqtqs.png",
   },
   {
     id: "CEO",
     name: "Ayush Kumar Sahoo",
     role: "CEO",
     description:
-    "Ayush Kumar Sahoo, CEO & Co-Founder of NirveonX, drives innovation in AI-powered healthcare solutions. Currently pursuing B.Tech in Chemical Engineering at NIT Rourkela, he has collaborated with Redient Security and Innomatics Research Labs, focusing on AI analytics and strategic development. His expertise in intelligent automation and predictive analytics strengthens NirveonX's mission to enhance healthcare accessibility through technology.",
-    avatar: "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742285267/WhatsApp_Image_2025-03-18_at_02.54.10_zk0air.jpg",
+      "Ayush Kumar Sahoo is the Co-Founder & CEO of NirveonX, leading AI-driven healthcare innovation to enhance accessibility and patient outcomes. Currently pursuing B.Tech in Chemical Engineering at NIT Rourkela, he has contributed to AI-driven analytics and strategy at Redient Security, Innomatics Research Labs, and IIT Guwahati. A national-level athlete, he applies strategic thinking and technology to bridge AI and real-world healthcare challenges.",
+    avatar:
+      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742285267/WhatsApp_Image_2025-03-18_at_02.54.10_zk0air.jpg",
   },
   {
     id: "cto",
     name: "Shaik Ashraf",
     role: "CTO & Co-Founder",
     description:
-    "Shaik Ashraf, CTO & Co-Founder of NirveonX, specializes in Machine Learning and Data Analytics. Certified by SAP and TASK, he excels in developing predictive models and AI-powered solutions. His expertise encompasses big data processing, model optimization, and AI strategy implementation. His technical leadership drives NirveonX's data-driven innovation and intelligent automation initiatives.",
-    avatar: "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742245692/WhatsApp_Image_2025-03-18_at_00.42.35_jgubtj.jpg",
+      "Shaik Ashraf is the Co-Founder & CTO of NirveonX, specializing in AI, ML, and Data Analytics. Certified by SAP and TASK, he excels in predictive modeling, AI solutions, and big data processing. With experience in AI development and business intelligence, he drives AI innovation and automation at NirveonX. A cricket and football enthusiast, he blends strategy with technology for impactful solutions.",
+    avatar:
+      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742245692/WhatsApp_Image_2025-03-18_at_00.42.35_jgubtj.jpg",
   },
   {
     id: "Co-founder",
     name: "Sumedha Musunuri",
     role: "CWO & Co-Founder",
     description:
-    "Sumedha Musunuri serves as Co-Founder and Chief Wellness Officer at NirveonX. Pursuing MBBS at Great Eastern Medical School and Hospital, she brings expertise in Human Physiology, Biochemistry, and Clinical Practice. A recipient of the Pratibha Award for academic excellence, she combines medical knowledge with innovative healthcare solutions. Her multidisciplinary approach enhances NirveonX's healthcare and wellness initiatives.",
-    avatar: "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742245692/WhatsApp_Image_2025-03-18_at_00.42.37_hwsgiw.jpg",
+      "Sumedha Musunuri is the Co-Founder & Chief Wellness Officer (CWO) of NirveonX, dedicated to healthcare accessibility, mental wellness, and elder care. Currently pursuing MBBS at Great Eastern Medical School, she specializes in Physiology, Biochemistry, Pathology, and Microbiology, with strong clinical exposure. A Pratibha Award recipient for academic excellence, she blends medical expertise with creativity as a singer, dancer, artist, and fashion designer, striving to drive innovation in healthcare and wellness.",
+    avatar:
+      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742245692/WhatsApp_Image_2025-03-18_at_00.42.37_hwsgiw.jpg",
   },
-  ];
+];
