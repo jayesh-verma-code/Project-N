@@ -5,7 +5,7 @@ export const teamMembers: TeamMember[] = [
   {
     id: "founder",
     name: "Kavali Deekshith",
-    role: "Founder & Chairman",
+    role: "CEO & Chairman",
     category: "leadership",
     education: "BTECH(AIML) , JNTUH",
     avatar:
@@ -23,7 +23,7 @@ export const teamMembers: TeamMember[] = [
   {
     id: "CEO",
     name: "Ayush Kumar Sahoo",
-    role: "CEO & Co-Founder",
+    role: "Founder & Managing director",
     category: "leadership",
     education: "BTECH(Chemical Eng.) , NIT Rourkela",
     avatar:
