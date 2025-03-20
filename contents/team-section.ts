@@ -3,13 +3,13 @@ import { TeamMember } from "@/app/team/page";
 export const teamMembers: TeamMember[] = [
   //leadership
   {
-    id: "founder",
-    name: "Kavali Deekshith",
-    role: "CEO & Chairman",
+    id: "CEO",
+    name: "Ayush Kumar Sahoo",
+    role: "Founder & Managing director",
     category: "leadership",
-    education: "BTECH(AIML) , JNTUH",
+    education: "BTECH(Chemical Eng.) , NIT Rourkela",
     avatar:
-      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742140113/WhatsApp_Image_2025-03-16_at_18.05.57_riazfm.jpg",
+      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742285267/WhatsApp_Image_2025-03-18_at_02.57.26_vownwq.jpg",
   },
   {
     id: "advisor",
@@ -21,15 +21,6 @@ export const teamMembers: TeamMember[] = [
       "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742072035/nikhil_redxth.jpg",
   },
   {
-    id: "CEO",
-    name: "Ayush Kumar Sahoo",
-    role: "Founder & Managing director",
-    category: "leadership",
-    education: "BTECH(Chemical Eng.) , NIT Rourkela",
-    avatar:
-      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742285267/WhatsApp_Image_2025-03-18_at_02.57.26_vownwq.jpg",
-  },
-  {
     id: "cto",
     name: "Shaik Ashraf",
     role: "CTO & Co-Founder ",
@@ -37,6 +28,15 @@ export const teamMembers: TeamMember[] = [
     education: "BTECH(AIML) , JNTUH",
     avatar:
       "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742072031/ashraf_fi67fu.jpg",
+  },
+  {
+    id: "founder",
+    name: "Kavali Deekshith",
+    role: "CEO & Chairman",
+    category: "leadership",
+    education: "BTECH(AIML) , JNTUH",
+    avatar:
+      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742140113/WhatsApp_Image_2025-03-16_at_18.05.57_riazfm.jpg",
   },
   {
     id: "Co-founder",
