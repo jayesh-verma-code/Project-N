@@ -6,7 +6,7 @@ export const pioneers: TeamMember[] = [
     name: "Kavali Deekshith",
     role: "CEO & Chairman",
     description:
-      "Kavali Deekshith is the Founder & Chairman of NirveonX, an AI-driven healthcare ecosystem revolutionizing healthcare, mental wellness, elder care, and veterinary support. With expertise in AI, ML, and Business Strategy, he aims to drive innovation in healthcare. Currently pursuing a B.Tech in AI & ML at JNTUH, he has contributed to business development and AI analytics at Furno Xpress, Evident, and Triaaright Solutions LLP and served as a Wellness Advisor at Ayuzera. An artist and singer by passion, he blends creativity with technology to create meaningful impact.",
+      "Kavali Deekshith is the CEO & Chairman of NirveonX, an AI-driven healthcare ecosystem revolutionizing healthcare, mental wellness, elder care, and veterinary support. With expertise in AI, ML, and Business Strategy, he aims to drive innovation in healthcare. Currently pursuing a B.Tech in AI & ML at JNTUH, he has contributed to business development and AI analytics at Furno Xpress, Evident, and Triaaright Solutions LLP and served as a Wellness Advisor at Ayuzera. An artist and singer by passion, he blends creativity with technology to create meaningful impact.",
     avatar:
       "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742245693/WhatsApp_Image_2025-03-18_at_01.49.48_mdd3mo.jpg",
   },
@@ -24,7 +24,7 @@ export const pioneers: TeamMember[] = [
     name: "Ayush Kumar Sahoo",
     role: "Founder & Managing director",
     description:
-      "Ayush Kumar Sahoo is the Co-Founder & CEO of NirveonX, leading AI-driven healthcare innovation to enhance accessibility and patient outcomes. Currently pursuing B.Tech in Chemical Engineering at NIT Rourkela, he has contributed to AI-driven analytics and strategy at Redient Security, Innomatics Research Labs, and IIT Guwahati. A national-level athlete, he applies strategic thinking and technology to bridge AI and real-world healthcare challenges.",
+      "Ayush Kumar Sahoo is the Founder & Managing director of NirveonX, leading AI-driven healthcare innovation to enhance accessibility and patient outcomes. Currently pursuing B.Tech in Chemical Engineering at NIT Rourkela, he has contributed to AI-driven analytics and strategy at Redient Security, Innomatics Research Labs, and IIT Guwahati. A national-level athlete, he applies strategic thinking and technology to bridge AI and real-world healthcare challenges.",
     avatar:
       "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742285267/WhatsApp_Image_2025-03-18_at_02.54.10_zk0air.jpg",
   },
