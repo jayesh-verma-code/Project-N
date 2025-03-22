@@ -5,11 +5,11 @@ export const teamMembers: TeamMember[] = [
   {
     id: "CEO",
     name: "Ayush Kumar Sahoo",
-    role: "Founder & Managing director",
+    role: "Founder & Managing Director",
     category: "leadership",
     education: "BTECH(Chemical Eng.) , NIT Rourkela",
     avatar:
-      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742285267/WhatsApp_Image_2025-03-18_at_02.57.26_vownwq.jpg",
+      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742611239/WhatsApp_Image_2025-03-22_at_02.59.32_ycrdsr.jpg",
   },
   {
     id: "advisor",
@@ -18,7 +18,7 @@ export const teamMembers: TeamMember[] = [
     category: "leadership",
     education: "Chief Manager at Canada transportation department",
     avatar:
-      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742072035/nikhil_redxth.jpg",
+      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742611239/WhatsApp_Image_2025-03-22_at_02.59.31_1_eg3dht.jpg",
   },
   {
     id: "cto",
@@ -27,7 +27,7 @@ export const teamMembers: TeamMember[] = [
     category: "leadership",
     education: "BTECH(AIML) , JNTUH",
     avatar:
-      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742072031/ashraf_fi67fu.jpg",
+      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742611239/WhatsApp_Image_2025-03-22_at_02.59.31_s4fml4.jpg",
   },
   {
     id: "founder",
@@ -36,7 +36,7 @@ export const teamMembers: TeamMember[] = [
     category: "leadership",
     education: "BTECH(AIML) , JNTUH",
     avatar:
-      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742140113/WhatsApp_Image_2025-03-16_at_18.05.57_riazfm.jpg",
+      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742611239/WhatsApp_Image_2025-03-22_at_02.59.31_2_jvhpwr.jpg",
   },
   {
     id: "Co-founder",
@@ -45,7 +45,7 @@ export const teamMembers: TeamMember[] = [
     category: "leadership",
     education: "MBBS , GEMS",
     avatar:
-      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742245692/WhatsApp_Image_2025-03-18_at_00.42.37_hwsgiw.jpg",
+      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742611239/WhatsApp_Image_2025-03-22_at_02.59.32_1_lkl4ce.jpg",
   },
   //employees
   //interns
