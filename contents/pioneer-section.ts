@@ -6,7 +6,7 @@ export const pioneers: TeamMember[] = [
     name: "Ayush Kumar Sahoo",
     role: "Founder & Managing Director",
     description:
-      "Ayush Kumar Sahoo is the Founder & Managing director of NirveonX, leading AI-driven healthcare innovation to enhance accessibility and patient outcomes. Currently pursuing B.Tech in Chemical Engineering at NIT Rourkela, he has contributed to AI-driven analytics and strategy at Redient Security, Innomatics Research Labs, and IIT Guwahati. A national-level athlete, he applies strategic thinking and technology to bridge AI and real-world healthcare challenges.",
+      "Ayush Kumar Sahoo is the Founder & Managing Director of NirveonX, leading AI-driven healthcare innovation to enhance accessibility and patient outcomes. Currently pursuing B.Tech in Chemical Engineering at NIT Rourkela, he has contributed to AI-driven analytics and strategy at Redient Security, Innomatics Research Labs, and IIT Guwahati. A national-level athlete, he applies strategic thinking and technology to bridge AI and real-world healthcare challenges.",
     avatar:
       "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742285267/WhatsApp_Image_2025-03-18_at_02.54.10_zk0air.jpg",
   },
