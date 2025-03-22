@@ -53,7 +53,7 @@ const CardWithLoading = ({
   return (
     <Card className="bg-black/10 border-white/10 backdrop-blur-sm shadow-lg overflow-hidden transition-all duration-300 hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:border-white/20">
       <CardContent className="p-1">
-        <div className="flex flex-col sm:flex-row">
+        <div id="pioneer" className="flex flex-col sm:flex-row">
           <motion.div
             className="w-full sm:w-2/5 relative overflow-hidden h-[200px] sm:h-[450px]"
             initial={{ opacity: 0, x: direction > 0 ? 50 : -50 }}

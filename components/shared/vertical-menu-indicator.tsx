@@ -22,7 +22,7 @@ export default function VerticalMenuIndicator() {
     { id: "home", label: "Home", position: "10%" },
     { id: "features", label: "Features", position: "25%" },
     { id: "services", label: "Services", position: "40%" },
-    { id: "testimonials", label: "Testimonials", position: "55%" },
+    { id: "pioneer", label: "Pioneers", position: "55%" },
     { id: "faq", label: "FAQ", position: "70%" },
     { id: "contact", label: "Contact", position: "90%" },
   ]
