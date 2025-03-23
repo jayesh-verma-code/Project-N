@@ -274,12 +274,16 @@ export default function TeamMembersSection() {
           </div>
           <div className="space h-12 w-full"></div>
           <div className="w-full h-2 flex flex-row justify-center items-center">
-            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="touch-none"
+            >
               <Button
                 variant="outline"
                 size="lg"
                 onClick={handleMeet}
-                className="bg-[#f9f9fb] text-black hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                className="bg-[#f9f9fb] text-black active:text-white active:scale-105 active:shadow-lg transition-all duration-300 hover:text-white hover:scale-105 hover:shadow-lg"
               >
                 Meet Our Team
               </Button>
