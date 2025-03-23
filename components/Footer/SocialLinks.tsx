@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Facebook, Twitter, Instagram, Linkedin, Github } from "lucide-react";
+import { Facebook, Twitter, Instagram, Linkedin, Github, MessageCircle } from "lucide-react";
 
 export function SocialLinks() {
   const socialLinks = [
@@ -7,7 +7,8 @@ export function SocialLinks() {
     { Icon: Twitter, link: "https://x.com/NirveonX" },
     { Icon: Instagram, link: "https://www.instagram.com/nirveonx/" },
     { Icon: Linkedin, link: "https://www.linkedin.com/company/nirveonx/" },
-    { Icon: Github, link: "https://github.com/NirveonX" }
+    { Icon: Github, link: "https://github.com/NirveonX" },
+    { Icon: MessageCircle, link: "https://whatsapp.com/channel/0029VbAEGA5GufImWHFCLa3L" }
   ];
 
   return (
