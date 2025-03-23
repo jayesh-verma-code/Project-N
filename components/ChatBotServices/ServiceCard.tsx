@@ -13,6 +13,7 @@ import {
   ITEM_VARIANTS,
 } from "@/sections/ChatBotServices/chatbot-services";
 import { SERVICES} from "../../contents/chatbot-services"
+import { ServiceCardProps } from "../../types/service";
 
 export const GradientBackground = () => (
   <div className="absolute inset-0 z-0">
@@ -80,15 +81,6 @@ const COLOR_SCHEMES = [
     buttonColor: "from-indigo-400 to-indigo-600"
   }
 ];
-
-// ServiceCard Component
-interface ServiceCardProps {
-  service: (typeof SERVICES)[number];
-  index: number;
-  isActive: boolean;
-  setActive: (index: number | null) => void;
-  variants: typeof ITEM_VARIANTS;
-}
 
 export function ServiceCard({
   service,

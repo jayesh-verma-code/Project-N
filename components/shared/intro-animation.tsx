@@ -245,14 +245,14 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
               transition={{ delay: 1, duration: 0.5 }}
               className="absolute inset-0 flex items-center justify-center"
             >
-              <div className="text-center text-white text-lg">
+              <div className="text-center text-white text-lg sm:text-xl">
                 <motion.p
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
                   className="shimmer"
                 >
-                  To get started, swipe/scroll down to know more.
+                  <h3>Welcome to Future of HealthCare !</h3>
                 </motion.p>
               </div>
             </motion.div>

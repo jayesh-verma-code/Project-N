@@ -18,8 +18,7 @@ import MarqueeText from "@/components/marquee-text";
 import VerticalMenuIndicator from "@/components/shared/vertical-menu-indicator";
 import { useScroll } from "framer-motion";
 import About from "@/components/About/About";
-import TeamMembersSection from "@/components/pioneer";
-
+import TeamMembersSection from "@/sections/Pioneer/pioneer";
 
 export default function Home() {
   const [introComplete, setIntroComplete] = useState(false);
@@ -56,7 +55,7 @@ export default function Home() {
           <>
             <Navbar scrolled={scrolled} />
             <HeroSection />
-            <About/>
+            <About />
             <MarqueeText />
             <FeaturesSection />
             <ChatbotServices />

@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useTransform, Variants, AnimatePresence } from "framer-motion";
+import { motion, useMotionValue, useTransform, AnimatePresence } from "framer-motion";
 import {
   Card,
   CardContent,
@@ -7,19 +7,8 @@ import {
   CardTitle,
 } from "../ui/card";
 import { useRef, useState, useEffect } from "react";
+import { FeatureCardProps } from "@/types/features";
 
-interface FeatureCardProps {
-  feature: {
-    title: string;
-    description: string;
-    icon: React.ReactNode;
-    delay: number;
-    bgColor: string;
-    glowColor: string;
-    borderColor: string;
-  };
-  variants: Variants;
-}
 
 export function FeatureCard({ feature, variants }: FeatureCardProps) {
   const [isHovered, setIsHovered] = useState(false);
