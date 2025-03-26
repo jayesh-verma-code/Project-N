@@ -47,6 +47,15 @@ export const teamMembers: TeamMember[] = [
     avatar:
       "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742611239/WhatsApp_Image_2025-03-22_at_02.59.32_1_lkl4ce.jpg",
   },
+  {
+    id: "co-founder and coo",
+    name: "Kasu Naren Karthik Raju",
+    role: "Co-Founder and COO",
+    category: "leadership",
+    education: "BTECH(AIML) , JNTUH",
+    avatar:
+      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742975939/WhatsApp_Image_2025-03-26_at_03.47.39_x6oljd.jpg",
+  },
   //employees
   //interns
   {
