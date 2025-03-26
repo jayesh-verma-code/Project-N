@@ -19,6 +19,7 @@ import VerticalMenuIndicator from "@/components/shared/vertical-menu-indicator";
 import { useScroll } from "framer-motion";
 import About from "@/components/About/About";
 import TeamMembersSection from "@/sections/Pioneer/pioneer";
+import InvestorSection from "@/components/Investors";
 
 export default function Home() {
   const [introComplete, setIntroComplete] = useState(false);
@@ -59,6 +60,7 @@ export default function Home() {
             <MarqueeText />
             <FeaturesSection />
             <ChatbotServices />
+            <InvestorSection />
             <TeamMembersSection />
             <FaqSection />
             <Footer />

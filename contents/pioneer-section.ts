@@ -10,15 +10,15 @@ export const pioneers: TeamMember[] = [
     avatar:
       "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742285267/WhatsApp_Image_2025-03-18_at_02.54.10_zk0air.jpg",
   },
-  {
-    id: "advisor",
-    name: "Nikhil Sanka",
-    role: "Advisory Board Member",
-    description:
-      "Nikhil Sanka is an Advisory Board Member at NirveonX, with 8+ years of experience in AI-driven solutions, business analytics, and technical leadership. He has led AI/ML, automation, and cloud computing initiatives, developing scalable AI solutions for Parsons Corporation and Index Web Marketing. With expertise in C#, .NET Core, React, AWS, and Power BI, he bridges technology and business strategy, driving AI innovations at NirveonX.",
-    avatar:
-      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742210980/nikhil_phqtqs.png",
-  },
+  // {
+  //   id: "advisor",
+  //   name: "Nikhil Sanka",
+  //   role: "Advisory Board Member",
+  //   description:
+  //     "Nikhil Sanka is an Advisory Board Member at NirveonX, with 8+ years of experience in AI-driven solutions, business analytics, and technical leadership. He has led AI/ML, automation, and cloud computing initiatives, developing scalable AI solutions for Parsons Corporation and Index Web Marketing. With expertise in C#, .NET Core, React, AWS, and Power BI, he bridges technology and business strategy, driving AI innovations at NirveonX.",
+  //   avatar:
+  //     "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742210980/nikhil_phqtqs.png",
+  // },
   {
     id: "cto",
     name: "Shaik Ashraf",
@@ -35,7 +35,7 @@ export const pioneers: TeamMember[] = [
     description:
       "Kavali Deekshith is the Chairman & CEO of NirveonX, leading AI-driven healthcare innovation with strong leadership and strategic vision. A B.Tech AI & ML student at JNTUH, he is a visionary entrepreneur, AI innovator, and dynamic leader known for his decision-making, problem-solving, and team-building skills. A CBSE merit holder and national-level science project winner, he blends technical expertise, business acumen, and creativity to drive impactful change in healthcare and AI.",
     avatar:
-      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742245693/WhatsApp_Image_2025-03-18_at_01.49.48_mdd3mo.jpg",
+      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742980503/WhatsApp_Image_2025-03-18_at_01.49.48_mdd3mo_t1ddkq.jpg",
   },
   {
     id: "Co-founder",
