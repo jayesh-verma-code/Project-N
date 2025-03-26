@@ -44,11 +44,11 @@ export default function InvestorSection() {
               : investors.length <= 2
               ? "grid-cols-1 md:grid-cols-2"
               : investors.length <= 4
-              ? "grid-cols-2 md:grid-cols-4"
+              ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-4"
               : investors.length <= 6
-              ? "grid-cols-2 md:grid-cols-3 lg:grid-cols-6"
-              : "grid-cols-2 md:grid-cols-4 lg:grid-cols-6"
-          } gap-8 md:gap-12 mb-16`}
+              ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6"
+              : "grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6"
+          } gap-4 sm:gap-6 md:gap-8 lg:gap-12 mb-10 md:mb-16`}
         >
           {investors.map((investor) => (
             <div
@@ -60,7 +60,7 @@ export default function InvestorSection() {
                 alt={investor.name}
                 width={200}
                 height={200}
-                className="opacity-70 hover:opacity-100 transition-opacity duration-300 grayscale-100 hover:grayscale-0"
+                className="opacity-70 hover:opacity-100 transition-opacity duration-300 grayscale-100 hover:grayscale-0 active:grayscale-0"
               />
               <span className="mt-2 font-medium text-zinc-300">
                 {investor.name}
@@ -75,9 +75,11 @@ export default function InvestorSection() {
         </div>
 
         {/* CTA */}
-        <div className="flex flex-col items-center text-center space-y-4 bg-white text-black p-8 rounded-lg">
-          <h3 className="text-2xl font-bold">Open to Capital Ventures</h3>
-          <p className="max-w-[600px] text-zinc-700">
+        <div className="flex flex-col items-center text-center space-y-3 md:space-y-4 bg-white text-black p-4 sm:p-6 md:p-8 rounded-lg">
+          <h3 className="text-xl sm:text-2xl font-bold">
+            Open to Capital Ventures
+          </h3>
+          <p className="max-w-[600px] text-sm md:text-base text-zinc-700">
             We&apos;re always looking to connect with patrons who share our
             vision and can help us accelerate our growth.
           </p>
@@ -88,39 +90,39 @@ export default function InvestorSection() {
                   Contact Company Relations
                 </Button>
               </DialogTrigger>
-              <DialogContent className="sm:max-w-[425px] bg-white text-black">
+              <DialogContent className="sm:max-w-[425px] md:max-w-[500px] bg-white text-black max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                   <DialogTitle className="text-xl font-bold">
                     Investor Relations Team
                   </DialogTitle>
-                  <DialogDescription>
+                  <DialogDescription className="text-sm md:text-base">
                     Reach out to our investor relations team for more
                     information.
                   </DialogDescription>
                 </DialogHeader>
-                <div className="space-y-6 py-4">
+                <div className="space-y-4 py-3 md:py-4">
                   {/* Contact Cards */}
-                  <div className="space-y-4">
-                    <div className="p-4 border border-zinc-200 rounded-lg">
-                      <h4 className="font-semibold text-lg">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="p-3 md:p-4 border border-zinc-200 rounded-lg">
+                      <h4 className="font-semibold text-base md:text-lg">
                         Kavali Deekshith
                       </h4>
-                      <p className="text-sm text-zinc-500">CEO</p>
-                      <div className="mt-3 space-y-2">
+                      <p className="text-xs md:text-sm text-zinc-500">CEO</p>
+                      <div className="mt-2 md:mt-3 space-y-1 md:space-y-2">
                         <div className="flex items-center">
-                          <Mail className="h-4 w-4 mr-2 text-zinc-500" />
+                          <Mail className="h-3 w-3 md:h-4 md:w-4 mr-2 text-zinc-500 flex-shrink-0" />
                           <a
                             href="mailto:support@nirveonx.com"
-                            className="text-sm hover:underline"
+                            className="text-xs md:text-sm truncate hover:underline"
                           >
                             support@nirveonx.com
                           </a>
                         </div>
                         <div className="flex items-center">
-                          <Phone className="h-4 w-4 mr-2 text-zinc-500" />
+                          <Phone className="h-3 w-3 md:h-4 md:w-4 mr-2 text-zinc-500 flex-shrink-0" />
                           <a
                             href="tel:+91 9491689462"
-                            className="text-sm hover:underline"
+                            className="text-xs md:text-sm truncate hover:underline"
                           >
                             +91 94916 89462
                           </a>
