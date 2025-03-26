@@ -19,7 +19,7 @@ import VerticalMenuIndicator from "@/components/shared/vertical-menu-indicator";
 import { useScroll } from "framer-motion";
 import About from "@/components/About/About";
 import TeamMembersSection from "@/sections/Pioneer/pioneer";
-import InvestorSection from "@/components/Investors";
+import InvestorSection from "@/sections/Patron/Investors";
 
 export default function Home() {
   const [introComplete, setIntroComplete] = useState(false);
