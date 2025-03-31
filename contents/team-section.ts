@@ -140,6 +140,15 @@ export const teamMembers: TeamMember[] = [
       "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742067866/saumik_sdawre.png",
   },
   {
+    id: "deepti-nayak",
+    name: "Deepti Nayak",
+    role: "Founders Office and AIML Intern",
+    category: "intern",
+    education: "BTECH (Computer Science) ,NIST",
+    avatar:
+      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1743452757/WhatsApp_Image_2025-03-29_at_21.22.42_fbu83c.jpg",
+  },
+  {
     id: "bobbara-pardhasaradhi-naidu",
     name: "Bobbara Pardhasaradhi Naidu ",
     role: "Project Management Intern",
