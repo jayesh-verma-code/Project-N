@@ -5,7 +5,7 @@ export function SocialLinks() {
   const socialLinks = [
     { Icon: Facebook, link: "https://www.facebook.com/profile.php?id=61574417074384" },
     { Icon: Twitter, link: "https://x.com/NirveonX" },
-    { Icon: Instagram, link: "https://www.instagram.com/nirveonx/" },
+    { Icon: Instagram, link: "https://www.instagram.com/nirveon_x/" },
     { Icon: Linkedin, link: "https://www.linkedin.com/company/nirveonx/" },
     { Icon: Github, link: "https://github.com/NirveonX" },
     { Icon: MessageCircle, link: "https://whatsapp.com/channel/0029VbAEGA5GufImWHFCLa3L" }
