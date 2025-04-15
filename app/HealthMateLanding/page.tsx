@@ -1,10 +1,18 @@
+"use client";
 import Image from "next/image"
 import { ArrowLeft, Phone, Video } from "lucide-react"
 import Link from "next/link"
 import '@fontsource/roboto/700.css'; 
+import CustomCursor from "@/components/shared/custom-cursor";
+import {  useRef } from "react";
 
 export default function HealthMate() {
+  const containerRef = useRef<HTMLDivElement>(null);
   return (
+  <>
+    <CustomCursor
+          containerRef={containerRef as React.RefObject<HTMLDivElement>}
+        />
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
       {/* Background image with pills */}
       <div className="absolute right-0 top-0 h-full w-full z-0 opacity-80">
@@ -63,7 +71,9 @@ export default function HealthMate() {
         </div>
       </div>
     </div>
+    </>
   )
+  
 }
 
 function FeatureCard({ title, imagePath }: { title: string; imagePath: string }) {
@@ -83,5 +93,6 @@ function FeatureCard({ title, imagePath }: { title: string; imagePath: string })
         Get Started
       </Link>
     </div>
+   
   )
 }
