@@ -90,7 +90,7 @@ export default function FitarthPage() {
          <ParticlesBackground />
     <div className="min-h-screen bg-gradient-to-b from-black to-gray-900 dark:from-black dark:to-gray-900 text-white overflow-hidden">
       {/* Hero Section */}
-      <section className="relative py-20 md:py-10">
+      <section className="relative py-10">
         <div className="container mx-auto px-4 md:px-8">
 
           <div className="relative w-full h-[550px] sm:h-[450px]   rounded-xl overflow-hidden">
@@ -98,7 +98,7 @@ export default function FitarthPage() {
               src="/hero_image.jpg"
               alt="FitronX - Built for people. Backed by tech."
               fill
-              className="object-cover object-top"
+              className="sm:object-cover   sm:object-top  object-fit "
               priority
             />
           </div>
@@ -108,7 +108,7 @@ export default function FitarthPage() {
       </section>
 
       {/* About Section */}
-      <section className="py-16 md:py-0 px-4">
+      <section className="py-0 px-4">
         <div className="container mx-auto max-w-5xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
