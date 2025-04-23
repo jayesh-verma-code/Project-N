@@ -12,7 +12,7 @@ export default function Fitarth() {
 
           <div className="flex flex-col items-center text-center relative z-10">
             <h3 className="text-2xl font-bold mb-4">Fitronx</h3>
-            <p className="text-gray-300 mb-6">Empowering Communities to Move, Compete & Transform</p>
+            <p className="text-gray-300 mb-6">Built for people , Backed by tech.</p>
 
             <div className="flex items-center justify-center border border-white/20 rounded-full px-8 py-3 text-lg">
               <span>Explore Fitronx</span>
