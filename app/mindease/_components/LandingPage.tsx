@@ -76,8 +76,8 @@ function Card({
                 <Image
                     src={imagePath || "/placeholder.svg"}
                     alt={title}
-                    width={120}
-                    height={120}
+                    width={140}
+                    height={140}
                     className="realative object-center z-10 rounded-full"
                 />
             </div>
