@@ -47,7 +47,7 @@ export default function Home() {
           containerRef={containerRef as React.RefObject<HTMLDivElement>}
         />
         <ScrollProgress scrollYProgress={scrollYProgress} />
-        <NoiseTexture />
+        {/* <NoiseTexture /> */}
         <ParticlesBackground />
         <VerticalMenuIndicator />
 
