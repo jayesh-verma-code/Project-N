@@ -150,6 +150,7 @@ export function ServiceCard({
     setActive(null);
   };
 
+
   // Determine if card should show active state (either hover on desktop or tap on mobile)
   const shouldShowActive = isActive || isTapped;
 
@@ -265,11 +266,12 @@ export function ServiceCard({
             </CardDescription>
           </CardContent>
           <CardFooter className="relative z-10">
-            <motion.button className="w-full">
+            <motion.button className="w-full" >
               <Button
                 className={`w-full bg-gradient-to-r ${service.color || buttonColor} hover:opacity-90 hover:text-black text-white border border-white/20 group overflow-hidden`}
+                
               > 
-                <Link  href ={service.href as Route}>
+                <Link  href ={service.href as Route} className="w-full">
                 <span className="relative z-10 hover:text-black text-white">Get Started</span>
                 </Link>
                 <motion.span
