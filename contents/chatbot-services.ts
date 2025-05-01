@@ -13,7 +13,7 @@ export const SERVICES = [
       "An intelligent mental wellness and lifestyle coach, designed to help you manage stress, enhance focus, and cultivate inner peace through mindfulness and hobby-based therapy.",
     icon: "Brain", // Store icon name as a string
     color: "from-white/10 to-white/5",
-    href: "/"
+    href: "/mindease"
   },
   {
     title: "GoldenCare",
@@ -21,7 +21,7 @@ export const SERVICES = [
       "A specialized AI assistant dedicated to elder care, offering support for seniors and caregivers with health monitoring, medication reminders, and companionship features.",
     icon: "Users", // Store icon name as a string
     color: "from-white/10 to-white/5",
-    href: "/"
+    href: "/goldencare"
   },
   {
     title: "PetAI",
@@ -29,7 +29,7 @@ export const SERVICES = [
       "A smart virtual veterinary assistant, delivering expert guidance on pet health, nutrition, and overall well-being—ensuring your furry companions receive the best possible care.",
     icon: "Paw", // Store icon name as a string
     color: "from-white/10 to-white/5",
-    href: "/"
+    href: "/pet-ai"
   },
 ];
 

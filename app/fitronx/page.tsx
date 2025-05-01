@@ -282,9 +282,9 @@ export default function FitarthPage() {
               </div>
               <div className="md:w-2/3 text-center md:text-left">
                 <h3 className="text-2xl font-bold text-white mb-1">Vishal Kavali</h3>
-                <p className="text-white-400 hover:text-blue-400 transition-all duration-300 font-medium mb-4">Head of Product & Community Innovation, NirvionX</p>
+                <p className="text-white-400 hover:text-blue-400 transition-all duration-300 font-medium mb-4">Head of Product & Community Innovation, NirveonX</p>
                 <p className="text-gray-300 mb-6">
-                  Vishal Kavali leads the design and execution of NirvionX's AI-powered community wellness programs. He
+                  Vishal Kavali leads the design and execution of NirveonX's AI-powered community wellness programs. He
                   specializes in building scalable health-tech products that fuse computer vision, automation, and
                   real-world engagement — making fitness accessible for both corporate and middle-class communities.
                   With a keen eye for strategy and strong on-ground insight, Vishal bridges the gap between innovation
@@ -300,7 +300,7 @@ export default function FitarthPage() {
       {/* Footer */}
       <footer className="bg-black text-white py-8">
         <div className="container mx-auto px-4 text-center">
-          <p>© {new Date().getFullYear()} FitronX by NirvionX. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} FitronX by NirveonX. All rights reserved.</p>
         </div>
       </footer>
     </div>

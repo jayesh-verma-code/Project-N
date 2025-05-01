@@ -46,8 +46,13 @@ export default function Home() {
         <CustomCursor
           containerRef={containerRef as React.RefObject<HTMLDivElement>}
         />
+<<<<<<< HEAD
         {/* <ScrollProgress scrollYProgress={scrollYProgress} />
         <NoiseTexture />
+=======
+        <ScrollProgress scrollYProgress={scrollYProgress} />
+        {/* <NoiseTexture /> */}
+>>>>>>> 9d209ec1b48ae8effb081e90b4297e08c6986769
         <ParticlesBackground />
         <VerticalMenuIndicator /> */}
 
