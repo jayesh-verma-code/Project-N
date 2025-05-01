@@ -21,7 +21,7 @@ import About from "@/components/About/About";
 import TeamMembersSection from "@/sections/Pioneer/pioneer";
 import InvestorSection from "@/sections/Patron/Investors";
 import Fitarth from "@/components/fitronx-Card";
-import HealthMate from "./HealthMateLanding/page";
+
 export default function Home() {
   const [introComplete, setIntroComplete] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -46,21 +46,16 @@ export default function Home() {
         <CustomCursor
           containerRef={containerRef as React.RefObject<HTMLDivElement>}
         />
-<<<<<<< HEAD
-        {/* <ScrollProgress scrollYProgress={scrollYProgress} />
-        <NoiseTexture />
-=======
         <ScrollProgress scrollYProgress={scrollYProgress} />
         {/* <NoiseTexture /> */}
->>>>>>> 9d209ec1b48ae8effb081e90b4297e08c6986769
         <ParticlesBackground />
-        <VerticalMenuIndicator /> */}
+        <VerticalMenuIndicator />
 
         {!introComplete ? (
           <IntroAnimation onComplete={() => setIntroComplete(true)} />
         ) : (
           <>
-            {/* <Navbar scrolled={scrolled} />
+            <Navbar scrolled={scrolled} />
             <HeroSection />
             <About />
             <Fitarth/>
@@ -71,8 +66,7 @@ export default function Home() {
             <TeamMembersSection />
             <FaqSection />
             <Footer />
-            <FloatingChatbot />   */}
-            <HealthMate/>
+            <FloatingChatbot />  
           </>
         )}
       </main>

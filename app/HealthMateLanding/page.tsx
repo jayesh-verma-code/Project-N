@@ -13,15 +13,12 @@ export default function HealthMate() {
     <>
       <CustomCursor containerRef={containerRef as React.RefObject<HTMLDivElement>} />
       <div ref={containerRef} className="min-h-screen bg-black text-white relative overflow-hidden">
-        {/* Background image */}
         <div className="absolute inset-0 z-0 opacity-80">
           <Image src="/image 52.png" alt="Pills background" fill className="object-cover" />
         </div>
 
         <div className="relative z-10 container mx-auto px-4 py-8">
-          {/* Header - Responsive */}
           <div className="flex flex-col lg:block relative mb-8">
-            {/* Back button - small screens absolute, large screens static */}
             <div className="absolute top-4 left-4 lg:absolute lg:top-[25px] lg:left-[57px] mb-6 lg:mb-0">
               <Link
                 href="/"
@@ -31,9 +28,7 @@ export default function HealthMate() {
               </Link>
             </div>
 
-            {/* Call buttons - small screens absolute, large screens right-aligned */}
             <div>
-              {/* Small screen buttons */}
               <div className="absolute top-4 right-4 flex gap-3 lg:hidden">
                 <button className="bg-[#16a34a] rounded-full p-2 flex items-center justify-center">
                   <Phone className="h-5 w-5 text-white" />
@@ -43,7 +38,6 @@ export default function HealthMate() {
                 </button>
               </div>
 
-              {/* Large screen buttons */}
               <div className="hidden lg:flex justify-end gap-3 lg:absolute lg:right-[143px] lg:top-[85px]">
                 <button className="bg-[#16a34a] rounded-full p-3 flex items-center justify-center">
                   <Phone className="h-6 w-6 text-white" />
@@ -54,7 +48,6 @@ export default function HealthMate() {
               </div>
             </div>
 
-            {/* Title and subtitle */}
             <div className="text-center mt-20 lg:mt-0 lg:absolute lg:top-[17px] lg:left-[160px] lg:right-[160px] mb-6 lg:mb-0">
               <h1 className="text-[#2563eb] text-4xl lg:text-5xl font-bold mb-2">HealthMate</h1>
               <p className="font-roboto font-bold text-lg lg:text-2xl leading-none tracking-normal">
@@ -63,7 +56,6 @@ export default function HealthMate() {
             </div>
           </div>
 
-          {/* Feature cards grid - responsive */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mt-20 lg:mt-[200px] lg:w-[1072px] lg:mx-auto">
             {["Check Vital Signs", "Monitor Health Trends", "Receive Health Alerts", "Upload Health Reports"].map(
               (title, i) => (
