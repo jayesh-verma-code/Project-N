@@ -21,6 +21,20 @@ const ICONS: IconType = {
   Users: <Users className="h-12 w-12 text-white" />,
   Paw: <Paw className="h-12 w-12 text-white" />,
 };
+type ServiceCardProps = {
+  service: {
+    title: string;
+    description: string;
+    icon: JSX.Element;
+    color: string;
+    href: string;
+  };
+  index: number;
+  isActive: boolean;
+  setActive: (index: number | null) => void;
+  variants: any; // Adjust the type as needed
+};
+
 
 
 export const CONTAINER_VARIANTS = {
