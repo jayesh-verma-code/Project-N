@@ -1,11 +1,11 @@
 'use client';
 import { useRef } from "react";
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 import { ThemeProvider } from "next-themes";
 import ParticlesBackground from "@/components/shared/particle-background";
 import NoiseTexture from "@/components/shared/noise-texture";
+import CustomCursor from "@/components/shared/custom-cursor";
+import Link from "next/link";
 
 // Types
 interface MedicalCategory {
@@ -19,9 +19,9 @@ export default function HealthMatePage() {
   const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
   
-  // Mock data - in a real app, this might come from an API
+  // Categories data matching the screenshot
   const categories: MedicalCategory[] = [
-    { id: 'kidney-ct', title: 'Kidney - CT', image: '/image kidney.png' },
+    { id: 'kidney-ct', title: 'Kidney - CT', image: '/imagekidney.png' },
     { id: 'chest-xray', title: 'Chest - Xray', image: '/image chest xray.png' },
     { id: 'mri', title: 'MRI', image: '/image mri.png' },
     { id: 'xray', title: 'Xray', image: '/image xray.png' },
@@ -37,107 +37,77 @@ export default function HealthMatePage() {
     // Example navigation: router.push(`/category/${category.id}`);
   };
 
-  const handleBack = () => {
-    // In a real app, this would navigate back
-    alert('Going back to previous screen');
-    // Example: router.back();
-  };
-
   return (
-     <ThemeProvider attribute="class" defaultTheme="dark">
-           <main
-             ref={containerRef}
-             className="relative min-h-screen bg-gradient-to-b from-black to-gray-900 dark:from-black dark:to-gray-900 text-white overflow-hidden"
-           >
-             
-             <NoiseTexture />
-             <ParticlesBackground />
-               <>
-               <div className="container mx-auto px-4 py-6 relative z-10">
-        {/* Header */}
-        <header className="flex flex-col md:flex-row justify-between items-center mb-12 py-4">
-          <button 
-            onClick={handleBack}
-            className="w-10 h-10 bg-opacity-10 bg-white rounded-full flex items-center justify-center hover:bg-opacity-20 transition-colors self-start md:self-auto"
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M15 18L9 12L15 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </button>
-          <h1 className="text-4xl md:text-5xl font-bold text-blue-500 text-center flex-grow my-4 md:my-0">HealthMate</h1>
-          <div className="inline-flex items-center bg-black bg-opacity-50 rounded-full px-5 py-2 border border-gray-700 self-center md:self-auto">
-            <div className="w-2.5 h-2.5 bg-green-500 rounded-full mr-2"></div>
-            <span>Online</span>
-          </div>
-        </header>
+    <ThemeProvider attribute="class" defaultTheme="dark">
+      <main
+        ref={containerRef}
+        className="relative min-h-screen bg-gradient-to-b from-black to-gray-900 text-white overflow-hidden"
+      >
+        <NoiseTexture />
+        <ParticlesBackground />
+        <CustomCursor
+          containerRef={containerRef as React.RefObject<HTMLDivElement>}
+        />
+
+        {/* Background image */}
         
-        {/* Medical Categories Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-          {categories.map(category => (
-            <div 
-              key={category.id}
-              className="bg-gray-800 rounded-xl p-6 flex flex-col items-center text-center transform transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg"
-            >
-              <div className="w-32 h-32 rounded-full overflow-hidden mb-4 bg-white flex items-center justify-center relative">
-                {/* Using a placeholder if real image is not available */}
-                <div className="w-full h-full relative">
-                  <Image 
-                    src={category.image}
-                    alt={`${category.title} illustration`}
-                    fill
-                    className="object-cover"
-                    onError={(e) => {
-                      // Fallback to placeholder if image fails to load
-                      const target = e.target as HTMLImageElement;
-                      target.src = '/placeholder.jpg';
-                    }}
-                  />
-                </div>
-              </div>
-              <h3 className="text-lg font-medium mb-4">{category.title}</h3>
-              <button 
-                onClick={() => handleGetStarted(category)}
-                className="bg-white text-gray-800 font-semibold py-2 px-6 rounded-full hover:bg-gray-100 transition-colors"
-              >
-                Get Started
-              </button>
+        
+        {/* Back button */}
+        <div className="absolute top-4 left-4 sm:top-6 sm:left-6 z-20">
+          <button className="w-10 h-10 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center shadow-md border border-black">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-full flex items-center justify-center">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-black">
+                <path d="M20 12H4M4 12L10 6M4 12L10 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
             </div>
-          ))}
+          </button>
         </div>
-      </div>
-
-               </>
-           </main>
-         </ThemeProvider>  
+        {/* Decorative particle cluster */}
+        <div className="absolute top-0 right-0 z-10 opacity-40">
+          <div className="w-64 h-64 rounded-full"></div>
+        </div>
+        
+        <div className="container mx-auto px-4 py-6 relative z-10">
+          {/* Header - Centered */}
+          <header className="flex flex-col items-center mb-16 mt-8">
+            <h1 className="text-4xl font-bold text-blue-500 mb-2">HealthMate</h1>
+            <div className="inline-flex border border-green-500 items-center bg-opacity-50 rounded-full px-4 py-1">
+              <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+              <span className="text-sm">Online</span>
+            </div>
+          </header>
           
-
-  );
-}
-
-// Additional Components (included in the same file for simplicity)
-interface NetworkBackgroundProps {
-  position: 'top-left' | 'bottom-right';
-}
-
-function NetworkBackground({ position }: NetworkBackgroundProps) {
-  const positionClasses = {
-    'top-left': '-top-12 -left-12',
-    'bottom-right': '-bottom-12 -right-12'
-  };
-
-  return (
-    <svg 
-      className={`fixed w-64 h-64 opacity-20 z-0 ${positionClasses[position]}`} 
-      viewBox="0 0 200 200"
-    >
-      <g fill="none" stroke="white" strokeWidth="1">
-        <circle cx="100" cy="100" r="80" />
-        <circle cx="100" cy="100" r="60" />
-        <line x1="30" y1="100" x2="170" y2="100" />
-        <line x1="100" y1="30" x2="100" y2="170" />
-        <line x1="50" y1="50" x2="150" y2="150" />
-        <line x1="50" y1="150" x2="150" y2="50" />
-      </g>
-    </svg>
+          {/* Medical Categories Grid - Matches screenshot */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl  mx-auto">
+            {categories.map(category => (
+              <div 
+                key={category.id}
+                className="flex flex-col items-center bg-gray-800 bg-opacity-50 rounded-lg p-4"
+              >
+                {/* Circular image */}
+                <div className="md:w-32 md:h-32 w-24 h-24 rounded-full overflow-hidden mb-4  flex items-center justify-center">
+                  {/* Placeholder for actual images */}
+                  <div className={`w-full h-full rounded-full`}>
+                  <img src={category.image} alt={category.title}  className="object-cover w-[100%] h-[100%] " /> 
+                  </div>
+                  
+                </div>
+                
+                <span className="text-sm mt-3 mb-3">{category.title}</span>
+                
+               <Link href="/Healthmate" className="bg-white text-black text-xs font-medium py-1 px-4 rounded-full hover:bg-gray-200 transition-colors">
+               Get Started
+               </Link>
+              </div>
+            ))}
+          </div>
+          
+          {/* Bottom particle cluster */}
+          <div className="absolute bottom-0 left-0 z-10 opacity-40">
+            <div className="w-64 h-64 rounded-full"></div>
+          </div>
+        </div>
+      </main>
+    </ThemeProvider>
   );
 }

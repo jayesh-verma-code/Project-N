@@ -84,7 +84,7 @@ function FeatureCard({ title, imagePath }: { title: string; imagePath: string })
       </div>
       <h3 className="text-white text-sm lg:text-lg font-medium mb-3 lg:mb-4 text-center">{title}</h3>
       <Link
-        href="#"
+        href="/HealthMatesecondLanding"
         className="bg-white text-black rounded-full px-4 lg:px-6 py-1.5 lg:py-2 text-xs lg:text-sm font-medium hover:bg-opacity-90 transition-colors"
       >
         Get Started

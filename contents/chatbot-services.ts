@@ -1,4 +1,12 @@
-export const SERVICES = [
+type Service = {
+  title: string;
+  description: string;
+  icon: string; // Use React.ReactElement for the icon type
+  color: string;
+  href: string;
+};
+
+export const SERVICES: Service[] = [
   {
     title: "HealthMate",
     description:
