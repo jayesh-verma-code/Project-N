@@ -82,7 +82,7 @@ export default function HealthMatePage() {
             {categories.map(category => (
               <div 
                 key={category.id}
-                className="flex flex-col items-center bg-gray-800 bg-opacity-50 rounded-lg p-4"
+                className="flex flex-col items-center bg-gray-800 bg-opacity-50 rounded-lg p-4 relative z-30"
               >
                 {/* Circular image */}
                 <div className="md:w-32 md:h-32 w-24 h-24 rounded-full overflow-hidden mb-4  flex items-center justify-center">
@@ -95,9 +95,13 @@ export default function HealthMatePage() {
                 
                 <span className="text-sm mt-3 mb-3">{category.title}</span>
                 
-               <Link href="/Healthmate" className="bg-white text-black text-xs font-medium py-1 px-4 rounded-full hover:bg-gray-200 transition-colors">
-               Get Started
-               </Link>
+                <Link 
+  href="/Healthmate" 
+  className="bg-white text-black text-xs font-medium py-1 px-4 rounded-full hover:bg-gray-200 transition-colors"
+  style={{ pointerEvents: 'auto' }}
+>
+  Get Started
+</Link>
               </div>
             ))}
           </div>
