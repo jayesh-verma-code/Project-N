@@ -27,14 +27,14 @@ export default function GoldencareLandingPage() {
 
 
                     {/* Title and subtitle */}
-                    <div className="absolute left-1/2 transform -translate-x-1/2  top-20  md:top-4">
-                        <h1 className="text-[#6C6D74] text-3xl md:text-4xl lg:text-4xl font-bold mb-2 text-center">
-                            Goldencare
-                        </h1>
-                        <p className="text-[#DBEAFE] text-center font-bold text-balance md:text-xl leading-none tracking-normal ">
-                            Elder Care System
-                        </p>
-                    </div>
+                    <div className="absolute left-1/2 transform -translate-x-1/2 top-20 md:top-4 text-center">
+  <h1 className="text-3xl md:text-4xl lg:text-4xl font-bold mb-2 bg-gradient-to-r from-[#FFD700] to-[#B8860B] bg-clip-text text-transparent">
+    Goldencare
+  </h1>
+  <p className="font-bold md:text-xl leading-none tracking-normal bg-gradient-to-r from-[#FFD700] to-[#DAA520] bg-clip-text text-transparent">
+    Elder Care System
+  </p>
+</div>
 
 
 
