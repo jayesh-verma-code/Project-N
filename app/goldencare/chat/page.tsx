@@ -293,31 +293,33 @@ export default function GoldencareLandingPage() {
           </div>
         </section>
 
-        {/* Input area fixed at the bottom */}
-        <div className={`flex items-center justify-center px-4 py-2 bg-black shadow-md fixed bottom-0 left-0 w-full lg:px-8 gap-2 z-10 ${sidebarOpen ? 'lg:pl-64' : ''} ${sidebarDrawerOpen ? 'blur-xs' : ''}`}>
-          <textarea
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="Send a message..."
-            className="h-14 p-3 text-yellow-400 bg-slate-950 text-sm rounded-md shadow-sm resize-none overflow-y-auto w-[80%] outline-none border"
-          />
-          <div className="flex items-center right-[8.5%] gap-2">
-            <Button size="icon" variant="ghost" className="text-white">
-              <Smile className="size-5" />
-            </Button>
-            <Button size="icon" variant="ghost" className="text-white">
-              <Link2 className="size-5" />
-            </Button>
-            <Button size="icon" variant="ghost" className="text-white">
-              <Mic className="size-5" />
-            </Button>
-            <Button size="icon" variant="ghost" className="text-white">
-              <CircleFadingArrowUp className='size-5' />
-            </Button>
-            <Button onClick={handleSend} size="icon" variant="ghost" className="text-black bg-white rounded-full cursor-pointer">
-              <Send className="size-5" />
-            </Button>
+        {/* Input area fixed at the bottom - IMPROVED FOR MOBILE */}
+        <div className={`flex items-center justify-between px-2 py-2 bg-black shadow-md fixed bottom-0 left-0 right-0 w-full z-10 ${sidebarOpen ? 'lg:pl-52' : ''} ${sidebarDrawerOpen ? 'blur-xs' : ''}`}>
+          <div className="flex items-center justify-between w-full gap-2 max-w-6xl mx-auto">
+            <textarea
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="Send a message..."
+              className="h-12 md:h-14 p-2 md:p-3 text-yellow-400 bg-slate-950 text-sm rounded-md shadow-sm resize-none overflow-y-auto flex-grow outline-none border"
+            />
+            <div className="flex items-center gap-1 md:gap-2">
+              <Button size="icon" variant="ghost" className="text-white hidden sm:flex">
+                <Smile className="size-5" />
+              </Button>
+              <Button size="icon" variant="ghost" className="text-white hidden sm:flex">
+                <Link2 className="size-5" />
+              </Button>
+              <Button size="icon" variant="ghost" className="text-white hidden md:flex">
+                <Mic className="size-5" />
+              </Button>
+              <Button size="icon" variant="ghost" className="text-white hidden md:flex">
+                <CircleFadingArrowUp className='size-5' />
+              </Button>
+              <Button onClick={handleSend} size="icon" variant="ghost" className="text-black bg-white rounded-full cursor-pointer p-1 md:p-2">
+                <Send className="size-4 md:size-5" />
+              </Button>
+            </div>
           </div>
         </div>
       </div>
@@ -327,8 +329,8 @@ export default function GoldencareLandingPage() {
 
 function UserBubble({ children }: { children: React.ReactNode }) {
   return (
-    <div className="ml-auto flex max-w-[75%] items-end gap-2">
-      <div className="rounded-2xl rounded-br-sm bg-[#BB891B] px-4 py-2 text-sm text-amber-100 shadow">
+    <div className="ml-auto flex max-w-[75%] md:max-w-[70%] items-end gap-2">
+      <div className="rounded-2xl rounded-br-sm bg-[#BB891B] px-3 py-2 text-sm text-amber-100 shadow">
         {children}
       </div>
     </div>
@@ -337,8 +339,8 @@ function UserBubble({ children }: { children: React.ReactNode }) {
 
 function BotBubble({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mr-auto flex max-w-[75%] items-end gap-2">
-      <div className="rounded-2xl rounded-bl-sm bg-[#FEDAAD] text-black px-4 py-2 text-sm shadow">
+    <div className="mr-auto flex max-w-[75%] md:max-w-[70%] items-end gap-2">
+      <div className="rounded-2xl rounded-bl-sm bg-[#FEDAAD] text-black px-3 py-2 text-sm shadow">
         {children}
       </div>
     </div>
@@ -347,7 +349,7 @@ function BotBubble({ children }: { children: React.ReactNode }) {
 
 function LoadingBubble() {
   return (
-    <div className="mr-auto flex max-w-[75%] items-end gap-2">
+    <div className="mr-auto flex max-w-[75%] md:max-w-[70%] items-end gap-2">
       <div className="rounded-2xl rounded-bl-sm bg-[#FEDAAD] text-black px-4 py-2 text-sm shadow flex items-center gap-1">
         <div className="w-1 h-2 rounded-full bg-black animate-bounce [animation-delay:0s]" />
         <div className="w-1 h-2 rounded-full bg-black animate-bounce [animation-delay:0.2s]" />
