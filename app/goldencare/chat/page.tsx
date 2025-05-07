@@ -4,61 +4,151 @@ import { Button } from "@/components/ui/button";
 import { CircleArrowLeft, CircleFadingArrowUp, Link2, LogOut, MenuIcon, Mic, Send, Settings, Smile, XIcon } from "lucide-react";
 import Link from 'next/link';
 
-// Define message type
 type Msg = { id: number; text: string };
-
-// Predefined chat responses
-const predefinedChat: Msg[] = [
-    
-    { id: 2, text: "How can I stay active and healthy?" },
-    { id: 2, text: "It's important to stay active. You can start by taking daily walks, doing stretches, or joining a fitness class!" },
-    { id: 2, text: "What are some tips for a balanced diet?" },
-    { id: 2, text: "Eat a variety of whole foods, including vegetables, fruits, lean proteins, and whole grains. Drink plenty of water and avoid processed foods." },
-    { id: 2, text: "How do I manage stress?" },
-    { id: 2, text: "Try meditation, deep breathing exercises, or yoga. Regular physical activity can also help reduce stress." },
-    { id: 2, text: "What should I do to get better sleep?" },
-    { id: 2, text: "Create a relaxing bedtime routine, avoid caffeine in the evening, and make sure your bedroom is quiet and dark." },
-    { id: 2, text: "Can you recommend ways to improve mental health?" },
-    { id: 2, text: "Consider practicing mindfulness, seeking social support, and talking to a mental health professional if needed." },
-    { id: 2, text: "How much water should I drink daily?" },
-    { id: 2, text: "The general recommendation is 8 cups (64 ounces) a day, but it depends on your body, activity level, and climate." },
-    { id: 2, text: "What are some good habits for staying healthy long-term?" },
-    { id: 2, text: "Get regular exercise, eat nutritious foods, stay hydrated, sleep well, manage stress, and avoid harmful habits like smoking or excessive drinking." },
-    { id: 2, text: "Thanks for the tips! 👏" },
-    { id: 2, text: "You're welcome! Stay healthy and feel free to ask if you need more advice!" }
-];
-
+type ChatSession = {
+  id: string;
+  title: string;
+  date: string;
+  messages: Msg[];
+};
 
 export default function GoldencareLandingPage() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [sidebarDrawerOpen, setSidebarDrawerOpen] = useState(false);
   const [input, setInput] = useState('');
-  const [messages, setMessages] = useState<Msg[]>([]);
+  const [currentChat, setCurrentChat] = useState<ChatSession | null>(null);
+  const [chatSessions, setChatSessions] = useState<ChatSession[]>([]);
   const [loading, setLoading] = useState(false);
-  const [responseIndex, setResponseIndex] = useState(0);
 
+  // Load chat sessions from localStorage on initial render
   useEffect(() => {
-    setLoading(true)
-    setTimeout(() => {
-        setMessages([{ id: 2, text: "How can I help you today?" }]);  // First bot message
-        setLoading(false); // remove typing indicator
-    }, 1000);
-    
-}, []);
-  const handleSend = () => {
-    if (!input.trim()) return;
+    const savedSessions = localStorage.getItem('goldencare-chat-sessions');
+    if (savedSessions) {
+      const sessions = JSON.parse(savedSessions);
+      setChatSessions(sessions);
+      if (sessions.length > 0) {
+        setCurrentChat(sessions[sessions.length - 1]);
+      } else {
+        createNewChat();
+      }
+    } else {
+      createNewChat();
+    }
+  }, []);
 
-    const newMsg: Msg = { id: 1, text: input };
-    setMessages(prev => [...prev, newMsg]);
+  const createNewChat = () => {
+    const newChat: ChatSession = {
+      id: Date.now().toString(),
+      title: "New Chat",
+      date: new Date().toLocaleDateString(),
+      messages: [
+        { id: 2, text: "Hello! 😊 It's great to connect with you! I'm GoldenCare, your friendly health assistant. How can I help you today?" }
+      ]
+    };
+    setCurrentChat(newChat);
+    setChatSessions(prev => [...prev, newChat]);
+    localStorage.setItem('goldencare-chat-sessions', JSON.stringify([...chatSessions, newChat]));
+  };
+
+  const switchChat = (chatId: string) => {
+    const chat = chatSessions.find(c => c.id === chatId);
+    if (chat) {
+      setCurrentChat(chat);
+    }
+  };
+
+  const clearCurrentChat = () => {
+    createNewChat();
+  };
+
+  const handleSend = async () => {
+    if (!input.trim() || !currentChat) return;
+
+    // Update chat title if it's the first user message
+    const isFirstUserMessage = currentChat.messages.filter(m => m.id === 1).length === 0;
+    const newUserMsg: Msg = { id: 1, text: input };
+    
+    const updatedMessages = [...currentChat.messages, newUserMsg];
+    const updatedChat = {
+      ...currentChat,
+      messages: updatedMessages,
+      title: isFirstUserMessage ? input.slice(0, 30) + (input.length > 30 ? "..." : "") : currentChat.title
+    };
+
+    setCurrentChat(updatedChat);
     setInput('');
     setLoading(true);
 
-    setTimeout(() => {
+    try {
+      const response = await fetch('https://goldencare-api.onrender.com/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: input
+        })
+      });
+
+      if (!response.ok) throw new Error('Network response was not ok');
+
+      const data = await response.json();
+      
+      // Add temporary typing message
+      const typingMessages = [...updatedMessages, { id: 2, text: '' }];
+      setCurrentChat({
+        ...updatedChat,
+        messages: typingMessages
+      });
+
+      // Simulate typing effect
+      let i = 0;
+      const typingInterval = setInterval(() => {
+        if (i < data.response.length) {
+          const newTypingMessages = [...updatedMessages, { 
+            id: 2, 
+            text: data.response.substring(0, i + 1) 
+          }];
+          setCurrentChat({
+            ...updatedChat,
+            messages: newTypingMessages
+          });
+          i++;
+        } else {
+          clearInterval(typingInterval);
+          setLoading(false);
+          // Update chat sessions after completion
+          const updatedSessions = chatSessions.map(c => 
+            c.id === updatedChat.id ? {
+              ...updatedChat,
+              messages: [...updatedMessages, { id: 2, text: data.response }]
+            } : c
+          );
+          setChatSessions(updatedSessions);
+          localStorage.setItem('goldencare-chat-sessions', JSON.stringify(updatedSessions));
+        }
+      }, 10);
+
+    } catch (error) {
+      console.error('Error fetching response:', error);
+      const errorMessages = [...updatedMessages, { 
+        id: 2, 
+        text: "Sorry, I'm having trouble connecting to the server. Please try again later." 
+      }];
+      setCurrentChat({
+        ...updatedChat,
+        messages: errorMessages
+      });
+      const updatedSessions = chatSessions.map(c => 
+        c.id === updatedChat.id ? {
+          ...updatedChat,
+          messages: errorMessages
+        } : c
+      );
+      setChatSessions(updatedSessions);
+      localStorage.setItem('goldencare-chat-sessions', JSON.stringify(updatedSessions));
       setLoading(false);
-      const nextResponse = predefinedChat[responseIndex % predefinedChat.length];
-      setMessages(prev => [...prev, nextResponse]);
-      setResponseIndex(prev => prev + 1);
-    }, 2000);
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -75,17 +165,36 @@ export default function GoldencareLandingPage() {
         {sidebarOpen && (
           <div className="flex flex-col h-full">
             <div className="flex justify-between items-center p-4">
-              <Link href="#" className="text-xl font-bold">
-                <CircleArrowLeft className='size-6 text-white' />
-              </Link>
+              <Button 
+                onClick={createNewChat}
+                className="text-sm bg-blue-600 hover:bg-blue-700"
+              >
+                New Chat
+              </Button>
               <Button onClick={() => setSidebarOpen(false)} className='bg-transparent cursor-pointer hover:bg-slate-800'>
                 <XIcon className="size-6 text-white" />
               </Button>
             </div>
-            <div>
-              <h1 className='text-center text-lg mt-3'>Start a new chat</h1>
+            
+            <div className="flex-1 overflow-y-auto">
+              {chatSessions.map((chat) => (
+                <div 
+                  key={chat.id}
+                  onClick={() => switchChat(chat.id)}
+                  className={`p-3 cursor-pointer hover:bg-gray-700 ${currentChat?.id === chat.id ? 'bg-gray-700' : ''}`}
+                >
+                  <div className="font-medium truncate">{chat.title}</div>
+                  <div className="text-xs text-gray-400">{chat.date}</div>
+                  {chat.messages.find(m => m.id === 1) && (
+                    <div className="text-xs text-gray-300 truncate mt-1">
+                      {chat.messages.find(m => m.id === 1)?.text}
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
-            <ul className="flex flex-col h-full justify-end overflow-y-auto space-y-2 px-1 pb-8">
+
+            <ul className="space-y-2 px-1 pb-4">
               <li className='flex gap-3 w-full p-4 cursor-pointer hover:bg-gray-700 rounded-md items-start text-base'>
                 <Settings className='size-5 text-white' /> Settings
               </li>
@@ -102,17 +211,36 @@ export default function GoldencareLandingPage() {
         {sidebarDrawerOpen && (
           <div className="flex flex-col h-full">
             <div className="flex justify-between items-center p-1">
-              <Link href="#" className="text-xl font-bold">
-                <CircleArrowLeft className='size-6 text-white' />
-              </Link>
+              <Button 
+                onClick={createNewChat}
+                className="text-sm bg-blue-600 hover:bg-blue-700"
+              >
+                New Chat
+              </Button>
               <Button onClick={() => setSidebarDrawerOpen(false)} className='bg-transparent hover:bg-slate-800 cursor-pointer'>
                 <XIcon className="size-6 text-white" />
               </Button>
             </div>
-            <div>
-              <h1 className='text-center text-lg mt-3'>Start a new chat</h1>
+            
+            <div className="flex-1 overflow-y-auto">
+              {chatSessions.map((chat) => (
+                <div 
+                  key={chat.id}
+                  onClick={() => switchChat(chat.id)}
+                  className={`p-3 cursor-pointer hover:bg-gray-700 ${currentChat?.id === chat.id ? 'bg-gray-700' : ''}`}
+                >
+                  <div className="font-medium truncate">{chat.title}</div>
+                  <div className="text-xs text-gray-400">{chat.date}</div>
+                  {chat.messages.find(m => m.id === 1) && (
+                    <div className="text-xs text-gray-300 truncate mt-1">
+                      {chat.messages.find(m => m.id === 1)?.text}
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
-            <ul className="flex flex-col h-full justify-end overflow-y-auto space-y-2 px-1 pb-8">
+
+            <ul className="space-y-2 px-1 pb-4">
               <li className='flex gap-3 w-full p-4 cursor-pointer hover:bg-gray-700 rounded-md items-start text-base'>
                 <Settings className='size-5' /> Settings
               </li>
@@ -154,14 +282,14 @@ export default function GoldencareLandingPage() {
         {/* Chat messages */}
         <section className={`flex-1 min-h-screen overflow-y-auto py-28 px-2 w-full lg:px-24 scroll-smooth ${sidebarDrawerOpen ? 'blur-xs' : ''} bg-black`}>
           <div className="flex flex-col gap-3">
-            {messages.map((m, idx) =>
+            {currentChat?.messages.map((m, idx) =>
               m.id === 1 ? (
                 <UserBubble key={idx}>{m.text}</UserBubble>
               ) : (
                 <BotBubble key={idx}>{m.text}</BotBubble>
               )
             )}
-            {loading && <LoadingBubble />}
+            {loading && currentChat?.messages[currentChat.messages.length - 1]?.id !== 2 && <LoadingBubble />}
           </div>
         </section>
 
