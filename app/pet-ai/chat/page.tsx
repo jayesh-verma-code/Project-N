@@ -2,8 +2,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import {
-  CircleArrowLeft,
-  CircleFadingArrowUp,
   Link2,
   LogOut,
   MenuIcon,
@@ -15,8 +13,6 @@ import {
   Trash2,
   XIcon,
 } from "lucide-react";
-import Link from "next/link";
-import NoiseTexture from "@/components/shared/noise-texture";
 import ParticlesBackground from "@/components/shared/particle-background";
 
 type Message = {
