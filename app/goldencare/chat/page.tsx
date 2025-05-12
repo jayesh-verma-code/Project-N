@@ -44,7 +44,7 @@ export default function GoldencarePage() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // API URL
-  const API_URL = 'https://goldencare-api.onrender.com/chat';
+  const API_URL = 'https://goldencarechat-api-latest.onrender.com';
 
   // Get current chat
   const currentChat = chatSessions.find((chat) => chat.id === currentChatId) || null;
