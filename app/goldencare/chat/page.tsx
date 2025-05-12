@@ -213,7 +213,7 @@ export default function GoldencarePage() {
           setChatSessions(finalSessions);
           saveSessions(finalSessions);
         }
-      }, 20);
+      }, 10);
     } catch (error) {
       console.error("Error calling API:", error);
       const errorMessages = [
