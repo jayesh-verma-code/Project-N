@@ -116,7 +116,7 @@ export default function MindEasePage() {
 
   const handleSend = async () => {
     if (!input.trim() || !currentChatId) return;
-
+    
     const newUserMsg: Message = {
       id: Date.now().toString(),
       text: input,
@@ -161,7 +161,7 @@ export default function MindEasePage() {
       if (!response.ok) throw new Error("Network response was not ok");
 
       const data = await response.json();
-
+      setLoading(false)
       // Simulate typing effect
       let typedResponse = "";
       const typingInterval = setInterval(() => {
@@ -212,6 +212,7 @@ export default function MindEasePage() {
           );
           setChatSessions(finalSessions);
           saveSessions(finalSessions);
+          setLoading(false)
         }
       }, 20);
     } catch (error) {
@@ -340,7 +341,7 @@ export default function MindEasePage() {
               className="bg-transparent hover:bg-gray-800 transition-colors duration-200"
               size="icon"
             >
-              <XIcon className="size-5" />
+              <XIcon className="size-5 text-white" />
             </Button>
           </div>
 
@@ -418,8 +419,8 @@ export default function MindEasePage() {
             </div>
 
             {/* Center - title and status - FIXED WIDTH AND POSITION */}
-            <div className="lg:relative  lg:left-0 sm:absolute absolute left-1/2 sm:left-1/2 transform -translate-x-1/2 flex flex-col items-center">
-              <div className="text-3xl sm:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-600">
+            <div className="lg:relative  lg:left-16 sm:absolute absolute left-1/2 sm:left-1/2 transform -translate-x-1/2 flex flex-col items-center mt-7 md:mt-1">
+              <div className="text-3xl sm:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-600 ">
                 MindEase
               </div>
               <div className="flex items-center justify-center space-x-1.5 mt-1.5 px-2 py-0.5 rounded-full border border-white/50">
@@ -452,7 +453,7 @@ export default function MindEasePage() {
                 <BotBubble key={message.id}>{message.text}</BotBubble>
               )
             )}
-            {loading && <LoadingBubble />}
+            {loading  && <LoadingBubble />}
             <div ref={messagesEndRef} />
           </div>
         </section>
@@ -494,12 +495,12 @@ export default function MindEasePage() {
               <Button
                 onClick={handleSend}
                 size="icon"
-                className={`rounded-lg w-7 h-7 transition-all duration-200 ${
+                className={`rounded-lg w-7 h-7 transition-all duration-200 p-4 text-center cursor-pointer ${
                   input.trim()
                     ? "bg-indigo-600 hover:bg-indigo-700 text-white"
                     : "bg-gray-700 text-gray-400"
                 }`}
-                disabled={loading || !input.trim()}
+                disabled={loading|| isTyping || !input.trim()}
               >
                 <Send className="size-5" />
               </Button>
@@ -513,13 +514,14 @@ export default function MindEasePage() {
 
 function UserBubble({ children }: { children: React.ReactNode }) {
   return (
-    <div className="ml-auto flex max-w-[90%] md:max-w-[80%] lg:max-w-[75%]">
-      <div className="rounded-xl rounded-br-none bg-gradient-to-r from-indigo-600 to-purple-700 px-4 py-3 text-white shadow-lg">
-        <div className="text-sm whitespace-pre-wrap">{children}</div>
+    <div className="ml-auto w-full flex justify-end px-2 sm:px-4">
+      <div className="max-w-[90%] sm:max-w-[85%] md:max-w-[80%] lg:max-w-[70%] rounded-xl rounded-br-none bg-gradient-to-r from-indigo-600 to-purple-700 px-4 py-3 text-white shadow-lg">
+        <div className="text-sm whitespace-pre-wrap break-words">{children}</div>
       </div>
     </div>
   );
 }
+
 
 function BotBubble({ children }: { children: React.ReactNode }) {
   return (

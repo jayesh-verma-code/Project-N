@@ -9,9 +9,9 @@ export default function LandingPage() {
   const containerRef = useRef<HTMLDivElement>(null);
   return (
     <div
-      className="min-h-screen w-full  bg-cover bg-center relative"
-      style={{ backgroundImage: "url('/mindease-bg.jpg')" }}
-    >
+    className="min-h-screen w-full  bg-cover bg-center relative"
+    style={{ backgroundImage: "url('/mindease-bg.jpg')" }}
+  >
       <CustomCursor
         containerRef={containerRef as React.RefObject<HTMLDivElement>}
       />
@@ -44,7 +44,7 @@ export default function LandingPage() {
             </button>
           </div>
         </div>
-        <div className="lg:mt-[11%] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-center justify-center gap-5 mt-30  px-10 lg:px-36 ">
+        <div className="lg:mt-[11%] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-center justify-center gap-9 mt-30  px-10 lg:px-36 ">
           <Card
             title="Guided Meditation" imagePath="/Guided-mindease.png" />
           <Card
@@ -74,25 +74,36 @@ function Card({
   imagePath: string;
 }) {
   return (
-    <div className="bg-[#1F2937] py-2 px-2 md:px-2 flex flex-col items-center justify-center gap-0 rounded-md mb-3">
-
-
-      <div className="relative w-44 h-44 flex items-center justify-center">
-        <div className="absolute inset-4 rounded-full bg-white blur-sm opacity-20 z-0" />
+    <div className="bg-[#1F2937] flex flex-col items-center justify-between rounded-md mb-3 p-4 w-full h-[250px]">
+      {/* Image */}
+      <div className="relative w-28 h-28 flex items-center justify-center">
+        <div className="absolute inset-2 rounded-full bg-white blur-sm opacity-20 z-0" />
         <Image
           src={imagePath || "/placeholder.svg"}
           alt={title}
-          width={120}
-          height={120}
-          className="realative object-center z-10 rounded-full"
+          width={96}
+          height={96}
+          className="relative object-center z-10 rounded-full"
         />
       </div>
-      <div className="mb-2">
-        <h1 className="text-white font-semibold text-center">{title}</h1>
+
+      {/* Title with fixed height */}
+      <div className=" flex items-center justify-center text-center px-2">
+        <h1 className="text-white font-semibold text-sm leading-snug">
+          {title}
+        </h1>
       </div>
-      <Button className="mb-2 flex items-center justify-center hover:bg-white rounded-full p-1">
-        <Link href={"/mindease/chat"} className="bg-white text-black rounded-full py-2 px-3 text-sm font-medium">Get Started</Link>
+
+      {/* Button */}
+      <Button className="flex items-center justify-center hover:bg-white rounded-full px-1">
+        <Link
+          href="/mindease/chat"
+          className="bg-white text-black rounded-full py-2 px-3 text-sm font-medium"
+        >
+          Get Started
+        </Link>
       </Button>
     </div>
-  )
+  );
 }
+
