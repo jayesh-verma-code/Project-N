@@ -1,8 +1,11 @@
+"use client"
 import CustomCursor from "@/components/shared/custom-cursor";
 import { ArrowLeft, Phone, Video } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
+import { useRouter } from "next/navigation";
+
 
 export default function GoldencareLandingPage() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -71,6 +74,20 @@ function Card({
   title: string;
   imagePath: string;
 }) {
+  const router = useRouter();
+
+  const handleNavigation = (e: React.MouseEvent, path: string) => {
+    e.preventDefault();
+    if (typeof window !== 'undefined') {
+      const username = localStorage.getItem('goldencare_username');
+      if (!username) {
+        router.push('/goldencare/check-in');
+      } else {
+        router.push(path);
+      }
+    }
+  };
+
   return (
     <div className="bg-[#1F2937] py-2 px-2 md:px-2 flex flex-col items-center justify-center gap-0 rounded-md mb-3">
       <div className="relative w-44 h-44 flex items-center justify-center">
@@ -87,18 +104,18 @@ function Card({
         <h1 className="text-white font-semibold text-center">{title}</h1>
       </div>
       <div className="flex flex-col gap-2 w-full px-2 mb-2">
-        <Link 
-          href="/goldencare/chat" 
+        <button 
+          onClick={(e) => handleNavigation(e, '/goldencare/chat')}
           className="bg-white text-black rounded-full py-2 px-3 text-sm font-medium text-center hover:bg-gray-200 transition-colors"
         >
           Go to Chatbot
-        </Link>
-        <Link 
-          href="/goldencare/check-in" 
+        </button>
+        <button 
+          onClick={(e) => handleNavigation(e, '/goldencare/check-in')}
           className="bg-[#FFD700] text-black rounded-full py-2 px-3 text-sm font-medium text-center hover:bg-[#DAA520] transition-colors"
         >
           Get Daily Health Check-in
-        </Link>
+        </button>
       </div>
     </div>
   );

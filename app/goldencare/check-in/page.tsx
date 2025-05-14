@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+
 import { 
   Select, 
   SelectContent, 
@@ -19,6 +20,7 @@ import {
 import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
+import Link from 'next/link';
 import { 
   AlertCircle, 
   CheckCircle2, 
@@ -27,12 +29,14 @@ import {
   Heart, 
   Droplet, 
   Moon, 
-  BellPlus 
+  BellPlus,
+  LogOut 
 } from 'lucide-react';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import CreateUserProfile from '@/components/GoldenCare/CreateUserProfile';
+import ParticlesBackground from '@/components/shared/particle-background';
 // API URL - Replace with your actual API URL when deploying
 const API_URL = 'https://goldencare-api.onrender.com' ;
 
@@ -57,10 +61,21 @@ const HealthCheckInPage = () => {
   // State for advice after submission
   const [advice, setAdvice] = useState('');
 
+  // Check localStorage on initial load
+  useEffect(() => {
+    const storedName = localStorage.getItem('goldencare_username');
+    if (storedName) {
+      setName(storedName);
+      fetchUserData(storedName);
+    }
+  }, []);
+
   // Handle name submission
   const handleNameSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (name.trim()) {
+      // Save name to localStorage
+      localStorage.setItem('goldencare_username', name);
       fetchUserData(name);
     }
   };
@@ -140,6 +155,21 @@ const HealthCheckInPage = () => {
     setIsLoggedIn(true);
     setIsNewUser(false);
     setName(userName);
+    // Save name to localStorage after successful user creation
+    localStorage.setItem('goldencare_username', userName);
+  };
+
+  // Handle user logout
+  const handleLogout = () => {
+    // Remove user data from localStorage
+    localStorage.removeItem('goldencare_username');
+    // Reset state
+    setName('');
+    setIsLoggedIn(false);
+    setIsNewUser(false);
+    setAdvice('');
+    // Show logout message
+    setMessage({type: 'success', text: 'Successfully logged out.'});
   };
 
   // Available symptom options
@@ -161,6 +191,7 @@ const HealthCheckInPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-gray-950 text-white p-4 relative overflow-hidden">
+      <ParticlesBackground/>
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-blue-700 opacity-5 blur-3xl animate-pulse"></div>
@@ -170,17 +201,31 @@ const HealthCheckInPage = () => {
 
       <div className="max-w-2xl mx-auto relative z-10">
         <motion.header 
-          className="flex items-center mb-8 mt-4"
+          className="flex items-center justify-between mb-8 mt-4"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="bg-blue-500/10 backdrop-blur-md rounded-full p-3 mr-4 border border-blue-500/20">
-            <Activity className="w-6 h-6 text-blue-400" />
+          <div className="flex items-center">
+            <div className="bg-blue-500/10 backdrop-blur-md rounded-full p-3 mr-4 border border-blue-500/20">
+              <Activity className="w-6 h-6 text-blue-400" />
+            </div>
+            <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-200">
+              Health Check-In
+            </h1>
           </div>
-          <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-200">
-            Health Check-In
-          </h1>
+          
+          {isLoggedIn && (
+            <Button 
+              onClick={handleLogout}
+              variant="outline" 
+              size="sm"
+              className="text-slate-300 bg-slate-800/50 border-slate-700/50 hover:bg-slate-700/60 hover:text-white"
+            >
+              <LogOut className="w-4 h-4 mr-2" />
+              Log Out
+            </Button>
+          )}
         </motion.header>
 
         <AnimatePresence>
@@ -492,7 +537,7 @@ const HealthCheckInPage = () => {
 
                       <Button 
                         type="submit" 
-                        className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 shadow-lg hover:shadow-blue-500/10 transition-all duration-300 py-6 text-lg"
+                        className="w-full text-white bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 shadow-lg hover:shadow-blue-500/10 transition-all duration-300 py-6 text-lg"
                         disabled={loading}
                       >
                         {loading ? (
@@ -500,8 +545,9 @@ const HealthCheckInPage = () => {
                             <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                             Processing...
                           </>
-                        ) : 'Submit Health Check-In'}
+                        ) : 'Submit Your Health Report'}
                       </Button>
+                      
                     </div>
                   </CardContent>
                 </Card>
@@ -529,6 +575,12 @@ const HealthCheckInPage = () => {
                       <p className="text-slate-300 leading-relaxed">{advice}</p>
                     </CardContent>
                   </Card>
+                  <div className='flex flex-row items-center justify-center'>
+                     <Button className='bg-gradient-to-r from-yellow-600 to-amber-600 hover:from-yellow-700 hover:to-amber-700 shadow-lg hover:shadow-amber-500/20 transition-all duration-300 py-6 text-white'>
+                   <Link href={"/goldencare/chat"}>Go To Chatbot</Link>
+                  </Button>
+                  </div>
+                 
                 </motion.div>
               )}
             </AnimatePresence>
