@@ -395,7 +395,7 @@ export default function MindEasePage() {
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col h-screen overflow-hidden">
         {/* Fixed header bar that spans the entire width */}
-        <div className="bg-gradient-to-r p-2 md:left-0 sm:left-1/2 sm:right-0 fixed w-full z-20">
+        <div className="bg-gray-900 pt-2 pb-8 px-2  md:p-2 md:left-0 sm:left-1/2 sm:right-0 fixed w-full z-20">
           <div className="flex items-center justify-between max-w-screen-xl mx-auto">
             {/* Left side - menu button */}
             <div className="flex items-center justify-start w-10">
