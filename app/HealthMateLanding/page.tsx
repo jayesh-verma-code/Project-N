@@ -84,7 +84,7 @@ const FeatureCard = ({
 }) => {
   return (
     <div
-      className="bg-[#1f2937] bg-opacity-80 rounded-lg p-4 lg:p-6 flex flex-col items-center transition-transform transform hover:-translate-y-4 hover:shadow-[0_6px_30px_rgba(37,99,235,0.6)]"
+      className="bg-[#1f2937] bg-opacity-80 rounded-lg p-4 lg:p-6 flex flex-col items-center transition-transform transform hover:-translate-y-4 hover:shadow-[0_6px_30px_rgba(255,255,235,0.6)]"
       style={{
         width: "211.879px",
         padding: "12px",
