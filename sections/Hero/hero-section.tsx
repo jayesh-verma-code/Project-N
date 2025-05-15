@@ -96,19 +96,19 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="absolute top-[60%] left-[35%] transform -translate-x-1/2 -translate-y-1/2 z-10 max-w-4xl text-center"
+          className="absolute top-[30%] left-1/6 sm:left-[35%] sm:top-[60%] sm:transform sm:-translate-x-1/2 sm:-translate-y-1/2 z-10 w-full md:w-auto"
           style={{ scale }}
         >
-          <motion.div className="flex flex-col items-start justify-center space-y-2">
-            <motion.h1 className="text-4xl md:text-6xl font-bold text-white">
+          <motion.div className="flex flex-col items-start justify-center space-y-2 max-w-lg md:max-w-xl lg:max-w-3xl">
+            <motion.h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white">
               OneAI.
             </motion.h1>
-            <div className="flex items-center justify-center">
-              <motion.h2 className="text-3xl md:text-6xl font-semibold text-white">
+            <div className="flex flex-row items-start sm:items-center gap-1 sm:gap-2">
+              <motion.h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white whitespace-nowrap">
                 Infinite Care.
               </motion.h2>
-              <motion.div className="text-3xl md:text-6xl text-white/75 flex items-center">
-                <div className="relative h-20 w-80 inline-flex items-center justify-center overflow-hidden font-bold">
+              <motion.div className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-white/60 flex items-center">
+                <div className="relative h-10 sm:h-12 md:h-16 lg:h-20 w-40 sm:w-48 md:w-60 lg:w-80 inline-flex items-center justify-center overflow-hidden font-bold">
                   <AnimatePresence mode="wait">
                     <motion.span
                       key={currentWordIndex}
