@@ -1,125 +1,117 @@
-"use client"
+'use client';
+import { useRef } from "react";
+import { useRouter } from 'next/navigation';
+import { ThemeProvider } from "next-themes";
+import ParticlesBackground from "@/components/shared/particle-background";
+import NoiseTexture from "@/components/shared/noise-texture";
+import CustomCursor from "@/components/shared/custom-cursor";
+import Link from "next/link";
 
-import { ArrowLeft, Phone, Video } from "lucide-react"
-import Image from "next/image"
-import Link from "next/link"
-import CustomCursor from "@/components/shared/custom-cursor"
-import { useRef, useEffect, useState } from "react"
-
-export default function HealthMate() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const userAgent = navigator.userAgent.toLowerCase()
-    setIsMobile(/iphone|ipod|ipad|android/i.test(userAgent))
-  }, [])
-
-  return (
-    <>
-      {!isMobile && (
-        <CustomCursor containerRef={containerRef as React.RefObject<HTMLDivElement>} />
-      )}
-
-      <div className="min-h-screen bg-black text-white relative overflow-hidden">
-        <div className="absolute inset-0 z-0 opacity-80">
-          <Image
-            src="/image 52.png"
-            alt="Pills background"
-            fill
-            className="object-cover"
-          />
-        </div>
-
-        <div className="relative z-10 w-full h-full flex flex-col gap-8 lg:gap-10 overflow-hidden">
-          <div className="flex gap-2 justify-between items-center mb-20 lg:mb-10 px-4">
-            <Link href="/">
-              <div className="bg-white bg-opacity-10 rounded-full p-3 transition-all duration-200 hover:bg-opacity-20 active:bg-white active:bg-opacity-30 active:scale-95">
-                <ArrowLeft className="size-4 md:size-5 text-black" />
-              </div>
-            </Link>
-
-            {/* Title and subtitle */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 top-20 md:top-4">
-              <h1 className="text-[#2563eb] text-4xl md:text-5xl lg:text-6xl font-bold mb-2 text-center">
-                HealthMate
-              </h1>
-              <p className="font-bold text-lg lg:text-2xl leading-none tracking-normal text-center self-stretch whitespace-nowrap">
-                AI Powered Personal Healthcare Companion
-              </p>
-            </div>
-            <div className="flex gap-4 mt-5">
-              <button className="bg-[#16a34a] rounded-full p-3 group hover:bg-[#15803d] shadow-lg hover:shadow-xl transition-all duration-300 active:bg-white active:text-[#16a34a] active:scale-95">
-                <Phone className="size-4 md:size-5 text-white group-hover:text-gray-100 transition-all duration-300 active:text-[#16a34a]" />
-              </button>
-              <button className="bg-[#dc2626] rounded-full p-3 group hover:bg-[#b91c1c] shadow-lg hover:shadow-xl transition-all duration-300 active:bg-white active:text-[#dc2626] active:scale-95">
-                <Video className="size-4 md:size-5 text-white group-hover:text-gray-100 transition-all duration-300 active:text-[#dc2626]" />
-              </button>
-            </div>
-          </div>
-
-          <div className="mt-20 lg:mt-[120px] px-4 lg:px-36">
-            <div
-              className="grid grid-cols-2 lg:grid-cols-4 mx-auto max-w-7xl"
-              style={{ gap: ".34px" }}
-            >
-              <FeatureCard title="Check Vital Signs" imagePath="/vital.svg" />
-              <FeatureCard title="Monitor Health Trends" imagePath="/Monitor_health.svg" />
-              <FeatureCard title="Receive Health Alerts" imagePath="/healthcare-alert.svg" />
-              <FeatureCard title="Upload Health Reports" imagePath="/doctor-ext.svg" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  )
+// Types
+interface MedicalCategory {
+  id: string;
+  title: string;
+  image: string;
 }
 
-const FeatureCard = ({
-  title,
-  imagePath,
-}: {
-  title: string
-  imagePath: string
-}) => {
-  return (
-    <div
-      className="bg-[#1f2937] bg-opacity-80 rounded-lg p-4 lg:p-6 flex flex-col items-center transition-transform transform hover:-translate-y-4 hover:shadow-[0_6px_30px_rgba(37,99,235,0.6)]"
-      style={{
-        width: "211.879px",
-        padding: "12px",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        gap: "24px",
-        flexShrink: 0,
-        borderRadius: "24.072px",
-        background: "#1F2937",
-      }}
-    >
-      <div className="relative mb-3 lg:mb-4 w-full aspect-square max-w-[130px]">
-        <div className="absolute inset-0 bg-blue-500 rounded-full blur-md opacity-30"></div>
-        <div className="relative overflow-hidden w-full h-full rounded-full">
-          <Image
-            src={imagePath || "/placeholder.svg"}
-            alt={title}
-            fill
-            className="object-cover"
-          />
-        </div>
-      </div>
+// Main Page Component
+export default function HealthMatePage() {
+  const router = useRouter();
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  // Categories data matching the screenshot
+  const categories: MedicalCategory[] = [
+    { id: 'kidney-ct', title: 'Kidney - CT', image: '/imagekidney.png' },
+    { id: 'chest-xray', title: 'Chest - Xray', image: '/image chest xray.png' },
+    { id: 'mri', title: 'MRI', image: '/image mri.png' },
+    { id: 'xray', title: 'Xray', image: '/image xray.png' },
+    { id: 'thyroid', title: 'Thyroid', image: '/image thytoid.png' },
+    { id: 'sonography', title: 'Sonography', image: '/image sonography.png' },
+    { id: 'biopsy', title: 'Biopsy', image: '/image biospy.png' },
+    { id: 'other', title: 'Other', image: '/image others.png' },
+  ];
 
-      <div className="flex flex-col items-center gap-3 sm:gap-4 lg:gap-[20.34px] w-full">
-        <h3 className="text-white text-center font-medium text-xs sm:text-sm lg:text-[13.56px]">
-          {title}
-        </h3>
-        <Link
-          href="/healthmate/dashboard"
-          className="bg-white text-black rounded-full px-3 sm:px-4 lg:px-6 py-1 sm:py-1.5 lg:py-2 text-[10px] sm:text-xs lg:text-sm font-medium hover:bg-opacity-90 transition-colors"
-        >
-          Get Started
-        </Link>
-      </div>
-    </div>
-  )
+  const handleGetStarted = (category: MedicalCategory) => {
+    // In a real app, this would navigate to a specific page
+    alert(`Starting ${category.title} process`);
+    // Example navigation: router.push(`/category/${category.id}`);
+  };
+
+  return (
+    <ThemeProvider attribute="class" defaultTheme="dark">
+      <main
+        ref={containerRef}
+        className="relative min-h-screen bg-gradient-to-b from-black to-gray-900 text-white overflow-hidden"
+      >
+        <NoiseTexture />
+        <ParticlesBackground />
+        <CustomCursor
+          containerRef={containerRef as React.RefObject<HTMLDivElement>}
+        />
+
+        {/* Background image */}
+        
+        
+        {/* Back button */}
+        <div className="absolute top-4 left-4 sm:top-6 sm:left-6 z-20">
+          <button className="w-10 h-10 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center shadow-md border border-black">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-full flex items-center justify-center">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-black">
+                <path d="M20 12H4M4 12L10 6M4 12L10 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+          </button>
+        </div>
+        {/* Decorative particle cluster */}
+        <div className="absolute top-0 right-0 z-10 opacity-40">
+          <div className="w-64 h-64 rounded-full"></div>
+        </div>
+        
+        <div className="container mx-auto px-4 py-6 relative z-10">
+          {/* Header - Centered */}
+          <header className="flex flex-col items-center mb-16 mt-8">
+            <h1 className="text-4xl font-bold text-blue-500 mb-2">HealthMate</h1>
+            <div className="inline-flex border border-green-500 items-center bg-opacity-50 rounded-full px-4 py-1">
+              <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+              <span className="text-sm">Online</span>
+            </div>
+          </header>
+          
+          {/* Medical Categories Grid - Matches screenshot */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl  mx-auto">
+            {categories.map(category => (
+              <div 
+                key={category.id}
+                className="flex flex-col items-center bg-gray-800 bg-opacity-50 rounded-lg p-4 relative z-30"
+              >
+                {/* Circular image */}
+                <div className="md:w-32 md:h-32 w-24 h-24 rounded-full overflow-hidden mb-4  flex items-center justify-center">
+                  {/* Placeholder for actual images */}
+                  <div className={`w-full h-full rounded-full`}>
+                  <img src={category.image} alt={category.title}  className="object-cover w-[100%] h-[100%] " /> 
+                  </div>
+                  
+                </div>
+                
+                <span className="text-sm mt-3 mb-3">{category.title}</span>
+                
+                <Link 
+  href="/Healthmate" 
+  className="bg-white text-black text-xs font-medium py-1 px-4 rounded-full hover:bg-gray-200 transition-colors"
+  style={{ pointerEvents: 'auto' }}
+>
+  Get Started
+</Link>
+              </div>
+            ))}
+          </div>
+          
+          {/* Bottom particle cluster */}
+          <div className="absolute bottom-0 left-0 z-10 opacity-40">
+            <div className="w-64 h-64 rounded-full"></div>
+          </div>
+        </div>
+      </main>
+    </ThemeProvider>
+  );
 }
