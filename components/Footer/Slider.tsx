@@ -20,7 +20,7 @@ const Sidebar: React.FC = () => {
         onClick={toggleSidebar}
         className={`fixed z-50 p-2 rounded-full transition-all ${
           isOpen
-            ? "left-64 top-6 bg-gray-700/50"
+            ? "left-62 top-6 bg-gray-700/50"
             : "left-6 top-6 bg-indigo-600"
         }`}
       >
