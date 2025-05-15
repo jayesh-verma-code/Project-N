@@ -100,13 +100,7 @@ const FeatureCard = ({ title, imagePath }: { title: string; imagePath: string })
         </Link>
       </div>
 =======
-      <h3 className="text-white text-sm lg:text-lg font-medium mb-3 lg:mb-4 text-center">{title}</h3>
-      <Link
-        href="/HealthMatesecondLanding"
-        className="bg-white text-black rounded-full px-4 lg:px-6 py-1.5 lg:py-2 text-xs lg:text-sm font-medium hover:bg-opacity-90 transition-colors"
-      >
-        Get Started
-      </Link>
+     
 >>>>>>> af0ef7bd283f3c150f86805bcc31560ae0ad1c77
     </div>
   )
