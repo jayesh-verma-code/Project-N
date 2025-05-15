@@ -29,6 +29,9 @@ export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const hasSeenIntro = localStorage.getItem('hasSeenIntro') === 'true';
+    setIntroComplete(hasSeenIntro);
+    
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
@@ -36,6 +39,11 @@ export default function Home() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleIntroComplete = () => {
+    setIntroComplete(true);
+    localStorage.setItem('hasSeenIntro', 'true');
+  };
 
  return (
     <ThemeProvider attribute="class" defaultTheme="dark">
@@ -52,7 +60,7 @@ export default function Home() {
         <VerticalMenuIndicator />
 
         {!introComplete ? (
-          <IntroAnimation onComplete={() => setIntroComplete(true)} />
+          <IntroAnimation onComplete={handleIntroComplete} />
         ) : (
           <>
             <Navbar scrolled={scrolled} />
