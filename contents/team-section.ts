@@ -292,4 +292,49 @@ export const teamMembers: TeamMember[] = [
     avatar:
       "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742139877/WhatsApp_Image_2025-03-16_at_20.30.45_egmfyh.jpg",
   },
+  {
+     id: "anvay",
+    name: "Anvay ",
+    role: "AI/ML Intern",
+    category: "intern",
+    education: "Btech-CSE/AIML",
+    avatar:
+      "https://res.cloudinary.com/dd11bvhdi/image/upload/v1746903870/nirveonx/cw5uv5zbqbk69a8eauuq.jpg",
+  },
+  {
+    id: "nayandas",
+    name: "Nayan Das" ,
+    role: "Full Stack Developer Intern",
+    category: "intern",
+    education: "Computer Science and Engineering, Hoogly Engineering and Technology",
+    avatar:
+      "https://res.cloudinary.com/dd11bvhdi/image/upload/v1746903870/nirveonx/ousp2od017qnqyojdjum.jpg",
+  },
+  {
+    id: "Sudhanshu Ranjan",
+    name: "Sudhanshu Ranjan",
+    role: "Full Stack Developer Intern",
+    category: "intern",
+    education: "Btech,KIIT University",
+    avatar:
+      "https://res.cloudinary.com/dd11bvhdi/image/upload/v1746903871/nirveonx/clhp01kduxtd5tq339e2.jpg",
+  },
+  {
+    id: "Chinthapatla Vamshi krishna",
+    name: "Chinthapatla Vamshi Krishna",
+    role: "Full Stack Developer Intern",
+    category: "intern",
+    education: "Btech in Computer science and Engineering, Aurora's Technological and Research Institute ",
+    avatar:
+      "https://res.cloudinary.com/dd11bvhdi/image/upload/v1746903868/nirveonx/inquvgbl35ulrpuvihbp.jpg",
+  },
+  {
+    id: "A Prudhvi",
+    name: "A Prudhvi",
+    role: "Full Stack Developer Intern",
+    category: "intern",
+    education: "Btech,NSRIT(CSE)",
+    avatar:
+      "https://res.cloudinary.com/dd11bvhdi/image/upload/v1746903872/nirveonx/h9xlp0er61gmtpiazglc.jpg",
+  }
 ];

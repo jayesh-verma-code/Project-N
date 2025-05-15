@@ -7,14 +7,13 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogClose,
 } from "@/components/ui/dialog";
 import { ContactCard } from "@/components/Patron/ContactCard";
 import { contactTeam, investors } from "@/contents/patron";
+import { X } from "lucide-react";
 
 export default function InvestorSection() {
-
-
-  // Determine grid layout based on number of investors
   const getGridClassName = (count: number): string => {
     if (count <= 1) return "grid-cols-1";
     if (count <= 2) return "grid-cols-1 md:grid-cols-2";
@@ -27,7 +26,6 @@ export default function InvestorSection() {
   return (
     <section className="w-full py-12 md:py-24 lg:py-32 bg-black text-white">
       <div className="container px-4 md:px-6">
-        {/* Section Header */}
         <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
           <div className="space-y-2">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
@@ -51,17 +49,15 @@ export default function InvestorSection() {
           ))}
         </div>
 
-        {/* CTA Section */}
-        <div className="flex flex-col items-center text-center space-y-3 md:space-y-4 bg-white text-black p-4 sm:p-6 md:p-8 rounded-lg">
+        <div className="flex flex-col items-center text-center space-y-3 md:space-y-4 bg-zinc-800 text-white p-4 sm:p-6 md:p-8 rounded-lg">
           <h3 className="text-xl sm:text-2xl font-bold">
             Open to Capital Ventures
           </h3>
-          <p className="max-w-[600px] text-sm md:text-base text-zinc-700">
+          <p className="max-w-[600px] text-sm md:text-base text-white">
             We&apos;re always looking to connect with patrons who share our
             vision and can help us accelerate our growth.
           </p>
 
-          {/* Contact Dialog */}
           <div className="flex flex-col sm:flex-row gap-3 mt-2">
             <Dialog>
               <DialogTrigger asChild>
@@ -70,6 +66,11 @@ export default function InvestorSection() {
                 </Button>
               </DialogTrigger>
               <DialogContent className="sm:max-w-[425px] md:max-w-[500px] bg-white text-black max-h-[90vh] overflow-y-auto">
+                <DialogClose className="absolute right-4 top-4 rounded-sm p-1 opacity-70 ring-offset-background transition-opacity hover:opacity-100 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none">
+                  <X className="h-4 w-4" />
+                  <span className="sr-only">Close</span>
+                </DialogClose>
+                
                 <DialogHeader>
                   <DialogTitle className="text-xl font-bold">
                     Investor Relations Team
@@ -80,7 +81,6 @@ export default function InvestorSection() {
                   </DialogDescription>
                 </DialogHeader>
                 <div className="space-y-4 py-3 md:py-4">
-                  {/* Contact Cards */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {contactTeam.map((person, index) => (
                       <ContactCard key={index} person={person} />
