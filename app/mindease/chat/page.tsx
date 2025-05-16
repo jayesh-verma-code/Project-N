@@ -1,15 +1,15 @@
 'use client'
 import { useEffect, useState, useRef } from 'react';
 import { Button } from "@/components/ui/button";
-import { 
-  CircleArrowLeft, 
-  LogOut, 
-  MenuIcon, 
-  Mic, 
+import {
+  CircleArrowLeft,
+  LogOut,
+  MenuIcon,
+  Mic,
   Plus,
-  Send, 
-  Settings, 
-  Smile, 
+  Send,
+  Settings,
+  Smile,
   Trash2,
   XIcon,
   Link2
@@ -161,7 +161,7 @@ export default function MindEasePage() {
       if (!response.ok) throw new Error("Network response was not ok");
 
       const data = await response.json();
-
+      setLoading(false)
       // Simulate typing effect
       let typedResponse = "";
       const typingInterval = setInterval(() => {
@@ -180,9 +180,9 @@ export default function MindEasePage() {
           const newSessions = updatedSessions.map((chat) =>
             chat.id === currentChatId
               ? {
-                  ...updatedChat,
-                  messages: newMessages,
-                }
+                ...updatedChat,
+                messages: newMessages,
+              }
               : chat
           );
           setChatSessions(newSessions);
@@ -205,13 +205,14 @@ export default function MindEasePage() {
           const finalSessions = updatedSessions.map((chat) =>
             chat.id === currentChatId
               ? {
-                  ...updatedChat,
-                  messages: finalMessages,
-                }
+                ...updatedChat,
+                messages: finalMessages,
+              }
               : chat
           );
           setChatSessions(finalSessions);
           saveSessions(finalSessions);
+          setLoading(false)
         }
       }, 20);
     } catch (error) {
@@ -229,9 +230,9 @@ export default function MindEasePage() {
       const errorSessions = updatedSessions.map((chat) =>
         chat.id === currentChatId
           ? {
-              ...updatedChat,
-              messages: errorMessages,
-            }
+            ...updatedChat,
+            messages: errorMessages,
+          }
           : chat
       );
       setChatSessions(errorSessions);
@@ -281,9 +282,8 @@ export default function MindEasePage() {
                 <div
                   key={chat.id}
                   onClick={() => switchChat(chat.id)}
-                  className={`relative p-3 cursor-pointer hover:bg-gray-800/50 transition-colors duration-200 mx-2 rounded-lg ${
-                    currentChatId === chat.id ? "bg-gray-800/70" : ""
-                  }`}
+                  className={`relative p-3 cursor-pointer hover:bg-gray-800/50 transition-colors duration-200 mx-2 rounded-lg ${currentChatId === chat.id ? "bg-gray-800/70" : ""
+                    }`}
                 >
                   <div className="font-medium truncate pr-6 text-gray-100">
                     {chat.title}
@@ -312,10 +312,10 @@ export default function MindEasePage() {
                 <Settings className="size-5 text-gray-300" />
                 <span className="text-gray-300">Settings</span>
               </div>
-              <div className="flex items-center gap-3 p-2 cursor-pointer hover:bg-gray-800/50 rounded-md transition-colors duration-200">
+              <Link href={"/mindease"} className="flex items-center gap-3 p-2 cursor-pointer hover:bg-gray-800/50 rounded-md transition-colors duration-200">
                 <LogOut className="size-5 text-gray-300" />
-                <span className="text-gray-300">Logout</span>
-              </div>
+                <span className="text-gray-300">Back To Home</span>
+              </Link>
             </div>
           </div>
         )}
@@ -323,9 +323,8 @@ export default function MindEasePage() {
 
       {/* Sidebar for mobile */}
       <div
-        className={`fixed top-0 left-0 h-screen w-64 bg-gradient-to-b from-gray-900 via-gray-900 to-gray-950 text-white p-4 z-40 transform transition-transform duration-300 ease-in-out ${
-          sidebarDrawerOpen ? 'translate-x-0' : '-translate-x-full'
-        } border-r border-gray-800`}
+        className={`fixed top-0 left-0 h-screen w-64 bg-gradient-to-b from-gray-900 via-gray-900 to-gray-950 text-white p-4 z-40 transform transition-transform duration-300 ease-in-out ${sidebarDrawerOpen ? 'translate-x-0' : '-translate-x-full'
+          } border-r border-gray-800`}
       >
         <div className="flex flex-col h-full">
           <div className="flex justify-between items-center p-1 mb-4">
@@ -340,7 +339,7 @@ export default function MindEasePage() {
               className="bg-transparent hover:bg-gray-800 transition-colors duration-200"
               size="icon"
             >
-              <XIcon className="size-5" />
+              <XIcon className="size-5 text-white" />
             </Button>
           </div>
 
@@ -352,9 +351,8 @@ export default function MindEasePage() {
                   switchChat(chat.id);
                   setSidebarDrawerOpen(false);
                 }}
-                className={`relative p-3 cursor-pointer hover:bg-gray-800/50 transition-colors duration-200 mx-2 rounded-lg ${
-                  currentChatId === chat.id ? "bg-gray-800/70" : ""
-                }`}
+                className={`relative p-3 cursor-pointer hover:bg-gray-800/50 transition-colors duration-200 mx-2 rounded-lg ${currentChatId === chat.id ? "bg-gray-800/70" : ""
+                  }`}
               >
                 <div className="font-medium truncate pr-6 text-gray-100">
                   {chat.title}
@@ -383,10 +381,11 @@ export default function MindEasePage() {
               <Settings className="size-5 text-gray-300" />
               <span className="text-gray-300">Settings</span>
             </div>
-            <div className="flex items-center gap-3 p-2 cursor-pointer hover:bg-gray-800/50 rounded-md transition-colors duration-200">
+            <Link href={"/mindease"} className="flex items-center gap-3 p-2 cursor-pointer hover:bg-gray-800/50 rounded-md transition-colors duration-200">
               <LogOut className="size-5 text-gray-300" />
-              <span className="text-gray-300">Logout</span>
-            </div>
+              <span className="text-gray-300">Back To Home</span>
+            </Link>
+
           </div>
         </div>
       </div>
@@ -394,7 +393,7 @@ export default function MindEasePage() {
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col h-screen overflow-hidden">
         {/* Fixed header bar that spans the entire width */}
-        <div className="bg-gradient-to-r p-2 md:left-0 sm:left-1/2 sm:right-0 fixed w-full z-20">
+        <div className="bg-gray-900 pt-2 pb-8 px-2  md:p-2 md:left-0 sm:left-1/2 sm:right-0 fixed w-full z-20">
           <div className="flex items-center justify-between max-w-screen-xl mx-auto">
             {/* Left side - menu button */}
             <div className="flex items-center justify-start w-10">
@@ -418,11 +417,11 @@ export default function MindEasePage() {
             </div>
 
             {/* Center - title and status - FIXED WIDTH AND POSITION */}
-            <div className="lg:relative  lg:left-0 sm:absolute absolute left-1/2 sm:left-1/2 transform -translate-x-1/2 flex flex-col items-center">
-              <div className="text-3xl sm:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-600">
+            <div className="lg:relative  lg:left-16 sm:absolute absolute left-1/2 sm:left-1/2 transform -translate-x-1/2 flex flex-col items-center mt-7 md:mt-1">
+              <div className="text-3xl sm:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-600 ">
                 MindEase
               </div>
-              <div className="flex items-center justify-center space-x-1.5 mt-1.5 px-2 py-0.5 rounded-full border border-white/50">
+              <div className="flex items-center justify-center space-x-1.5 mt-1 md:mt-1.5 px-2 py-0.5 rounded-full border border-white/50">
                 <span className="relative flex h-2.5 w-2.5">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
@@ -440,9 +439,8 @@ export default function MindEasePage() {
 
         {/* Chat messages */}
         <section
-          className={`flex-1 min-h-screen overflow-y-auto pt-24 pb-20 px-2 sm:px-4 md:px-8 lg:px-12 xl:px-16 w-full scroll-smooth ${
-            sidebarDrawerOpen ? "blur-xs" : ""
-          }`}
+          className={`flex-1 min-h-screen overflow-y-auto pt-24 pb-20 px-2 sm:px-4 md:px-8 lg:px-12 xl:px-16 w-full scroll-smooth ${sidebarDrawerOpen ? "blur-xs" : ""
+            }`}
         >
           <div className="flex flex-col gap-4 max-w-4xl mx-auto">
             {currentChat?.messages.map((message) =>
@@ -470,23 +468,23 @@ export default function MindEasePage() {
               rows={1}
             />
             <div className="absolute right-3 bottom-3 flex items-center gap-1 pl-2">
-              <Button 
-                variant="ghost" 
-                size="icon" 
+              <Button
+                variant="ghost"
+                size="icon"
                 className="w-7 h-7 text-gray-400 hover:text-white hover:bg-gray-700/50"
               >
                 <Smile className="size-5" />
               </Button>
-              <Button 
-                variant="ghost" 
-                size="icon" 
+              <Button
+                variant="ghost"
+                size="icon"
                 className="w-7 h-7 text-gray-400 hover:text-white hover:bg-gray-700/50"
               >
                 <Mic className="size-5" />
               </Button>
-              <Button 
-                variant="ghost" 
-                size="icon" 
+              <Button
+                variant="ghost"
+                size="icon"
                 className="w-7 h-7 text-gray-400 hover:text-white hover:bg-gray-700/50"
               >
                 <Link2 className="size-5" />
@@ -494,12 +492,11 @@ export default function MindEasePage() {
               <Button
                 onClick={handleSend}
                 size="icon"
-                className={`rounded-lg w-7 h-7 transition-all duration-200 ${
-                  input.trim()
+                className={`rounded-lg w-7 h-7 transition-all duration-200 p-4 text-center cursor-pointer ${input.trim()
                     ? "bg-indigo-600 hover:bg-indigo-700 text-white"
                     : "bg-gray-700 text-gray-400"
-                }`}
-                disabled={loading || !input.trim()}
+                  }`}
+                disabled={loading || isTyping || !input.trim()}
               >
                 <Send className="size-5" />
               </Button>
@@ -513,13 +510,14 @@ export default function MindEasePage() {
 
 function UserBubble({ children }: { children: React.ReactNode }) {
   return (
-    <div className="ml-auto flex max-w-[90%] md:max-w-[80%] lg:max-w-[75%]">
-      <div className="rounded-xl rounded-br-none bg-gradient-to-r from-indigo-600 to-purple-700 px-4 py-3 text-white shadow-lg">
-        <div className="text-sm whitespace-pre-wrap">{children}</div>
+    <div className="ml-auto w-full flex justify-end px-2 sm:px-4">
+      <div className="max-w-[90%] sm:max-w-[85%] md:max-w-[80%] lg:max-w-[70%] rounded-xl rounded-br-none bg-gradient-to-r from-indigo-600 to-purple-700 px-4 py-3 text-white shadow-lg">
+        <div className="text-sm whitespace-pre-wrap break-words">{children}</div>
       </div>
     </div>
   );
 }
+
 
 function BotBubble({ children }: { children: React.ReactNode }) {
   return (
