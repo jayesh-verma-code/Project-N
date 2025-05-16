@@ -54,14 +54,30 @@ export default function HealthMatePage() {
         
         {/* Back button */}
         <div className="absolute top-4 left-4 sm:top-6 sm:left-6 z-20">
-          <button className="w-10 h-10 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center shadow-md border border-black">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-full flex items-center justify-center">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-black">
-                <path d="M20 12H4M4 12L10 6M4 12L10 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+          <Link href="/HealthMateLanding">
+            <div className="w-10 h-10 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center shadow-md border border-black">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-full flex items-center justify-center">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="text-black"
+                >
+                  <path
+                    d="M20 12H4M4 12L10 6M4 12L10 18"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
             </div>
-          </button>
+          </Link>
         </div>
+        
         {/* Decorative particle cluster */}
         <div className="absolute top-0 right-0 z-10 opacity-40">
           <div className="w-64 h-64 rounded-full"></div>
@@ -78,30 +94,28 @@ export default function HealthMatePage() {
           </header>
           
           {/* Medical Categories Grid - Matches screenshot */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl  mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
             {categories.map(category => (
               <div 
                 key={category.id}
                 className="flex flex-col items-center bg-gray-800 bg-opacity-50 rounded-lg p-4 relative z-30"
               >
                 {/* Circular image */}
-                <div className="md:w-32 md:h-32 w-24 h-24 rounded-full overflow-hidden mb-4  flex items-center justify-center">
+                <div className="md:w-32 md:h-32 w-24 h-24 rounded-full overflow-hidden mb-4 flex items-center justify-center">
                   {/* Placeholder for actual images */}
                   <div className={`w-full h-full rounded-full`}>
-                  <img src={category.image} alt={category.title}  className="object-cover w-[100%] h-[100%] " /> 
+                    <img src={category.image} alt={category.title} className="object-cover w-[100%] h-[100%]" /> 
                   </div>
-                  
                 </div>
                 
                 <span className="text-sm mt-3 mb-3">{category.title}</span>
                 
                 <Link 
-  href="/Healthmate" 
-  className="bg-white text-black text-xs font-medium py-1 px-4 rounded-full hover:bg-gray-200 transition-colors"
-  style={{ pointerEvents: 'auto' }}
->
-  Get Started
-</Link>
+                  href="/Healthmate"
+                  className="bg-white text-black text-xs font-medium py-1 px-4 rounded-full hover:bg-gray-200 transition-colors"
+                >
+                  Get Started
+                </Link>
               </div>
             ))}
           </div>
