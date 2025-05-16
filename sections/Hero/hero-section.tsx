@@ -1,24 +1,22 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { AnimatedCharacter } from "@/components/Hero/AnimatedCharacter";
-import { AnimatedLogo } from "@/components/Hero/AnimatedLogo";
-import { CTAButtons } from "@/components/Hero/CallToAction";
-import { ClerkProvider } from "@clerk/nextjs";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useSpring,
+  AnimatePresence,
+} from "framer-motion";
 import Image from "next/image";
 
-const TITLE_TEXT = "NirveonX";
-const SUBTITLE_TEXT = "One AI, Infinite Care – Health, Wellness & Beyond.";
-const DESCRIPTION =
-  "Experience the future of healthcare with our AI-powered platform that provides personalized wellness solutions tailored to your unique needs.";
-
 const SPRING_CONFIG = { damping: 30, stiffness: 400, mass: 1 };
+const ROTATING_WORDS = ["Health", "Wellness&", "Beyond"];
 
 export default function HeroSection() {
   const ref = useRef<HTMLDivElement>(null);
-  const [buttonHovered, setButtonHovered] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
 
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const mouseXSpring = useSpring(0, SPRING_CONFIG);
@@ -32,6 +30,16 @@ export default function HeroSection() {
   const y = useTransform(scrollYProgress, [0, 1], [0, 300]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentWordIndex(
+        (prevIndex) => (prevIndex + 1) % ROTATING_WORDS.length
+      );
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     interface MousePosition {
@@ -69,7 +77,7 @@ export default function HeroSection() {
     <section
       id="home"
       ref={ref}
-      className="h-screen flex flex-col items-center justify-center px-4 relative overflow-hidden"
+      className="h-screen items-center justify-center px-4 relative overflow-hidden"
     >
       <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
         <div className="absolute inset-0 z-0">
@@ -84,75 +92,40 @@ export default function HeroSection() {
             }}
           />
         </div>
-
         <motion.div
-          className="absolute top-0 left-0 w-full h-full bg-gradient-radial from-gray-800/20 to-transparent opacity-30"
-          style={{
-            x: useTransform(mouseXSpring, [-1, 1], [-20, 20]),
-            y: useTransform(mouseYSpring, [-1, 1], [-20, 20]),
-          }}
-        />
-        <motion.div
-          className="absolute bottom-0 right-0 w-3/4 h-3/4 bg-gradient-radial from-gray-800/20 to-transparent opacity-30"
-          style={{
-            x: useTransform(mouseXSpring, [-1, 1], [20, -20]),
-            y: useTransform(mouseYSpring, [-1, 1], [20, -20]),
-          }}
-        />
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        className="relative z-10 text-center max-w-4xl"
-        style={{ scale }}
-      >
-        <AnimatedLogo cloudinaryUrl="https://res.cloudinary.com/dqqyuvg1v/image/upload/v1741797055/favicon_wlxa7n.ico" />
-
-        <div className={`split-text ${isVisible ? "split-text-visible" : ""}`}>
-          {TITLE_TEXT.split("").map((char, index) => (
-            <AnimatedCharacter
-              key={index}
-              char={char}
-              index={index}
-              className="text-5xl md:text-7xl font-bold"
-              baseDelay={0}
-            />
-          ))}
-        </div>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="text-xl md:text-2xl text-center mb-8 max-w-2xl mx-auto mt-6"
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="absolute top-[30%] left-1/6 sm:left-[35%] sm:top-[60%] sm:transform sm:-translate-x-1/2 sm:-translate-y-1/2 z-10 w-full md:w-auto"
+          style={{ scale }}
         >
-          {SUBTITLE_TEXT.split("").map((char, index) => (
-            <AnimatedCharacter
-              key={index}
-              char={char}
-              index={index}
-              baseDelay={0.8}
-            />
-          ))}
-        </motion.p>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1 }}
-          className="text-gray-400 mb-10 max-w-3xl mx-auto"
-        >
-          {DESCRIPTION}
-        </motion.p>
-
-        {/* <ClerkProvider>
-          <CTAButtons
-            buttonHovered={buttonHovered}
-            setButtonHovered={setButtonHovered}
-          />
-        </ClerkProvider> */}
+          <motion.div className="flex flex-col items-start justify-center space-y-2 max-w-lg md:max-w-xl lg:max-w-3xl">
+            <motion.h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white">
+              OneAI.
+            </motion.h1>
+            <div className="flex flex-row items-start sm:items-center gap-1 sm:gap-2">
+              <motion.h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white whitespace-nowrap">
+                Infinite Care.
+              </motion.h2>
+              <motion.div className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-white/60 flex items-center">
+                <div className="relative h-10 sm:h-12 md:h-16 lg:h-20 w-40 sm:w-48 md:w-60 lg:w-80 inline-flex items-center justify-center overflow-hidden font-bold">
+                  <AnimatePresence mode="wait">
+                    <motion.span
+                      key={currentWordIndex}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      transition={{ duration: 0.5 }}
+                      className="absolute"
+                    >
+                      {ROTATING_WORDS[currentWordIndex]}
+                    </motion.span>
+                  </AnimatePresence>
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+        </motion.div>
       </motion.div>
     </section>
   );
