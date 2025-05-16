@@ -5,6 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 import CustomCursor from "@/components/shared/custom-cursor"
 import { useRef, useEffect, useState } from "react"
+import ParticlesBackground from "@/components/shared/particle-background"
 
 export default function HealthMate() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -22,11 +23,12 @@ export default function HealthMate() {
     <>
       {/* Custom cursor is only enabled for non-mobile devices */}
       {!isMobile && <CustomCursor containerRef={containerRef as React.RefObject<HTMLDivElement>} />}
-
-      <div className="min-h-screen bg-black text-white relative overflow-hidden">
-        <div className="absolute inset-0 z-0 opacity-80">
-          <Image src="/image 52.png" alt="Pills background" fill className="object-cover" />
+       
+      <div className="min-h-screen bg-black text-white relative overflow-hidden"  style={{background:"url('/image 52.png')", backgroundSize: 'cover', backgroundPosition: 'center'}}>
+        <div className="absolute inset-0  z-0 opacity-80">
+          {/* <Image src="/image 52.png" alt="Pills background" fill className="object-cover" /> */}
         </div>
+        <ParticlesBackground />
 
         <div className="relative z-10 w-full h-full flex flex-col gap-8 lg:gap-10 overflow-hidden">
           <div className="flex gap-2 justify-between items-center mb-20 lg:mb-10 px-4">
