@@ -1,3 +1,4 @@
+import ParticlesBackground from "@/components/shared/particle-background";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Phone, Video } from "lucide-react";
 import Image from "next/image";
@@ -7,6 +8,7 @@ import Link from "next/link";
 export default function LandingPage() {
     return (
     <div className="min-h-screen w-full  bg-cover bg-center relative" style={{ backgroundImage: "url('/bg_image.png')" }}>
+      <ParticlesBackground/>
       <div className="w-full h-full flex flex-col gap-8 lg:gap-10 overflow-hidden ">
         <div className="flex gap-2 justify-between items-center mb-20 lg:mb-10 px-4">
           <Link href="/">

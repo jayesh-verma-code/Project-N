@@ -294,7 +294,7 @@ if (storedUserName) {
             <div className="flex justify-between items-center p-4 border-b border-gray-800">
               <Button
                 onClick={createNewChat}
-                className="flex items-center gap-2 text-sm bg-amber-600 hover:bg-amber-700 transition-colors duration-200"
+                className="flex text-white items-center gap-2 text-sm bg-amber-600 hover:bg-amber-700 transition-colors duration-200"
               >
                 <Plus className="size-4" /> New Chat
               </Button>
@@ -362,7 +362,7 @@ if (storedUserName) {
           <div className="flex justify-between items-center p-1 mb-4">
             <Button
               onClick={createNewChat}
-              className="flex items-center gap-2 text-sm bg-amber-600 hover:bg-amber-700 transition-colors duration-200"
+              className="flex text-white items-center gap-2 text-sm bg-amber-600 hover:bg-amber-700 transition-colors duration-200"
             >
               <Plus className="size-4" /> New Chat
             </Button>
@@ -425,7 +425,8 @@ if (storedUserName) {
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col h-screen overflow-hidden">
         {/* Fixed header bar that spans the entire width */}
-        <div className="bg-gray-900 pt-4 pb-6 px-2  md:p-2 md:left-0 sm:left-1/2 sm:right-0 fixed w-full z-20">
+        <div className=" bg-gradient-to-b from-white/5 via-white/4 to-white/3
+        backdrop-blur-sm pt-4 pb-6 px-2  md:p-2 md:left-0 sm:left-1/2 sm:right-0 fixed w-full z-20">
           <div className="flex items-center justify-between max-w-screen-xl mx-auto">
             {/* Left side - menu button */}
             <div className="flex items-center justify-start w-10">
@@ -449,7 +450,7 @@ if (storedUserName) {
             </div>
 
             {/* Center - title and status - FIXED WIDTH AND POSITION */}
-            <div className="lg:relative lg:left-0 sm:absolute absolute left-1/2 sm:left-1/2 transform -translate-x-1/2 flex flex-col items-center">
+            <div className="lg:relative  lg:left-0 sm:absolute absolute left-1/2 sm:left-1/2 transform -translate-x-1/2 flex flex-col items-center">
               <div className="text-3xl sm:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-amber-600">
                 GoldenCare
               </div>

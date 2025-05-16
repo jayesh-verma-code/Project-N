@@ -264,7 +264,7 @@ export default function MindEasePage() {
             <div className=" flex justify-between items-center p-4 border-b border-gray-800">
               <Button
                 onClick={createNewChat}
-                className="flex items-center gap-2 text-sm bg-indigo-600 hover:bg-indigo-700 transition-colors duration-200"
+                className="flex text-white items-center gap-2 text-sm bg-indigo-600 hover:bg-indigo-700 transition-colors duration-200"
               >
                 <Plus className="size-4" /> New Chat
               </Button>
@@ -330,7 +330,7 @@ export default function MindEasePage() {
           <div className="flex justify-between items-center p-1 mb-4">
             <Button
               onClick={createNewChat}
-              className="flex items-center gap-2 text-sm bg-indigo-600 hover:bg-indigo-700 transition-colors duration-200"
+              className="flex text-white items-center gap-2 text-sm bg-indigo-600 hover:bg-indigo-700 transition-colors duration-200"
             >
               <Plus className="size-4" /> New Chat
             </Button>
