@@ -1,28 +1,32 @@
+'use client'
 import CustomCursor from "@/components/shared/custom-cursor";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Phone, Video } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useRef } from "react";
 
 export default function LandingPage() {
+  const route = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
+
   return (
     <div
-    className="min-h-screen w-full  bg-black bg-center relative flex items-start justify-center"
+    className="min-h-screen w-full  bg-[#000a0b] bg-center relative flex items-start justify-center"
     
   >
     <img src="/mindease-bg.jpg" alt="" className="absolute min-w-[780px]  lg:w-[1000px] top-0 " />
       <CustomCursor
         containerRef={containerRef as React.RefObject<HTMLDivElement>}
       />
-      <div className="absolute w-full h-full flex flex-col gap-8 lg:gap-10 overflow-auto z-10">
+      <div className="absolute w-full h-full flex flex-col gap-8 lg:gap-10 overflow-x-hidden z-10">
         <div className="flex gap-2 justify-between items-center mb-20 lg:mb-10 px-4 lg:px-10">
-        <div className="bg-white bg-opacity-10 rounded-full p-2 md:p-3 mt-5 md:mt-0">
-            <Link href="/">
-              <ArrowLeft className="size-4 md:size-5 text-black" />
-            </Link>
-          </div>
+        <Link href="/" className="z-10 bg-white bg-opacity-10 rounded-full p-2 md:p-3 mt-5 md:mt-0 hover:bg-opacity-20 active:bg-opacity-30 transition">
+  <ArrowLeft className="size-4 md:size-5 text-black" />
+</Link>
+
+
 
 
           {/* Title and subtitle */}
