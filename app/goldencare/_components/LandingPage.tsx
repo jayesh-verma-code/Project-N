@@ -77,7 +77,7 @@ export default function GoldencareLandingPage() {
         <div className="flex gap-2 justify-between items-center mb-20 lg:mb-10 px-4">
           <motion.div 
             whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
+            whileTap={{ scale: 1.1 }}
             className="bg-white bg-opacity-10 mt-5 backdrop-filter backdrop-blur-md rounded-full p-3"
           >
             <Link href="/">
@@ -139,7 +139,7 @@ export default function GoldencareLandingPage() {
             icon="doctor"
           />
           <Card
-            title="Friendly Chat for companionship"
+            title="Friendly Chat"
             imagePath="/Friendly-Chat.png"
             icon="chat"
           />
@@ -294,7 +294,7 @@ function Card({
       animate="visible"
       whileHover="hover"
       className="bg-white/10 backdrop-filter backdrop-blur-lg py-3 px-3 flex flex-col items-center justify-center gap-0 rounded-xl mb-3 
-        relative overflow-hidden w-full max-w-[250px] mx-auto transition-all duration-500 ease-out
+        relative overflow-hidden w-full md:min-w-[200px] max-w-[350px] mx-auto transition-all duration-500 ease-out
         before:absolute before:inset-0 before:rounded-xl before:border before:border-amber-500/20
         before:bg-gradient-to-br before:from-amber-600/0 before:to-yellow-400/0
         hover:before:from-amber-600/30 hover:before:to-yellow-400/30
@@ -367,8 +367,8 @@ function Card({
           <Image
             src={imagePath || "/placeholder.svg"}
             alt={title}
-            width={80}
-            height={80}
+            width={120}
+            height={120}
             className="object-center rounded-full transition-all duration-500"
             style={{
               boxShadow: isHovered ? "0 0 20px rgba(245,158,11,0.7)" : "none"
@@ -376,10 +376,11 @@ function Card({
           />
         </motion.div>
       </div>
+      <div className="h-10 w-full"></div>
       
       <div className="mb-2 px-2 transform-gpu" style={{ transform: "translateZ(20px)" }}>
         <motion.h1 
-          className="text-white font-semibold text-center text-sm transition-colors duration-500"
+          className="text-white font-semibold text-center text-[12px] md:text-sm transition-colors duration-500"
           style={{
             color: isHovered ? "#fcd34d" : "white",
             textShadow: isHovered ? "0 0 8px rgba(217,119,6,0.7)" : "none"
