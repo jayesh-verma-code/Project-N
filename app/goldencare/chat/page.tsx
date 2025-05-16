@@ -42,16 +42,21 @@ export default function GoldencarePage() {
   const [loading, setLoading] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [userName, setUserName] = useState('None');
 
   // API URL
-  const API_URL = 'https://goldencarechat-api-latest.onrender.com/chat';
+  const API_URL = 'https://goldencarechat-api-latest-1.onrender.com/chat';
 
   // Get current chat
-  const currentChat = chatSessions.find((chat) => chat.id === currentChatId) || null;
+  const currentChat = chatSessions.find((chat) => chat.id === currentChatId) || null;4
 
   // Load chat sessions from localStorage on initial render
   useEffect(() => {
     const savedSessions = localStorage.getItem("goldencare-chat-sessions");
+   const storedUserName = localStorage.getItem("goldencare_username");
+if (storedUserName) {
+  setUserName(storedUserName);
+}
     if (savedSessions) {
       const sessions = JSON.parse(savedSessions);
       setChatSessions(sessions);
@@ -155,10 +160,36 @@ export default function GoldencarePage() {
         },
         body: JSON.stringify({
           message: input,
+          user_name:userName,
         }),
       });
 
       if (!response.ok) throw new Error("Network response was not ok");
+      if(response.status===404){
+        setLoading(false);
+        setIsTyping(false);
+        const errorMessages = [
+          ...updatedMessages,
+          {
+            id: Date.now().toString(),
+            text: "User Not Found, Please Register your report in Check-in",
+            sender: "bot" as const,
+            timestamp: Date.now(),
+          },
+        ];
+
+        const errorSessions = updatedSessions.map((chat) =>
+          chat.id === currentChatId
+            ? {
+                ...updatedChat,
+                messages: errorMessages,
+              }
+            : chat
+        );
+        setChatSessions(errorSessions);
+        saveSessions(errorSessions);
+        return;
+      }
 
       const data = await response.json();
 
