@@ -74,7 +74,7 @@ export default function LandingPage() {
 function Card({ title, imagePath }: { title: string; imagePath: string }) {
   return (
     <div className="bg-[#1f2937] h-[90%] md:h-[100%] py-3 px-5 md:px-7 flex flex-col items-center justify-center gap-1 rounded-3xl shadow-md 
-      transform hover:-translate-y-4 hover:shadow-[0_6px_30px_rgba(215,180,200,1)] 
+      transform hover:-translate-y-2 hover:shadow-[0_8px_30px_rgba(96,165,250,0.6)] 
       transition duration-200 ease-in-out">
       
       <div className="relative flex items-center justify-center">
