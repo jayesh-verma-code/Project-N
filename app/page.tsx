@@ -29,7 +29,9 @@ export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const hasSeenIntro = localStorage.getItem('hasSeenIntro') === 'true';
+    // Use sessionStorage instead of localStorage
+    // This will persist only for the current browsing session
+    const hasSeenIntro = sessionStorage.getItem('hasSeenIntro') === 'true';
     setIntroComplete(hasSeenIntro);
     
     const handleScroll = () => {
@@ -42,7 +44,8 @@ export default function Home() {
 
   const handleIntroComplete = () => {
     setIntroComplete(true);
-    localStorage.setItem('hasSeenIntro', 'true');
+    // Save to sessionStorage instead of localStorage
+    sessionStorage.setItem('hasSeenIntro', 'true');
   };
 
  return (
