@@ -75,6 +75,7 @@ export default function Home() {
             <FaqSection />
             <Footer />
             <FloatingChatbot />  
+            
           </>
         )}
       </main>
