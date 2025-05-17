@@ -425,8 +425,8 @@ if (storedUserName) {
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col h-screen overflow-hidden">
         {/* Fixed header bar that spans the entire width */}
-        <div className=" bg-gradient-to-b from-white/5 via-white/4 to-white/3
-        backdrop-blur-sm pt-4 pb-6 px-2  md:p-2 md:left-0 sm:left-1/2 sm:right-0 fixed w-full z-20">
+        <div className=" bg-gray-900
+         pt-4 pb-6 px-2  md:p-2 md:left-0 sm:left-1/2 sm:right-0 fixed w-full z-20">
           <div className="flex items-center justify-between max-w-screen-xl mx-auto">
             {/* Left side - menu button */}
             <div className="flex items-center justify-start w-10">
@@ -546,7 +546,7 @@ if (storedUserName) {
 function UserBubble({ children }: { children: React.ReactNode }) {
   return (
     <div className="ml-auto flex max-w-[90%] md:max-w-[80%] lg:max-w-[75%]">
-      <div className="rounded-xl rounded-br-none bg-gradient-to-r from-amber-600 to-amber-700 px-4 py-3 text-white shadow-lg">
+      <div className="rounded-xl rounded-br-none bg-gradient-to-r from-indigo-600 to-purple-700 px-4 py-3 text-white shadow-lg">
         <div className="text-sm whitespace-pre-wrap">{children}</div>
       </div>
     </div>
@@ -574,7 +574,7 @@ function BotBubble({ children }: { children: React.ReactNode }) {
         </div>
 
         {/* Message bubble with proper tail */}
-        <div className="relative rounded-xl rounded-tl-none bg-[#FEDAAD] px-4 py-3 text-black shadow-lg border border-amber-300/50">
+        <div className="relative rounded-xl rounded-tl-none bg-gray-800 px-4 py-3 text-gray-200 shadow-lg border border-gray-700">
           <div className="text-sm whitespace-pre-wrap leading-relaxed">
             {children}
           </div>
