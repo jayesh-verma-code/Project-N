@@ -74,6 +74,7 @@ export default function AboutUs() {
   };
 
   return (
+    <>
     <div className="flex items-center justify-center min-h-screen mt-0 pt-0 bg-black/50">
       <div className="md:w-3/5 w-4/5 h-[100vh] md:h-[80vh]">
         <motion.div
@@ -127,5 +128,15 @@ export default function AboutUs() {
         </div>
       </div>
     </div>
+    <div className="flex items-center justify-center mb-10  bg-black">
+            <div className="bg-zinc-900 text-white rounded-2xl p-8 shadow-lg relative w-3/4">
+                <h2 className="text-2xl font-bold mb-4">Vision:</h2>
+                <p className="mb-6">To build a seamless, AI-driven healthcare ecosystem that delivers holistic, integrated care for humans and pets—supporting health, wellness, and beyond.</p>
+                <h2 className="text-2xl font-bold mb-4">Mission:</h2>
+                <p className="mb-6">NirveonX&apos;s mission is to embody the principle of “One AI. Infinite Care” by offering comprehensive solutions that encompass preventive care, mental health, elder care, fitness, and lifestyle coaching through a unified platform.</p>
+                
+            </div>
+        </div>
+        </>
   );
 }

@@ -8,6 +8,7 @@ import FloatingChatbot from "@/components/shared/floating-chatbot";
 import { ThemeProvider } from "next-themes";
 import HeroSection from "@/sections/Hero/hero-section";
 import FeaturesSection from "@/sections/Features/features-section";
+import CommunityServices from "@/components/CommunityServices/fitronx-Card"
 import FaqSection from "@/sections/FAQs/faq-section";
 import Footer from "@/sections/marginals/footer";
 import ParticlesBackground from "@/components/shared/particle-background";
@@ -20,7 +21,8 @@ import { useScroll } from "framer-motion";
 import About from "@/components/About/About";
 import TeamMembersSection from "@/sections/Pioneer/pioneer";
 import InvestorSection from "@/sections/Patron/Investors";
-import Fitarth from "@/components/fitronx-Card";
+// import Fitarth from "@/components/CommunityServices/fitronx-Card";
+
 
 export default function Home() {
   const [introComplete, setIntroComplete] = useState(false);
@@ -69,10 +71,11 @@ export default function Home() {
             <Navbar scrolled={scrolled} />
             <HeroSection />
             <About />
-            <Fitarth/>
+            {/* <Fitarth/> */}
             <MarqueeText />
             <FeaturesSection />
             <ChatbotServices />
+            <CommunityServices/>
             <InvestorSection />
             <TeamMembersSection />
             <FaqSection />
