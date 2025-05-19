@@ -270,7 +270,7 @@ export default function FitarthPage() {
         <div className="container mx-auto max-w-5xl">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Meet Our Team</h2>
-            <p className="text-lg text-gray-300">The minds behind Fitarth</p>
+            <p className="text-lg text-gray-300">The minds behind FitronX</p>
           </div>
 
           <Card className="p-8 shadow-lg hover:shadow-xl transition-shadow bg-gray-800 border-gray-700 max-w-3xl mx-auto">
