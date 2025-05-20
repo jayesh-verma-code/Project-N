@@ -1,6 +1,5 @@
 'use client';
 import { useRef } from "react";
-import { useRouter } from 'next/navigation';
 import { ThemeProvider } from "next-themes";
 import ParticlesBackground from "@/components/shared/particle-background";
 import NoiseTexture from "@/components/shared/noise-texture";
@@ -16,7 +15,6 @@ interface MedicalCategory {
 
 // Main Page Component
 export default function HealthMatePage() {
-  const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
   
   // Categories data matching the screenshot
@@ -31,11 +29,7 @@ export default function HealthMatePage() {
     { id: 'other', title: 'Other', image: '/image others.png' },
   ];
 
-  const handleGetStarted = (category: MedicalCategory) => {
-    // In a real app, this would navigate to a specific page
-    alert(`Starting ${category.title} process`);
-    // Example navigation: router.push(`/category/${category.id}`);
-  };
+  // No longer need handleGetStarted function as we're using direct Link component
 
   return (
     <ThemeProvider attribute="class" defaultTheme="dark">
@@ -110,8 +104,9 @@ export default function HealthMatePage() {
                 
                 <span className="text-sm mt-3 mb-3">{category.title}</span>
                 
+                {/* Updated Link to navigate to Healthmate with the category parameter */}
                 <Link 
-                  href="/Healthmate"
+                  href={`/Healthmate?category=${category.id}`}
                   className="bg-white text-black text-xs font-medium py-1 px-4 rounded-full hover:bg-gray-200 transition-colors"
                 >
                   Get Started
