@@ -1,5 +1,5 @@
-// pages/index.tsx
-import { useState } from 'react';
+// components/Healthmate.tsx
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Sidebar from './Footer/Slider';
 
@@ -11,8 +11,60 @@ type Message = {
 };
 
 export default function Home() {
-  //const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState<string>('');
+  const [initialMessage, setInitialMessage] = useState<string>('How can I assist you with your health today?');
+  
+  useEffect(() => {
+    // Client-side only code
+    if (typeof window !== 'undefined') {
+      // Get the category from URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const category = urlParams.get('category');
+      
+      if (category) {
+        // Set specific initial message based on category
+        switch(category) {
+          case 'kidney-ct':
+            setInitialMessage('I see you\'re interested in Kidney CT scans. How can I help with your kidney health today?');
+            console.log('Category detected: kidney-ct');
+            break;
+          case 'chest-xray':
+            setInitialMessage('Welcome to the Chest X-ray section. What would you like to know about your chest X-ray results?');
+            console.log('Category detected: chest-xray');
+            break;
+          case 'mri':
+            setInitialMessage('I can help you understand your MRI results. What specific information are you looking for?');
+            console.log('Category detected: mri');
+            break;
+          case 'xray':
+            setInitialMessage('Looking at X-ray results? I can help explain what they mean. What area was examined?');
+            console.log('Category detected: xray');
+            break;
+          case 'thyroid':
+            setInitialMessage('Welcome to the thyroid health section. How can I assist with your thyroid concerns today?');
+            console.log('Category detected: thyroid');
+            break;
+          case 'sonography':
+            setInitialMessage('I can help interpret sonography results. What specific ultrasound are you interested in discussing?');
+            console.log('Category detected: sonography');
+            break;
+          case 'biopsy':
+            setInitialMessage('I understand you\'re looking at biopsy information. I can help explain biopsy procedures and results. What would you like to know?');
+            console.log('Category detected: biopsy');
+            break;
+          case 'other':
+            setInitialMessage('You\'ve selected Other medical categories. Please let me know what specific health topic you\'d like assistance with.');
+            console.log('Category detected: other');
+            break;
+          default:
+            setInitialMessage('How can I assist you with your health today?');
+            console.log('No specific category detected or invalid category');
+        }
+      } else {
+        console.log('No category parameter found in URL');
+      }
+    }
+  }, []); // Empty dependency array ensures this runs once on mount
 
   const handleSendMessage = (text: string) => {
     // In a real app, you would handle API calls here
@@ -29,7 +81,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex-1 flex flex-col max-w-4xl mx-auto w-full p-4  rounded-lg my-4">
+      <main className="flex-1 flex flex-col max-w-4xl mx-auto w-full p-4 rounded-lg my-4">
         {/* Header */}
         <div className="text-center mb-8 pb-4">
           <h1 className="text-4xl font-bold text-blue-500 mb-2">HealthMate</h1>
@@ -42,9 +94,9 @@ export default function Home() {
         {/* Chat Area */}
         <div className="flex-1 mb-4 overflow-y-auto">
           <div className="flex flex-col space-y-4">
-            {/* Initial bot message */}
+            {/* Initial bot message - Now dynamic based on category */}
             <div className="bg-blue-600 text-white p-3 rounded-tr-lg rounded-br-lg rounded-bl-lg self-start max-w-[80%] shadow">
-              <p>How can I assist you with your health today?</p>
+              <p>{initialMessage}</p>
             </div>
             
             {/* Quick options */}
