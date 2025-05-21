@@ -18,7 +18,7 @@ const Sidebar: React.FC = () => {
   const toggleSidebar = () => setIsOpen(!isOpen);
 
   const handleLogout = () => {
-    // Add logout logic here if needed (e.g. clear cookies or localStorage)
+    // Add logout logic here if needed (e.g. clear cookies or localStorage
     router.push("/HealthMatesecondLanding"); // Navigate
   };
 

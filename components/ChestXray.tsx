@@ -1,9 +1,6 @@
 // components/Healthmate.tsx
 import { useState, useEffect, useRef } from 'react';
 import Sidebar from './Footer/Slider';
-import ChestXray from '@/components/ChestXray';
-import Sonography from './Sonography';
-import { Sono } from 'next/font/google';
 
 type Message = {
   id: string;
@@ -20,10 +17,10 @@ type XrayAnalysisData = {
   confidence: number;
 };
 
-export default function Home() {
+export default function ChestXray() {
   const [inputValue, setInputValue] = useState<string>('');
   const [initialMessage, setInitialMessage] = useState<string>('Welcome to the Chest X-ray Analysis section. Upload a chest X-ray image or ask questions about chest X-rays.');
-  const [apiUrl, setApiUrl] = useState<string>("https://chest-xray-vf3b.onrender.com");
+  const apiUrl="https://chest-xray-vf3b.onrender.com"
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -32,76 +29,18 @@ export default function Home() {
   const [inputShow, setInputShow] = useState<string>("none");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
-  const [catType, setCatType] = useState("none");
   
   // Generate a unique ID for messages
   const generateId = () => {
     return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
   };
-    useEffect(() => {
-    // Client-side only code
-    if (typeof window !== 'undefined') {
-      // Get the category from URL parameters
-      const urlParams = new URLSearchParams(window.location.search);
-      const category = urlParams.get('category');
-      
-      if (category) {
-        // Set specific initial message based on category
-        switch(category) {
-          case 'kidney-ct':
-            setCatType("kidney-ct");
-            setInitialMessage('I see you\'re interested in Kidney CT scans. How can I help with your kidney health today?');
-            console.log('Category detected: kidney-ct');
-            break;
-          case 'chest-xray':
-            setCatType("chest-xray");
-            setApiUrl("https://chest-xray-vf3b.onrender.com");
-            setInputShow("Ask about chest X-rays or medical imaging...")
-            setInitialMessage('Welcome to the Chest X-ray section. What would you like to know about your chest X-ray results?');
-            console.log('Category detected: chest-xray');
-            break;
-          case 'mri':
-            setCatType("mri");
-            setInitialMessage('I can help you understand your MRI results. What specific information are you looking for?');
-            console.log('Category detected: mri');
-            break;
-          case 'xray':
-            setCatType("xray");
-            setInitialMessage('Looking at X-ray results? I can help explain what they mean. What area was examined?');
-            console.log('Category detected: xray');
-            break;
-          case 'thyroid':
-            setCatType("thyroid");
-            setInitialMessage('Welcome to the thyroid health section. How can I assist with your thyroid concerns today?');
-            console.log('Category detected: thyroid');
-            break;
-          case 'sonography':
-            setCatType("sonography");
-            setInputShow("Ask about sonography or ultrasound results...")
-            setInitialMessage('I can help interpret sonography results. What specific ultrasound are you interested in discussing?');
-            console.log('Category detected: sonography');
-            break;
-          case 'biopsy':
-            setCatType("biopsy");
-            setInitialMessage('I understand you\'re looking at biopsy information. I can help explain biopsy procedures and results. What would you like to know?');
-            console.log('Category detected: biopsy');
-            break;
-          case 'other':
-            setInitialMessage('You\'ve selected Other medical categories. Please let me know what specific health topic you\'d like assistance with.');
-            console.log('Category detected: other');
-            break;
-          default:
-            setInitialMessage('How can I assist you with your health today?');
-            console.log('No specific category detected or invalid category');
-        }
-      } else {
-        console.log('No category parameter found in URL');
-      }
-    }
-  }, []); // Empty dependency array ensures this runs once on mount
 
   // Auto-scroll to bottom of chat when new messages arrive
-  
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -344,11 +283,165 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-black text-white flex flex-col">
       <Sidebar/>
-      {catType === "chest-xray" && 
-      <ChestXray/>}
-      {catType==="sonography" &&
-      <Sonography/>}
-    <Sonography/>
+      <main className="flex-1 flex flex-col max-w-4xl mx-auto w-full p-4 rounded-lg my-4">
+        {/* Header */}
+        <div className="text-center mb-4 pb-4">
+          <h1 className="text-4xl font-bold text-blue-500 mb-2">HealthMate</h1>
+          <div className="inline-flex items-center bg-black rounded-full px-3 py-1 border border-green-500">
+            <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+            <span className="text-sm text-green-500">Online</span>
+          </div>
+        </div>
+
+        {/* Chat Area */}
+        <div ref={chatContainerRef} className="flex-1 mb-4 overflow-y-auto max-h-[60vh] px-2">
+          <div className="flex flex-col space-y-4">
+            {messages.map((message) => (
+              <div 
+                key={message.id} 
+                className={`${
+                  message.sender === 'user' 
+                    ? 'bg-blue-800 text-white self-end rounded-tl-lg rounded-tr-lg rounded-bl-lg' 
+                    : 'bg-blue-600 text-white self-start rounded-tr-lg rounded-br-lg rounded-bl-lg'
+                } p-3 max-w-[80%] shadow`}
+              >
+                <p>{message.text}</p>
+                {message.image && (
+                  <img 
+                    src={message.image} 
+                    alt="User uploaded" 
+                    className="mt-2 max-h-64 rounded-lg" 
+                  />
+                )}
+              </div>
+            ))}
+            
+            {isLoading && (
+              <div className="bg-gray-800 text-white p-3 rounded-lg self-start flex items-center space-x-2">
+                <span>Analyzing</span>
+                <span className="flex space-x-1">
+                  <span className="animate-pulse">.</span>
+                  <span className="animate-pulse animation-delay-200">.</span>
+                  <span className="animate-pulse animation-delay-400">.</span>
+                </span>
+              </div>
+            )}
+          </div>
+        </div>
+        
+        {/* X-ray Analysis Results */}
+        {xrayData && renderFindingsChart()}
+        
+      
+        {/* Image preview */}
+        {previewImage && (
+          <div className="relative self-start mb-4 w-full">
+            <div className="bg-gray-800 p-3 rounded-lg">
+              <h3 className="text-blue-400 font-bold mb-2">Ready to analyze:</h3>
+              <div className="relative inline-block">
+                <img 
+                  src={previewImage} 
+                  alt="Preview" 
+                  className="max-h-64 rounded-lg border border-gray-600"
+                />
+                <button 
+                  onClick={removeImage}
+                  className="absolute top-2 right-2 bg-black bg-opacity-50 rounded-full p-1 hover:bg-opacity-70"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+              </div>
+              <div className="mt-3">
+                <p className="text-gray-300 text-sm mb-2">Add a message with your X-ray (optional):</p>
+                <input
+                  type="text"
+                  placeholder="Describe any symptoms or concerns..."
+                  className="w-full bg-gray-700 text-white rounded-lg px-4 py-2 mb-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                  value={inputValue}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
+                />
+                <button 
+                  className="bg-blue-500 text-white rounded-lg px-4 py-2 hover:bg-blue-600 flex items-center"
+                  onClick={handleUploadXray}
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <span>Analyzing...</span>
+                  ) : (
+                    <>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5 mr-2">
+                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7"></path>
+                        <path d="M16 5V3"></path>
+                        <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                        <path d="M9 9h.01"></path>
+                        <path d="M15 9h.01"></path>
+                      </svg>
+                      Analyze X-ray with Message
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Input Area */}
+        <div className="relative bg-gray-800 text-white rounded-full px-4 py-3 pr-36 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <input
+            type="text"
+            placeholder={inputShow}
+            className="w-[90%] bg-transparent focus:outline-none text-sm text-white placeholder-gray-400"
+            value={inputValue}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
+            onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => {
+              if (e.key === 'Enter') {
+                handleSendMessage();
+              }
+            }}
+            disabled={isLoading}
+          />
+          <div className="absolute right-2 bottom-2 flex space-x-3 items-center">
+            {/* Hidden file input */}
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleImageUpload}
+              accept="image/*"
+              className="hidden"
+            />
+            
+            {/* Upload X-ray button */}
+            <button 
+              className="text-gray-400 hover:text-white w-7 h-7 flex items-center justify-center"
+              onClick={() => fileInputRef.current?.click()}
+              disabled={isLoading}
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+            </button>
+            
+            {/* Send Icon (Paper Plane) */}
+            <button 
+              className={`${
+                (inputValue.trim() || selectedImage) ? 'bg-blue-500 hover:bg-blue-600' : 'bg-gray-600 cursor-not-allowed'
+              } text-white rounded-full w-8 h-8 flex items-center justify-center`}
+              onClick={handleSendMessage}
+              disabled={(!inputValue.trim() && !selectedImage) || isLoading}
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </main>
     </div>
   );
 }
