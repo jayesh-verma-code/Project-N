@@ -128,15 +128,23 @@ export default function AboutUs() {
         </div>
       </div>
     </div>
-    <div className="flex items-center justify-center mb-10  bg-black">
-            <div className="bg-zinc-900 text-white rounded-2xl p-8 shadow-lg relative w-3/4">
-                <h2 className="text-2xl font-bold mb-4">Vision:</h2>
-                <p className="mb-6">To build a seamless, AI-driven healthcare ecosystem that delivers holistic, integrated care for humans and pets—supporting health, wellness, and beyond.</p>
-                <h2 className="text-2xl font-bold mb-4">Mission:</h2>
-                <p className="mb-6">NirveonX&apos;s mission is to embody the principle of “One AI. Infinite Care” by offering comprehensive solutions that encompass preventive care, mental health, elder care, fitness, and lifestyle coaching through a unified platform.</p>
-                
-            </div>
-        </div>
+<div className="flex items-center justify-center mb-10 bg-black">
+  <div className="relative group bg-transparent text-white rounded-2xl p-8 shadow-lg w-3/4 transition duration-300 hover:bg-blue-900/30 overflow-hidden">
+    <h2 className="text-2xl font-bold mb-4">Vision:</h2>
+    <p className="mb-6">
+      To build a seamless, AI-driven healthcare ecosystem that delivers holistic, integrated care for humans and pets—supporting health, wellness, and beyond.
+    </p>
+    <h2 className="text-2xl font-bold mb-4">Mission:</h2>
+    <p className="mb-6">
+      NirveonX&apos;s mission is to embody the principle of “One AI. Infinite Care” by offering comprehensive solutions that encompass preventive care, mental health, elder care, fitness, and lifestyle coaching through a unified platform.
+    </p>
+
+    {/* Animated line */}
+    <div className="absolute bottom-0 left-0 h-1 bg-blue-800 w-0 group-hover:w-full transition-all duration-1000"></div>
+  </div>
+</div>
+
+
         </>
   );
 }
