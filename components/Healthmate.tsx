@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import Sidebar from './Footer/Slider';
 import ChestXray from '@/components/ChestXray';
 import Sonography from './Sonography';
+import Mri from '@/components/Mri';
 import { Sono } from 'next/font/google';
 import KidneyCTAnalysis from './Kidneyct';
 
@@ -351,6 +352,9 @@ export default function Home() {
       <Sonography/>}
       {catType==="kidney-ct" &&
       <KidneyCTAnalysis/>}
+      {catType==="mri" &&
+      <Mri/>}
+      <Mri/>
       
     </div>
   );
