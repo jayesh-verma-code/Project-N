@@ -4,6 +4,7 @@ import Sidebar from './Footer/Slider';
 import ChestXray from '@/components/ChestXray';
 import Sonography from './Sonography';
 import { Sono } from 'next/font/google';
+import KidneyCTAnalysis from './Kidneyct';
 
 type Message = {
   id: string;
@@ -348,7 +349,9 @@ export default function Home() {
       <ChestXray/>}
       {catType==="sonography" &&
       <Sonography/>}
-    <Sonography/>
+      {catType==="kidney-ct" &&
+      <KidneyCTAnalysis/>}
+      
     </div>
   );
 }
