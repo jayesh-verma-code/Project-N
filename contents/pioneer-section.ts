@@ -35,7 +35,7 @@ export const pioneers: TeamMember[] = [
     description:
       "Kavali Deekshith is the Chairman & CEO of NirveonX, leading AI-driven healthcare innovation with strong leadership and strategic vision. A B.Tech AI & ML student at JNTUH, he is a visionary entrepreneur, AI innovator, and dynamic leader known for his decision-making, problem-solving, and team-building skills. A CBSE merit holder and national-level science project winner, he blends technical expertise, business acumen, and creativity to drive impactful change in healthcare and AI.",
     avatar:
-      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742980503/WhatsApp_Image_2025-03-18_at_01.49.48_mdd3mo_t1ddkq.jpg",
+      "/DeekshitBhaiya.jpg",
   },
   {
     id: "Co-founder",
