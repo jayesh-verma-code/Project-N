@@ -6,6 +6,8 @@ import Sonography from './Sonography';
 import Mri from '@/components/Mri';
 import { Sono } from 'next/font/google';
 import KidneyCTAnalysis from './Kidneyct';
+import XRayAnalyzer from './Xray';
+import Thyroid from './Thyroid';
 
 type Message = {
   id: string;
@@ -354,8 +356,11 @@ export default function Home() {
       <KidneyCTAnalysis/>}
       {catType==="mri" &&
       <Mri/>}
-      <Mri/>
-      
+      {catType==="xray" &&
+      <XRayAnalyzer/>}
+      {catType==="thyroid" &&
+      <Thyroid/>}
+      <Thyroid/>
     </div>
   );
 }
