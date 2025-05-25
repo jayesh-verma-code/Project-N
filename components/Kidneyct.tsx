@@ -1,6 +1,7 @@
 // components/KidneyCTAnalysis.tsx
 import { useState, useEffect, useRef } from 'react';
-import Sidebar from './Footer/Slider';
+import { useRouter } from 'next/navigation';
+import { Menu, X, MessageSquarePlus, Settings, LogOut, HeartPulse, Trash2 } from 'lucide-react';
 
 type Message = {
   id: string;
@@ -18,10 +19,18 @@ type CTAnalysisData = {
   session_id: string;
 };
 
+type ChatHistoryItem = {
+  id: string;
+  title: string;
+  timestamp: Date;
+  sessionId: string | null;
+  messages: Message[];
+};
+
 export default function KidneyCTAnalysis() {
   const [inputValue, setInputValue] = useState<string>('');
   const [initialMessage] = useState<string>('Welcome to the Kidney CT Analysis section. Please upload a kidney CT scan image first to begin analysis and discussion.');
-  const apiUrl = "https://kidney-ct-258649051254.asia-south2.run.app"; // Update this to your API URL
+  const apiUrl = "https://kidney-ct-258649051254.asia-south2.run.app";
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -29,11 +38,33 @@ export default function KidneyCTAnalysis() {
   const [ctData, setCTData] = useState<CTAnalysisData | null>(null);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [analysisComplete, setAnalysisComplete] = useState<boolean>(false);
+  const [chatHistory, setChatHistory] = useState<ChatHistoryItem[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
-  
-  // Initialize with welcome message
+  const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+
+  // Initialize with welcome message and load chat history
   useEffect(() => {
+    const storedHistory = localStorage.getItem('kidneyCTChatHistory');
+    if (storedHistory) {
+      try {
+        const parsedHistory = JSON.parse(storedHistory);
+        // Convert string timestamps back to Date objects
+        const historyWithDates = parsedHistory.map((item: any) => ({
+          ...item,
+          timestamp: new Date(item.timestamp),
+          messages: item.messages.map((msg: any) => ({
+            ...msg,
+            timestamp: new Date(msg.timestamp)
+          }))
+        }));
+        setChatHistory(historyWithDates);
+      } catch (error) {
+        console.error('Error parsing chat history:', error);
+      }
+    }
+
     setMessages([{
       id: generateId(),
       text: initialMessage,
@@ -42,11 +73,6 @@ export default function KidneyCTAnalysis() {
     }]);
   }, [initialMessage]);
 
-  // Generate a unique ID for messages
-  const generateId = () => {
-    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-  };
-
   // Auto-scroll to bottom of chat when new messages arrive
   useEffect(() => {
     if (chatContainerRef.current) {
@@ -54,11 +80,69 @@ export default function KidneyCTAnalysis() {
     }
   }, [messages]);
 
+  // Save chat history to localStorage when it changes
+  useEffect(() => {
+    if (chatHistory.length > 0) {
+      localStorage.setItem('kidneyCTChatHistory', JSON.stringify(chatHistory));
+    }
+  }, [chatHistory]);
+
+  const generateId = () => {
+    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+  };
+
+  const toggleSidebar = () => setIsOpen(!isOpen);
+
+  const handleLogout = () => {
+    router.push("/HealthMatesecondLanding");
+  };
+
+  const handleNewChat = () => {
+    if (messages.length > 1) { // Only save if there's more than just the initial message
+      const firstUserMessage = messages.find(msg => msg.sender === 'user');
+      const chatTitle = firstUserMessage 
+        ? firstUserMessage.text.slice(0, 30) + (firstUserMessage.text.length > 30 ? '...' : '')
+        : 'New Chat';
+      
+      const newChatItem: ChatHistoryItem = {
+        id: generateId(),
+        title: chatTitle,
+        timestamp: new Date(),
+        sessionId,
+        messages
+      };
+
+      setChatHistory(prev => [newChatItem, ...prev]);
+    }
+
+    // Clear current chat
+    clearChat();
+  };
+
+  const loadChat = (chatId: string) => {
+    const chatToLoad = chatHistory.find(chat => chat.id === chatId);
+    if (chatToLoad) {
+      setMessages(chatToLoad.messages);
+      setSessionId(chatToLoad.sessionId);
+      setAnalysisComplete(!!chatToLoad.sessionId);
+      // You might need to set other states based on the loaded chat
+      setIsOpen(false); // Close sidebar after loading
+    }
+  };
+
+  const deleteChat = (chatId: string, e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent triggering loadChat
+    setChatHistory(prev => prev.filter(chat => chat.id !== chatId));
+  };
+
+  const formatDate = (date: Date) => {
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  };
+
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       setSelectedImage(file);
-      // Create preview URL
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreviewImage(reader.result as string);
@@ -81,7 +165,6 @@ export default function KidneyCTAnalysis() {
     setIsLoading(true);
     
     try {
-      // Add user message with image
       const userMessage: Message = {
         id: generateId(),
         text: "Please analyze this kidney CT scan.",
@@ -92,11 +175,9 @@ export default function KidneyCTAnalysis() {
       
       setMessages(prev => [...prev, userMessage]);
       
-      // Create form data for upload
       const formData = new FormData();
       formData.append('file', selectedImage);
       
-      // Add processing message
       const processingMessage: Message = {
         id: generateId(),
         text: "Analyzing your kidney CT scan...",
@@ -106,28 +187,21 @@ export default function KidneyCTAnalysis() {
       
       setMessages(prev => [...prev, processingMessage]);
       
-      // Make API call to analyze-ct endpoint
       const response = await fetch(`${apiUrl}/analyze-ct/`, {
         method: 'POST',
         body: formData
       });
       
-      if (!response.ok) {
-        throw new Error('API request failed');
-      }
+      if (!response.ok) throw new Error('API request failed');
       
       const data: CTAnalysisData = await response.json();
-      console.log('CT analysis response:', data);
       
-      // Store CT data and session ID
       setCTData(data);
       setSessionId(data.session_id);
       setAnalysisComplete(true);
       
-      // Remove the processing message
       setMessages(prev => prev.filter(msg => msg.id !== processingMessage.id));
       
-      // Add response message with analysis results
       const resultMessage: Message = {
         id: generateId(),
         text: `Analysis Complete!\n\nCondition: ${data.prediction}\nConfidence: ${data.confidence.toFixed(1)}%\n\n${data.explanation}\n\nYou can now ask me questions about this analysis.`,
@@ -137,7 +211,6 @@ export default function KidneyCTAnalysis() {
       
       setMessages(prev => [...prev, resultMessage]);
       
-      // Reset image selection
       setSelectedImage(null);
       setPreviewImage(null);
       if (fileInputRef.current) {
@@ -146,10 +219,8 @@ export default function KidneyCTAnalysis() {
       
     } catch (error) {
       console.error('Error uploading CT scan:', error);
-      // Remove processing message if it exists
       setMessages(prev => prev.filter(msg => msg.text !== "Analyzing your kidney CT scan..."));
       
-      // Add error message
       const errorMessage: Message = {
         id: generateId(),
         text: "Sorry, there was an error analyzing your CT scan. Please try again later.",
@@ -166,7 +237,6 @@ export default function KidneyCTAnalysis() {
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
     
-    // If no analysis has been done yet, prompt user to upload first
     if (!analysisComplete) {
       const promptMessage: Message = {
         id: generateId(),
@@ -181,7 +251,6 @@ export default function KidneyCTAnalysis() {
     setIsLoading(true);
     
     try {
-      // Add user message
       const userMessage: Message = {
         id: generateId(),
         text: inputValue,
@@ -191,7 +260,6 @@ export default function KidneyCTAnalysis() {
       
       setMessages(prev => [...prev, userMessage]);
       
-      // Make API call to chat endpoint
       const response = await fetch(`${apiUrl}/chat/`, {
         method: 'POST',
         headers: {
@@ -203,14 +271,10 @@ export default function KidneyCTAnalysis() {
         })
       });
       
-      if (!response.ok) {
-        throw new Error('API request failed');
-      }
+      if (!response.ok) throw new Error('API request failed');
       
       const data = await response.json();
-      console.log('Chat response:', data);
       
-      // Add bot response
       const botMessage: Message = {
         id: generateId(),
         text: data.response,
@@ -219,13 +283,10 @@ export default function KidneyCTAnalysis() {
       };
       
       setMessages(prev => [...prev, botMessage]);
-      
-      // Reset input
       setInputValue('');
       
     } catch (error) {
       console.error('Error sending message:', error);
-      // Add error message
       const errorMessage: Message = {
         id: generateId(),
         text: "Sorry, I couldn't process your message. Please try again later.",
@@ -276,7 +337,6 @@ export default function KidneyCTAnalysis() {
   };
 
   const clearChat = () => {
-    // Reset all states
     setMessages([{
       id: generateId(),
       text: initialMessage,
@@ -296,21 +356,101 @@ export default function KidneyCTAnalysis() {
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col">
-      <Sidebar/>
+      <button
+        onClick={toggleSidebar}
+        className={`fixed z-50 p-2 rounded-full transition-all ${
+          isOpen
+            ? "left-64 top-6 bg-gray-700/50"
+            : "left-6 top-6 bg-indigo-600"
+        }`}
+        aria-label={isOpen ? "Close sidebar" : "Open sidebar"}
+      >
+        {isOpen ? (
+          <X className="text-white w-5 h-5" />
+        ) : (
+          <Menu className="text-white w-5 h-5" />
+        )}
+      </button>
+
+      <div
+        className={`fixed h-screen w-72 bg-white/10 backdrop-blur-lg border-r border-gray-700/20 flex flex-col z-40 transition-all duration-300 ${
+          isOpen ? "left-0" : "-left-full"
+        }`}
+      >
+        <div className="flex flex-row p-6 gap-2 border-b border-gray-700/10">
+          <HeartPulse className="text-indigo-600 w-10 h-10" />
+          <h1 className="font-semibold text-lg text-white">Healthmate</h1>
+        </div>
+
+        <div className="flex-1 flex flex-col justify-between p-4">
+          <div className="space-y-1">
+            <button 
+              onClick={handleNewChat}
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-white/5 hover:text-white transition-colors"
+            >
+              <MessageSquarePlus className="w-5 h-5" />
+              <span>New Chat</span>
+            </button>
+
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 px-2">Recent Chats</h3>
+              <div className="space-y-1 max-h-[50vh] overflow-y-auto">
+                {chatHistory.map(chat => (
+                  <div 
+                    key={chat.id}
+                    onClick={() => loadChat(chat.id)}
+                    className="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-white/5 cursor-pointer group"
+                  >
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm text-white truncate">{chat.title}</p>
+                      <p className="text-xs text-gray-400">{formatDate(chat.timestamp)}</p>
+                    </div>
+                    <button 
+                      onClick={(e) => deleteChat(chat.id, e)}
+                      className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-red-400 p-1"
+                      aria-label="Delete chat"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                ))}
+                {chatHistory.length === 0 && (
+                  <p className="text-xs text-gray-500 px-2 py-1">No chat history yet</p>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-1">
+            <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-white/5 hover:text-white transition-colors">
+              <Settings className="w-5 h-5" />
+              <span>Settings</span>
+            </button>
+            <button
+              onClick={handleLogout}
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-white/5 hover:text-white transition-colors"
+            >
+              <LogOut className="w-5 h-5" />
+              <span>Logout</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/30 z-30"
+          onClick={toggleSidebar}
+        />
+      )}
       <main className="flex-1 flex flex-col max-w-4xl mx-auto w-full p-4 rounded-lg my-4">
         {/* Header */}
         <div className="text-center mb-4 pb-4">
-          <h1 className="text-4xl font-bold text-blue-500 mb-2">Kidney CT Analysis</h1>
+          <h1 className="text-4xl font-bold text-blue-500 mb-2">Healthmate</h1>
           <div className="inline-flex items-center bg-black rounded-full px-3 py-1 border border-green-500">
             <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
             <span className="text-sm text-green-500">Online</span>
           </div>
-          <button 
-            onClick={clearChat}
-            className="ml-4 bg-red-600 hover:bg-red-700 text-white text-sm px-3 py-1 rounded-full"
-          >
-            New Analysis
-          </button>
         </div>
 
         {/* Analysis Status */}
@@ -412,7 +552,7 @@ export default function KidneyCTAnalysis() {
         )}
 
         {/* Input Area */}
-        <div className="relative bg-gray-800 text-white rounded-full px-4 py-3 pr-36 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <div className="relative bottom-0 bg-gray-800 text-white rounded-full px-4 py-3 pr-36 focus:outline-none focus:ring-2 focus:ring-blue-500">
           <input
             type="text"
             placeholder={analysisComplete 
@@ -430,7 +570,6 @@ export default function KidneyCTAnalysis() {
             disabled={isLoading}
           />
           <div className="absolute right-2 bottom-2 flex space-x-3 items-center">
-            {/* Hidden file input */}
             <input
               type="file"
               ref={fileInputRef}
@@ -439,7 +578,6 @@ export default function KidneyCTAnalysis() {
               className="hidden"
             />
             
-            {/* Upload CT button */}
             <button 
               className="text-gray-400 hover:text-white w-7 h-7 flex items-center justify-center"
               onClick={() => fileInputRef.current?.click()}
@@ -453,7 +591,6 @@ export default function KidneyCTAnalysis() {
               </svg>
             </button>
             
-            {/* Send Icon (Paper Plane) */}
             <button 
               className={`${
                 inputValue.trim() && analysisComplete 
