@@ -8,6 +8,7 @@ import { Sono } from 'next/font/google';
 import KidneyCTAnalysis from './Kidneyct';
 import XRayAnalyzer from './Xray';
 import Thyroid from './Thyroid';
+import GeneralChat from './GeneralChat';
 
 type Message = {
   id: string;
@@ -359,6 +360,10 @@ export default function Home() {
       <XRayAnalyzer/>}
       {catType==="thyroid" &&
       <Thyroid/>}
+      {catType==="biopsy" &&
+      <GeneralChat/>}
+      {catType==="other" &&
+      <GeneralChat/>}
     </div>
   );
 }
