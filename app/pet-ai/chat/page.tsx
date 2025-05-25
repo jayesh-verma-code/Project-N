@@ -6,6 +6,7 @@ import {
   LogOut,
   MenuIcon,
   Mic,
+  HeartPulse,
   Plus,
   Send,
   Settings,
@@ -271,8 +272,13 @@ export default function PetAIPage() {
     bg-gradient-to-b from-white/5 via-white/4 to-white/3
     backdrop-blur-sm text-white`}
       >
+        
         {sidebarOpen && (
           <div className="flex flex-col h-full">
+            <header className="flex items-center p-6 gap-2 border-b border-gray-700/10">
+          <HeartPulse className="text-indigo-600 w-8 h-8" />
+          <h1 className="font-semibold text-lg text-white">PET-AI</h1>
+        </header>
             <div className=" flex justify-between items-center p-4 border-b border-gray-800">
               <Button
                 onClick={createNewChat}
@@ -345,6 +351,11 @@ export default function PetAIPage() {
           sidebarDrawerOpen ? "translate-x-0" : "-translate-x-full"
         } border-r border-gray-800`}
       >
+        <header className="flex items-center p-6 gap-2 border-b border-gray-700/10">
+          <HeartPulse className="text-indigo-600 w-8 h-8" />
+          <h1 className="font-semibold text-lg text-white">PET-AI</h1>
+        </header>
+
         <div className="flex flex-col h-full">
           <div className="flex justify-between items-center p-1 mb-4">
             <Button
@@ -417,7 +428,7 @@ export default function PetAIPage() {
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col h-screen overflow-hidden ">
         {/* Fixed header bar that spans the entire width */}
-        <div className="bg-gradient-to-r p-2 md:left-0 sm:left-1/2 sm:right-0 fixed w-full z-20 ">
+        <div className="bg-gray-900 pt-2 pb-8 px-2  md:p-2 md:left-0 sm:left-1/2 sm:right-0 fixed w-full z-20">
           <div className="flex items-center justify-between max-w-screen-xl mx-auto">
             {/* Left side - menu button */}
             <div className="flex items-center justify-start w-10">
@@ -482,7 +493,7 @@ export default function PetAIPage() {
 
         {/* Input area */}
         {/* Input area */}
-<div className="fixed   bottom-0 left-0 w-full bg-gradient-to-t from-gray-900 to-gray-950 border-t border-gray-800 py-3 px-4 z-10">
+<div className="fixed   bottom-0 left-0 w-full  bg-gradient-to-t from-gray-900 to-gray-950 border-t border-gray-800 py-3 px-4 z-10">
   <div className="relative w-full max-w-3xl mx-auto">
     <textarea
       value={input}

@@ -4,8 +4,9 @@ import { useEffect, useState, type RefObject } from "react";
 import { motion } from "framer-motion";
 
 interface CustomCursorProps {
-  containerRef: RefObject<HTMLDivElement>;
+  containerRef: React.RefObject<HTMLDivElement | null>;
 }
+
 
 export default function CustomCursor({ containerRef }: CustomCursorProps) {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
