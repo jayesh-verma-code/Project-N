@@ -347,7 +347,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col">
-      <Sidebar/>
       {catType === "chest-xray" && 
       <ChestXray/>}
       {catType==="sonography" &&
@@ -360,7 +359,6 @@ export default function Home() {
       <XRayAnalyzer/>}
       {catType==="thyroid" &&
       <Thyroid/>}
-      <Thyroid/>
     </div>
   );
 }
