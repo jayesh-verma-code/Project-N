@@ -8,7 +8,6 @@ import FloatingChatbot from "@/components/shared/floating-chatbot";
 import { ThemeProvider } from "next-themes";
 import HeroSection from "@/sections/Hero/hero-section";
 import FeaturesSection from "@/sections/Features/features-section";
-import CommunityServices from "@/components/CommunityServices/fitronx-Card"
 import FaqSection from "@/sections/FAQs/faq-section";
 import Footer from "@/sections/marginals/footer";
 import ParticlesBackground from "@/components/shared/particle-background";
@@ -75,7 +74,6 @@ export default function Home() {
             <MarqueeText />
             <FeaturesSection />
             <ChatbotServices />
-            <CommunityServices/>
             <InvestorSection />
             <TeamMembersSection />
             <FaqSection />
