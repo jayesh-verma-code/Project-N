@@ -53,6 +53,16 @@ const buttonVariants = {
 
 export default function GoldencareLandingPage() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+  const callerName = "Goldencare Assistant";
+
+  const handleAudioCall = () => {
+    router.push(`/callscreen/audio_call?callerName=${encodeURIComponent(callerName)}`);
+  };
+
+  const handleVideoCall = () => {
+    router.push(`/callscreen/video_call?callerName=${encodeURIComponent(callerName)}`);
+  };
   
   const container = {
     hidden: { opacity: 0 },
@@ -109,6 +119,8 @@ export default function GoldencareLandingPage() {
               whileHover={{ scale: 1.1, backgroundColor: "#0ea5e9" }}
               whileTap={{ scale: 0.95 }}
               className="bg-[#1db302] rounded-full p-3"
+              onClick={handleAudioCall}
+              aria-label="Start audio call with Goldencare Assistant"
             >
               <Phone className="size-3 md:size-5 text-white" />
             </motion.button>
@@ -116,6 +128,8 @@ export default function GoldencareLandingPage() {
               whileHover={{ scale: 1.1, backgroundColor: "#ec4899" }}
               whileTap={{ scale: 0.95 }}
               className="bg-[#f00909] rounded-full p-3"
+              onClick={handleVideoCall}
+              aria-label="Start video call with Goldencare Assistant"
             >
               <Video className="size-3 md:size-5 text-white" />
             </motion.button>
