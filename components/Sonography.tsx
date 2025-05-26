@@ -1,6 +1,8 @@
 // components/Healthmate.tsx
 import { useState, useEffect, useRef } from 'react';
-import Sidebar from './Footer/Slider';
+
+import { useRouter } from 'next/navigation';
+import { Menu, X, MessageSquarePlus, Settings, LogOut, HeartPulse, Trash2 } from 'lucide-react';
 
 type Message = {
   id: string;
@@ -17,6 +19,15 @@ type AnalysisData = {
   all_predictions?: Record<string, number>;
 };
 
+type ChatHistoryItem = {
+  id: string;
+  title: string;
+  timestamp: Date;
+  sessionId: string | null;
+  messages: Message[];
+};
+
+
 export default function Sonography() {
   const [inputValue, setInputValue] = useState<string>('');
   const [initialMessage] = useState<string>('Welcome to Medical Image Analysis. Upload an image or ask questions about medical imaging.');
@@ -27,8 +38,12 @@ export default function Sonography() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [analysisData, setAnalysisData] = useState<AnalysisData | null>(null);
   const [sessionId, setSessionId] = useState<string | null>(null);
+  const [analysisComplete, setAnalysisComplete] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [chatHistory, setChatHistory] = useState<ChatHistoryItem[]>([]);
+  const router = useRouter();
   
   // Initialize with welcome message
   useEffect(() => {
@@ -39,6 +54,60 @@ export default function Sonography() {
       timestamp: new Date()
     }]);
   }, [initialMessage]);
+
+
+
+
+  const toggleSidebar = () => setIsOpen(!isOpen);
+  const handleNewChat = () => {
+    if (messages.length > 1) { // Only save if there's more than just the initial message
+      const firstUserMessage = messages.find(msg => msg.sender === 'user');
+      const chatTitle = firstUserMessage 
+        ? firstUserMessage.text.slice(0, 30) + (firstUserMessage.text.length > 30 ? '...' : '')
+        : 'New Chat';
+      
+      const newChatItem: ChatHistoryItem = {
+        id: generateId(),
+        title: chatTitle,
+        timestamp: new Date(),
+        sessionId,
+        messages
+      };
+
+      setChatHistory(prev => [newChatItem, ...prev]);
+    }
+
+    // Clear current chat
+    clearChat();
+  };
+
+
+  const loadChat = (chatId: string) => {
+    const chatToLoad = chatHistory.find(chat => chat.id === chatId);
+    if (chatToLoad) {
+      setMessages(chatToLoad.messages);
+      setSessionId(chatToLoad.sessionId);
+      setAnalysisComplete(!!chatToLoad.sessionId);
+      // You might need to set other states based on the loaded chat
+      setIsOpen(false); // Close sidebar after loading
+    }
+  };
+
+  const deleteChat = (chatId: string, e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent triggering loadChat
+    setChatHistory(prev => prev.filter(chat => chat.id !== chatId));
+  };
+
+  const handleLogout = () => {
+    router.push("/HealthMatesecondLanding");
+  };
+
+  const formatDate = (date: Date) => {
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  };
+
+
+
 
   // Generate a unique ID for messages
   const generateId = () => {
@@ -333,7 +402,103 @@ export default function Sonography() {
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col">
-      <Sidebar/>
+      
+      
+
+<button
+  onClick={toggleSidebar}
+  className={`fixed z-50 p-2 rounded-full transition-all ${
+    isOpen
+      ? "left-64 top-6 bg-gray-700/50"
+      : "left-6 top-6 bg-indigo-600"
+  }`}
+  aria-label={isOpen ? "Close sidebar" : "Open sidebar"}
+>
+  {isOpen ? (
+    <X className="text-white w-5 h-5" />
+  ) : (
+    <Menu className="text-white w-5 h-5" />
+  )}
+</button>
+
+<div
+  className={`fixed h-screen w-72 bg-white/10 backdrop-blur-lg border-r border-gray-700/20 flex flex-col z-40 transition-all duration-300 ${
+    isOpen ? "left-0" : "-left-full"
+  }`}
+>
+  <div className="flex flex-row p-6 gap-2 border-b border-gray-700/10">
+    <HeartPulse className="text-indigo-600 w-10 h-10" />
+    <h1 className="font-semibold text-lg text-white">Healthmate</h1>
+  </div>
+
+  <div className="flex-1 flex flex-col justify-between p-4">
+    <div className="space-y-1">
+      <button 
+        onClick={handleNewChat}
+        className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-white/5 hover:text-white transition-colors"
+      >
+        <MessageSquarePlus className="w-5 h-5" />
+        <span>New Chat</span>
+      </button>
+
+      <div className="mt-4">
+        <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 px-2">Recent Chats</h3>
+        <div className="space-y-1 max-h-[50vh] overflow-y-auto">
+          {chatHistory.map(chat => (
+            <div 
+              key={chat.id}
+              onClick={() => loadChat(chat.id)}
+              className="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-white/5 cursor-pointer group"
+            >
+              <div className="flex-1 min-w-0">
+                <p className="text-sm text-white truncate">{chat.title}</p>
+                <p className="text-xs text-gray-400">{formatDate(chat.timestamp)}</p>
+              </div>
+              <button 
+                onClick={(e) => deleteChat(chat.id, e)}
+                className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-red-400 p-1"
+                aria-label="Delete chat"
+              >
+                <Trash2 className="w-4 h-4" />
+              </button>
+            </div>
+          ))}
+          {chatHistory.length === 0 && (
+            <p className="text-xs text-gray-500 px-2 py-1">No chat history yet</p>
+          )}
+        </div>
+      </div>
+    </div>
+
+    <div className="space-y-1">
+      <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-white/5 hover:text-white transition-colors">
+        <Settings className="w-5 h-5" />
+        <span>Settings</span>
+      </button>
+      <button
+        onClick={handleLogout}
+        className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-white/5 hover:text-white transition-colors"
+      >
+        <LogOut className="w-5 h-5" />
+        <span>Logout</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+{isOpen && (
+  <div
+    className="fixed inset-0 bg-black/30 z-30"
+    onClick={toggleSidebar}
+  />
+)}
+
+
+
+
+
+
+
       <main className="flex-1 flex flex-col max-w-4xl mx-auto w-full p-4 rounded-lg my-4">
         {/* Header */}
         <div className="text-center mb-4 pb-4">
