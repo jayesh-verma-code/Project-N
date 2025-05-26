@@ -333,7 +333,7 @@ export const teamMembers: TeamMember[] = [
     name: "A Prudhvi",
     role: "Full Stack Developer Intern",
     category: "intern",
-    education: "Btech,NSRIT(CSE)",
+    education: "Btech (CSE), NSRIT",
     avatar:
       "https://res.cloudinary.com/dd11bvhdi/image/upload/v1746903872/nirveonx/h9xlp0er61gmtpiazglc.jpg",
   }

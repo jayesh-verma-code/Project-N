@@ -9,11 +9,20 @@ import { useRouter } from "next/navigation";
 import { useRef } from "react";
 
 export default function LandingPage() {
-  const route = useRouter();
+  const router = useRouter();
+  const callerName = "MindEase Assistant";
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const handleAudioCall = () => {
+    router.push(`/callscreen/audio_call?callerName=${encodeURIComponent(callerName)}`);
+  };
+
+  const handleVideoCall = () => {
+    router.push(`/callscreen/video_call?callerName=${encodeURIComponent(callerName)}`);
+  };
+
   return (
-    <div
+    <div ref={containerRef}
     className="min-h-screen w-full  bg-[#000a0b] bg-center relative flex items-start justify-center"
     
   >
@@ -44,10 +53,10 @@ export default function LandingPage() {
 
 
           <div className="absoute flex gap-4 mt-5 lg:mt-16">
-            <button className="bg-[#16a34a] rounded-full p-2 md:p-3">
+            <button className="bg-[#16a34a] rounded-full p-2 md:p-3" onClick={handleAudioCall} aria-label="Start audio call with MindEase Assistant">
               <Phone className="size-4 md:size-5 text-white" />
             </button>
-            <button className="bg-[#dc2626] rounded-full p-2 md:p-3">
+            <button className="bg-[#dc2626] rounded-full p-2 md:p-3" onClick={handleVideoCall} aria-label="Start video call with MindEase Assistant">
               <Video className="size-4 md:size-5 text-white " />
             </button>
           </div>

@@ -1,11 +1,23 @@
+"use client";
 import ParticlesBackground from "@/components/shared/particle-background";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Phone, Video } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-
+import { useRouter } from 'next/navigation';
 
 export default function LandingPage() {
+    const router = useRouter();
+    const callerName = "Pet AI Assistant";
+
+    const handleAudioCall = () => {
+      router.push(`/callscreen/audio_call?callerName=${encodeURIComponent(callerName)}`);
+    };
+
+    const handleVideoCall = () => {
+      router.push(`/callscreen/video_call?callerName=${encodeURIComponent(callerName)}`);
+    };
+
     return (
     <div className="min-h-screen w-full  bg-cover bg-center relative" style={{ backgroundImage: "url('/PetAiBg.jpg')" }}>
       <ParticlesBackground/>
@@ -27,10 +39,10 @@ export default function LandingPage() {
             </p>
           </div>
           <div className="flex gap-4 mt-5">
-            <button className="bg-[#16a34a] rounded-full p-3 group hover:bg-[#15803d] shadow-lg hover:shadow-xl transition-all duration-300 active:bg-white active:text-[#16a34a] active:scale-95">
+            <button className="bg-[#16a34a] rounded-full p-3 group hover:bg-[#15803d] shadow-lg hover:shadow-xl transition-all duration-300 active:bg-white active:text-[#16a34a] active:scale-95" onClick={handleAudioCall} aria-label="Start audio call with Pet AI Assistant">
               <Phone className="size-4 md:size-5 text-white group-hover:text-gray-100 transition-all duration-300 active:text-[#16a34a]" />
               </button>
-            <button className="bg-[#dc2626] rounded-full p-3 group hover:bg-[#b91c1c] shadow-lg hover:shadow-xl transition-all duration-300 active:bg-white active:text-[#dc2626] active:scale-95">
+            <button className="bg-[#dc2626] rounded-full p-3 group hover:bg-[#b91c1c] shadow-lg hover:shadow-xl transition-all duration-300 active:bg-white active:text-[#dc2626] active:scale-95" onClick={handleVideoCall} aria-label="Start video call with Pet AI Assistant">
               <Video className="size-4 md:size-5 text-white group-hover:text-gray-100 transition-all duration-300 active:text-[#dc2626]" />
             </button>
           </div>
