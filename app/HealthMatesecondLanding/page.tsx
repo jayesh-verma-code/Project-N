@@ -25,11 +25,8 @@ export default function HealthMatePage() {
     { id: 'xray', title: 'Xray', image: '/image xray.png' },
     { id: 'thyroid', title: 'Thyroid', image: '/image thytoid.png' },
     { id: 'sonography', title: 'Sonography', image: '/image sonography.png' },
-    { id: 'biopsy', title: 'Biopsy', image: '/image biospy.png' },
-    { id: 'other', title: 'Other', image: '/image others.png' },
+    { id: 'biopsy', title: 'General Chatbot', image: '/image biospy.png' },
   ];
-
-  // No longer need handleGetStarted function as we're using direct Link component
 
   return (
     <ThemeProvider attribute="class" defaultTheme="dark">
@@ -43,9 +40,6 @@ export default function HealthMatePage() {
           containerRef={containerRef as React.RefObject<HTMLDivElement>}
         />
 
-        {/* Background image */}
-        
-        
         {/* Back button */}
         <div className="absolute top-4 left-4 sm:top-6 sm:left-6 z-20">
           <Link href="/HealthMateLanding">
@@ -88,31 +82,24 @@ export default function HealthMatePage() {
           </header>
           
           {/* Medical Categories Grid - Matches screenshot */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-            {categories.map(category => (
-              <div 
-                key={category.id}
-                className="flex flex-col items-center bg-gray-800 bg-opacity-50 rounded-lg p-4 relative z-30"
-              >
-                {/* Circular image */}
-                <div className="md:w-32 md:h-32 w-24 h-24 rounded-full overflow-hidden mb-4 flex items-center justify-center">
-                  {/* Placeholder for actual images */}
-                  <div className={`w-full h-full rounded-full`}>
-                    <img src={category.image} alt={category.title} className="object-cover w-[100%] h-[100%]" /> 
-                  </div>
-                </div>
-                
-                <span className="text-sm mt-3 mb-3">{category.title}</span>
-                
-                {/* Updated Link to navigate to Healthmate with the category parameter */}
-                <Link 
-                  href={`/Healthmate?category=${category.id}`}
-                  className="bg-white text-black text-xs font-medium py-1 px-4 rounded-full hover:bg-gray-200 transition-colors"
-                >
-                  Get Started
-                </Link>
+          <div className="max-w-4xl mx-auto">
+            {/* First 4 cards */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+              {categories.slice(0, 4).map(category => (
+                <CategoryCard key={category.id} category={category} />
+              ))}
+            </div>
+            
+            {/* Last 3 cards centered */}
+            <div className="flex justify-center">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 w-full max-w-2xl">
+                {categories.slice(4).map(category => (
+                  <CategoryCard key={category.id} category={category} />
+                ))}
+                {/* Empty div to maintain grid alignment */}
+                <div className="hidden md:block"></div>
               </div>
-            ))}
+            </div>
           </div>
           
           {/* Bottom particle cluster */}
@@ -122,5 +109,30 @@ export default function HealthMatePage() {
         </div>
       </main>
     </ThemeProvider>
+  );
+}
+
+// Extracted CategoryCard component for consistency
+function CategoryCard({ category }: { category: MedicalCategory }) {
+  return (
+    <div className="flex flex-col items-center bg-gray-800 bg-opacity-50 rounded-lg p-4 relative z-30">
+      {/* Circular image */}
+      <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden mb-4 flex items-center justify-center">
+        <img 
+          src={category.image} 
+          alt={category.title} 
+          className="object-cover w-full h-full" 
+        /> 
+      </div>
+      
+      <span className="text-sm mt-3 mb-3 text-center">{category.title}</span>
+      
+      <Link 
+        href={`/Healthmate?category=${category.id}`}
+        className="bg-white text-black text-xs font-medium py-1 px-4 rounded-full hover:bg-gray-200 transition-colors"
+      >
+        Get Started
+      </Link>
+    </div>
   );
 }
