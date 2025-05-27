@@ -5,21 +5,11 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Phone, Video } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useRef } from "react";
 
 export default function LandingPage() {
-  const router = useRouter();
   const callerName = "MindEase Assistant";
   const containerRef = useRef<HTMLDivElement>(null);
-
-  const handleAudioCall = () => {
-    router.push(`/callscreen/audio_call?callerName=${encodeURIComponent(callerName)}`);
-  };
-
-  const handleVideoCall = () => {
-    router.push(`/callscreen/video_call?callerName=${encodeURIComponent(callerName)}`);
-  };
 
   return (
     <div ref={containerRef}
@@ -53,12 +43,16 @@ export default function LandingPage() {
 
 
           <div className="absoute flex gap-4 mt-5 lg:mt-16">
-            <button className="bg-[#16a34a] rounded-full p-2 md:p-3" onClick={handleAudioCall} aria-label="Start audio call with MindEase Assistant">
-              <Phone className="size-4 md:size-5 text-white" />
-            </button>
-            <button className="bg-[#dc2626] rounded-full p-2 md:p-3" onClick={handleVideoCall} aria-label="Start video call with MindEase Assistant">
-              <Video className="size-4 md:size-5 text-white " />
-            </button>
+            <Link href={`/callscreen/audio_call?callerName=${encodeURIComponent(callerName)}&app=mindease`} aria-label="Start audio call with MindEase Assistant">
+              <div className="bg-[#16a34a] rounded-full p-2 md:p-3">
+                <Phone className="size-4 md:size-5 text-white" />
+              </div>
+            </Link>
+            <Link href={`/callscreen/video_call?callerName=${encodeURIComponent(callerName)}&app=mindease`} aria-label="Start video call with MindEase Assistant">
+              <div className="bg-[#dc2626] rounded-full p-2 md:p-3">
+                <Video className="size-4 md:size-5 text-white " />
+              </div>
+            </Link>
           </div>
         </div>
         <div className="lg:mt-[11%] grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 items-center justify-center  gap-4 md:gap-9 mt-30 px-3 mx-auto">

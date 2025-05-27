@@ -1,3 +1,3 @@
 "use client";
-import AudioCallScreen from '../components/audio_call';
+import AudioCallScreen from '../_components/audio_call';
 export default AudioCallScreen;

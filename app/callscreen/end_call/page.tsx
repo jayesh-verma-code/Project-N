@@ -1,3 +1,3 @@
 "use client";
-import EndCallScreen from '../components/callscreen_end';
+import EndCallScreen from '../_components/callscreen_end';
 export default EndCallScreen;

@@ -53,16 +53,7 @@ const buttonVariants = {
 
 export default function GoldencareLandingPage() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const router = useRouter();
   const callerName = "Goldencare Assistant";
-
-  const handleAudioCall = () => {
-    router.push(`/callscreen/audio_call?callerName=${encodeURIComponent(callerName)}`);
-  };
-
-  const handleVideoCall = () => {
-    router.push(`/callscreen/video_call?callerName=${encodeURIComponent(callerName)}`);
-  };
   
   const container = {
     hidden: { opacity: 0 },
@@ -115,24 +106,24 @@ export default function GoldencareLandingPage() {
           </div>
 
           <div className="flex gap-2 md:gap-4 mt-5">
-            <motion.button 
-              whileHover={{ scale: 1.1, backgroundColor: "#0ea5e9" }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-[#1db302] rounded-full p-3"
-              onClick={handleAudioCall}
-              aria-label="Start audio call with Goldencare Assistant"
-            >
-              <Phone className="size-3 md:size-5 text-white" />
-            </motion.button>
-            <motion.button 
-              whileHover={{ scale: 1.1, backgroundColor: "#ec4899" }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-[#f00909] rounded-full p-3"
-              onClick={handleVideoCall}
-              aria-label="Start video call with Goldencare Assistant"
-            >
-              <Video className="size-3 md:size-5 text-white" />
-            </motion.button>
+            <Link href={`/callscreen/audio_call?callerName=${encodeURIComponent(callerName)}&app=goldencare`} aria-label="Start audio call with Goldencare Assistant">
+              <motion.div 
+                whileHover={{ scale: 1.1, backgroundColor: "#0ea5e9" }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-[#1db302] rounded-full p-3"
+              >
+                <Phone className="size-3 md:size-5 text-white" />
+              </motion.div>
+            </Link>
+            <Link href={`/callscreen/video_call?callerName=${encodeURIComponent(callerName)}&app=goldencare`} aria-label="Start video call with Goldencare Assistant">
+              <motion.div 
+                whileHover={{ scale: 1.1, backgroundColor: "#ec4899" }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-[#f00909] rounded-full p-3"
+              >
+                <Video className="size-3 md:size-5 text-white" />
+              </motion.div>
+            </Link>
           </div>
         </div>
         
