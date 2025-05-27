@@ -96,7 +96,7 @@ export default function HealthMatePage() {
                 {categories.slice(4).map(category => (
                   <CategoryCard key={category.id} category={category} />
                 ))}
-                {/* Empty div to maintain grid alignment */}
+                {/* Empty di to maintain grid alignmen */}
                 <div className="hidden md:block"></div>
               </div>
             </div>
