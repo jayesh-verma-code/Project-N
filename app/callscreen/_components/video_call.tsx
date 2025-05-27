@@ -1,7 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import {
   MuteIcon,
   MicIcon,
@@ -22,7 +23,7 @@ import {
   SwitchToVoiceCallMobile,
   VideoOffMobile,
   VideoOnMobile,
-} from "../assets/call_icons";
+} from "../_assets/call_icons";
 
 const VideoCallScreen: React.FC = () => {
   const [showVoiceSwitch, setShowVoiceSwitch] = useState(false);
@@ -30,26 +31,17 @@ const VideoCallScreen: React.FC = () => {
   const [isExtraBClicked, setIsExtraBClicked] = useState(false);
   const [isSpeakerClicked, setIsSpeakerClicked] = useState(false);
   const [isVideoOn, setIsVideoOn] = useState(true);
-  const router = useRouter();
   const searchParams = useSearchParams();
   const callerName = searchParams.get("callerName") || "Doc";
+  const app = searchParams.get("app");
+
+  // Debug: Log app value
+  console.log("Upstream app in video_call:", app);
 
   const toggleMute = () => setIsMuteClicked((prev) => !prev);
   const toggleExtraB = () => setIsExtraBClicked(!isExtraBClicked);
   const toggleSpeaker = () => setIsSpeakerClicked(!isSpeakerClicked);
   const toggleVideo = () => setIsVideoOn((prev) => !prev);
-
-  const handleAudioCall = () => {
-    router.push(
-      `/callscreen/audio_call?callerName=${encodeURIComponent(callerName)}`
-    );
-  };
-
-  const handleEndScreen = () => {
-    router.push(
-      `/callscreen/end_call?callerName=${encodeURIComponent(callerName)}`
-    );
-  };
 
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-between md:justify-center rounded-[10px]">
@@ -70,22 +62,13 @@ const VideoCallScreen: React.FC = () => {
             <EntToEndEncrypt className="w-42 h-12" />
           </div>
           <div className="ml-auto flex items-center space-x-2 text-[#C1BEBE] text-sm font-semibold">
-            <button
-              className="px-2 py-1 rounded -mt-0.5 hover:bg-gray-600"
-              aria-label="Minimize"
-            >
+            <button className="px-2 py-1 rounded -mt-0.5 hover:bg-gray-600" aria-label="Minimize">
               —
             </button>
-            <button
-              className="px-2 py-1 text-lg rounded hover:bg-gray-600"
-              aria-label="Maximize"
-            >
+            <button className="px-2 py-1 text-lg rounded hover:bg-gray-600" aria-label="Maximize">
               ▢
             </button>
-            <button
-              className="px-2 py-1 text-2xl rounded -mt-1.5 hover:bg-gray-600"
-              aria-label="Close"
-            >
+            <button className="px-2 py-1 text-2xl rounded -mt-1.5 hover:bg-gray-600" aria-label="Close">
               x
             </button>
           </div>
@@ -98,16 +81,13 @@ const VideoCallScreen: React.FC = () => {
             style={{ backgroundImage: "url('/callScreen_bg.png')" }}
           >
             <div className="flex flex-col items-center">
-              <div
-                className="flex flex-col items-center"
-                style={{ transform: "translateY(10%)" }}
-              >
+              <div className="flex flex-col items-center" style={{ transform: "translateY(10%)" }}>
                 <Image
                   src="/callScreen_sun.svg"
                   alt="Caller Avatar"
                   width={140}
                   height={140}
-                  className="w-30 h-30 mb-1"
+                  className="w-[120px] h-[120px] mb-1"
                 />
                 <div className="text-xl">{callerName}</div>
                 <div className="text-md text-gray-300">Ringing...</div>
@@ -122,32 +102,17 @@ const VideoCallScreen: React.FC = () => {
         {/* Desktop Controls */}
         <div className="bg-[#3C3C3C] grid grid-cols-3 items-center px-3 py-5">
           <div className="flex space-x-5 justify-start -mb-3">
-            <button
-              onClick={handleAudioCall}
+            <Link
+              href={`/callscreen/audio_call?callerName=${encodeURIComponent(callerName)}&app=${encodeURIComponent(app || '')}`}
               aria-label="Switch to audio call"
             >
-              <VideoCallOn
-                className="w-10 h-6"
-                reactFill="#FFFFFF"
-                pathFill="#000000"
-              />
-            </button>
-            <button
-              onClick={toggleMute}
-              aria-label={isMuteClicked ? "Unmute" : "Mute"}
-            >
+              <VideoCallOn className="w-10 h-6" reactFill="#FFFFFF" pathFill="#000000" />
+            </Link>
+            <button onClick={toggleMute} aria-label={isMuteClicked ? "Unmute" : "Mute"}>
               {isMuteClicked ? (
-                <MicIcon
-                  className="w-10 h-6"
-                  reactFill="#FFFFFF"
-                  pathFill="#000000"
-                />
+                <MicIcon className="w-10 h-6" reactFill="#FFFFFF" pathFill="#000000" />
               ) : (
-                <MuteIcon
-                  className="w-10 h-6"
-                  reactFill="#FFFFFF"
-                  pathFill="#000000"
-                />
+                <MuteIcon className="w-10 h-6" reactFill="#FFFFFF" pathFill="#000000" />
               )}
             </button>
           </div>
@@ -160,9 +125,12 @@ const VideoCallScreen: React.FC = () => {
             </button>
           </div>
           <div className="flex justify-end -mb-3">
-            <button onClick={handleEndScreen} aria-label="End call">
+            <Link
+              href={`/callscreen/end_call?callerName=${encodeURIComponent(callerName)}&app=${encodeURIComponent(app || '')}`}
+              aria-label="End call"
+            >
               <EndCall className="w-10 h-6" />
-            </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -173,7 +141,7 @@ const VideoCallScreen: React.FC = () => {
         <div className="z-10 text-center text-white mt-[8vh] px-4">
           <h2 className="text-4xl font-semibold mb-2">{callerName}</h2>
           <div className="flex justify-center items-center mb-1">
-            <EndToEndMobile className="w-30 h-3" />
+            <EndToEndMobile className="w-[120px] h-[15px]" />
           </div>
           <p className="text-md">Ringing...</p>
         </div>
@@ -199,20 +167,18 @@ const VideoCallScreen: React.FC = () => {
         </div>
         <div className="z-10 w-full px-5 pb-[3vh]">
           {showVoiceSwitch && (
-            <button
-              className="py-0 px-1 mb-2"
-              onClick={() => {
-                handleAudioCall();
-                toggleExtraB();
-              }}
+            <Link
+              href={`/callscreen/audio_call?callerName=${encodeURIComponent(callerName)}&app=${encodeURIComponent(app || '')}`}
+              className="py-0 px-1 mb-2 inline-block"
               aria-label="Switch to voice call"
+              onClick={() => toggleExtraB()}
             >
               <SwitchToVoiceCallMobile
                 className="w-25 h-10"
                 circleFill={isMuteClicked ? "#FFFFFF" : "#3F3D3D"}
                 pathFill={isMuteClicked ? "#000000" : "#FFFDFD"}
               />
-            </button>
+            </Link>
           )}
           <div className="bg-black bg-opacity-80 rounded-3xl py-1 px-2 flex justify-around items-center">
             <button
@@ -262,13 +228,13 @@ const VideoCallScreen: React.FC = () => {
                 pathFill={isMuteClicked ? "#000000" : "#FFFDFD"}
               />
             </button>
-            <button
+            <Link
+              href={`/callscreen/end_call?callerName=${encodeURIComponent(callerName)}&app=${encodeURIComponent(app || '')}`}
               className="p-2"
-              onClick={handleEndScreen}
               aria-label="End call"
             >
               <EndCallMobile className="w-9 h-9" />
-            </button>
+            </Link>
           </div>
         </div>
       </div>

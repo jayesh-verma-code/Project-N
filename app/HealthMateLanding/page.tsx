@@ -6,21 +6,11 @@ import Link from "next/link"
 import CustomCursor from "@/components/shared/custom-cursor"
 import { useRef, useEffect, useState } from "react"
 import ParticlesBackground from "@/components/shared/particle-background"
-import { useRouter } from "next/navigation";
 
 export default function HealthMate() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
-  const router = useRouter();
   const callerName = "HealthMate Assistant";
-
-  const handleAudioCall = () => {
-    router.push(`/callscreen/audio_call?callerName=${encodeURIComponent(callerName)}`);
-  };
-
-  const handleVideoCall = () => {
-    router.push(`/callscreen/video_call?callerName=${encodeURIComponent(callerName)}`);
-  };
 
   // Detect mobile device on mount
   useEffect(() => {
@@ -57,12 +47,16 @@ export default function HealthMate() {
               </p>
             </div>
             <div className="flex gap-4 mt-5">
-              <button className="bg-[#16a34a] rounded-full p-3 group hover:bg-[#15803d] shadow-lg hover:shadow-xl transition-all duration-300 active:bg-white active:text-[#16a34a] active:scale-95" onClick={handleAudioCall} aria-label="Start audio call with HealthMate Assistant">
-                <Phone className="size-4 md:size-5 text-white group-hover:text-gray-100 transition-all duration-300 active:text-[#16a34a]" />
-              </button>
-              <button className="bg-[#dc2626] rounded-full p-3 group hover:bg-[#b91c1c] shadow-lg hover:shadow-xl transition-all duration-300 active:bg-white active:text-[#dc2626] active:scale-95" onClick={handleVideoCall} aria-label="Start video call with HealthMate Assistant">
-                <Video className="size-4 md:size-5 text-white group-hover:text-gray-100 transition-all duration-300 active:text-[#dc2626]" />
-              </button>
+              <Link href={`/callscreen/audio_call?callerName=${encodeURIComponent(callerName)}&app=healthmate`} aria-label="Start audio call with HealthMate Assistant">
+                <div className="bg-[#16a34a] rounded-full p-3 group hover:bg-[#15803d] shadow-lg hover:shadow-xl transition-all duration-300 active:bg-white active:text-[#16a34a] active:scale-95">
+                  <Phone className="size-4 md:size-5 text-white group-hover:text-gray-100 transition-all duration-300 active:text-[#16a34a]" />
+                </div>
+              </Link>
+              <Link href={`/callscreen/video_call?callerName=${encodeURIComponent(callerName)}&app=healthmate`} aria-label="Start video call with HealthMate Assistant">
+                <div className="bg-[#dc2626] rounded-full p-3 group hover:bg-[#b91c1c] shadow-lg hover:shadow-xl transition-all duration-300 active:bg-white active:text-[#dc2626] active:scale-95">
+                  <Video className="size-4 md:size-5 text-white group-hover:text-gray-100 transition-all duration-300 active:text-[#dc2626]" />
+                </div>
+              </Link>
             </div>
           </div>
 
