@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -29,7 +29,7 @@ import {
   DocVideoMobile,
 } from "../_assets/call_icons";
 
-const VideoCallLive: React.FC = () => {
+const VideoCallLiveContent: React.FC = () => {
   const [isDocMain, setIsDocMain] = useState(true);
   const [isMeMain, setIsMeMain] = useState(false);
   const [isMuteClicked, setIsMuteClicked] = useState(true);
@@ -77,13 +77,22 @@ const VideoCallLive: React.FC = () => {
             <EntToEndEncrypt className="w-42 h-12" />
           </div>
           <div className="ml-auto flex items-center space-x-2 text-[#C1BEBE] text-sm font-semibold">
-            <button className="px-2 py-1 rounded -mt-0.5 hover:bg-gray-600" aria-label="Minimize">
+            <button
+              className="px-2 py-1 rounded -mt-0.5 hover:bg-gray-600"
+              aria-label="Minimize"
+            >
               —
             </button>
-            <button className="px-2 py-1 text-lg rounded hover:bg-gray-600" aria-label="Maximize">
+            <button
+              className="px-2 py-1 text-lg rounded hover:bg-gray-600"
+              aria-label="Maximize"
+            >
               ▢
             </button>
-            <button className="px-2 py-1 text-2xl rounded -mt-1.5 hover:bg-gray-600" aria-label="Close">
+            <button
+              className="px-2 py-1 text-2xl rounded -mt-1.5 hover:bg-gray-600"
+              aria-label="Close"
+            >
               x
             </button>
           </div>
@@ -115,16 +124,35 @@ const VideoCallLive: React.FC = () => {
               aria-label={isVideoOn ? "Turn off video" : "Turn on video"}
             >
               {isVideoOn ? (
-                <VideoCallOn className="w-10 h-6" reactFill="#FFFFFF" pathFill="#000000" />
+                <VideoCallOn
+                  className="w-10 h-6"
+                  reactFill="#FFFFFF"
+                  pathFill="#000000"
+                />
               ) : (
-                <VideoCallOff className="w-10 h-6" reactFill="#FFFFFF" pathFill="#000000" />
+                <VideoCallOff
+                  className="w-10 h-6"
+                  reactFill="#FFFFFF"
+                  pathFill="#000000"
+                />
               )}
             </button>
-            <button onClick={toggleMute} aria-label={isMuteClicked ? "Unmute" : "Mute"}>
+            <button
+              onClick={toggleMute}
+              aria-label={isMuteClicked ? "Unmute" : "Mute"}
+            >
               {isMuteClicked ? (
-                <MicIcon className="w-10 h-6" reactFill="#FFFFFF" pathFill="#000000" />
+                <MicIcon
+                  className="w-10 h-6"
+                  reactFill="#FFFFFF"
+                  pathFill="#000000"
+                />
               ) : (
-                <MuteIcon className="w-10 h-6" reactFill="#FFFFFF" pathFill="#000000" />
+                <MuteIcon
+                  className="w-10 h-6"
+                  reactFill="#FFFFFF"
+                  pathFill="#000000"
+                />
               )}
             </button>
           </div>
@@ -138,7 +166,9 @@ const VideoCallLive: React.FC = () => {
           </div>
           <div className="flex justify-end -mb-3">
             <Link
-              href={`/callscreen/end_call?callerName=${encodeURIComponent(callerName)}&app=${encodeURIComponent(app || '')}`}
+              href={`/callscreen/end_call?callerName=${encodeURIComponent(
+                callerName
+              )}&app=${encodeURIComponent(app || "")}`}
               aria-label="End call"
             >
               <EndCall className="w-10 h-6" />
@@ -191,7 +221,9 @@ const VideoCallLive: React.FC = () => {
         <div className="z-10 w-full px-5 pb-[3vh]">
           {showVoiceSwitch && (
             <Link
-              href={`/callscreen/audio_call?callerName=${encodeURIComponent(callerName)}&app=${encodeURIComponent(app || '')}`}
+              href={`/callscreen/audio_call?callerName=${encodeURIComponent(
+                callerName
+              )}&app=${encodeURIComponent(app || "")}`}
               className="py-0 px-1 mb-2 inline-block"
               aria-label="Switch to voice call"
               onClick={() => toggleExtraB()}
@@ -232,7 +264,9 @@ const VideoCallLive: React.FC = () => {
             <button
               className="p-2"
               onClick={toggleSpeaker}
-              aria-label={isSpeakerClicked ? "Turn off speaker" : "Turn on speaker"}
+              aria-label={
+                isSpeakerClicked ? "Turn off speaker" : "Turn on speaker"
+              }
             >
               <SpeakerMobile
                 className="w-9 h-9"
@@ -252,7 +286,9 @@ const VideoCallLive: React.FC = () => {
               />
             </button>
             <Link
-              href={`/callscreen/end_call?callerName=${encodeURIComponent(callerName)}&app=${encodeURIComponent(app || '')}`}
+              href={`/callscreen/end_call?callerName=${encodeURIComponent(
+                callerName
+              )}&app=${encodeURIComponent(app || "")}`}
               className="p-2"
               aria-label="End call"
             >
@@ -262,6 +298,20 @@ const VideoCallLive: React.FC = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+const VideoCallLive: React.FC = () => {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen w-full flex items-center justify-center">
+          <div className="text-white">Loading...</div>
+        </div>
+      }
+    >
+      <VideoCallLiveContent />
+    </Suspense>
   );
 };
 

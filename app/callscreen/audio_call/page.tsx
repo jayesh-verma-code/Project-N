@@ -1,3 +1,13 @@
 "use client";
-import AudioCallScreen from '../_components/audio_call';
-export default AudioCallScreen;
+import { Suspense } from "react";
+import AudioCallScreen from "../_components/audio_call";
+
+function AudioCallWrapper() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <AudioCallScreen />
+    </Suspense>
+  );
+}
+
+export default AudioCallWrapper;
