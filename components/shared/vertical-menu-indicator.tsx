@@ -23,8 +23,8 @@ export default function VerticalMenuIndicator() {
     { id: "features", label: "Features", position: "25%" },
     { id: "services", label: "Services", position: "40%" },
     { id: "pioneer", label: "Pioneers", position: "55%" },
-    { id: "faq", label: "FAQ", position: "70%" },
-    { id: "contact", label: "Contact", position: "90%" },
+    // { id: "faq", label: "FAQ", position: "70%" },
+    { id: "contact", label: "Contact", position: "70%" },
   ]
 
   // Check if device is mobile
