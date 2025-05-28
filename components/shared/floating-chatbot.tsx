@@ -24,32 +24,45 @@ export default function FloatingChatbot() {
   const toggleChat = () => {
     setIsOpen(!isOpen)
   }
-
-  const handleSendMessage = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!input.trim()) return
-
-    // Add user message
-    setMessages((prev) => [...prev, { role: "user", content: input }])
-
-    // Simulate bot typing
-    setIsTyping(true)
-
-    // Simulate bot response
-    setTimeout(() => {
-      setIsTyping(false)
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "bot",
-          content:
-            "I'm here to help with your health and wellness needs. Is there something specific you'd like to know about NIRVEON'X services?",
-        },
-      ])
-    }, 2000)
-
-    setInput("")
+  const fetchBotResponse = async (message: string) => {
+  try {
+    const response = await fetch('https://neonix-api-258649051254.europe-west1.run.app/query', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ question: message }),
+    });
+    const data = await response.json();
+    return data.answer;
+  } catch (error) {
+    console.error('Error fetching bot response:', error);
+    return "Sorry, I'm having trouble connecting to the server.";
   }
+};
+
+  const handleSendMessage = async (e: React.FormEvent) => {
+  e.preventDefault();
+  if (!input.trim()) return;
+
+  // Add user message
+  const userMessage = { role: "user", content: input };
+  setMessages((prev) => [...prev, userMessage]);
+  setInput("");
+  setIsTyping(true);
+
+  try {
+    const botResponse = await fetchBotResponse(input);
+    setMessages((prev) => [...prev, { role: "bot", content: botResponse }]);
+  } catch (error) {
+    setMessages((prev) => [...prev, { 
+      role: "bot", 
+      content: "Sorry, I encountered an error. Please try again later." 
+    }]);
+  } finally {
+    setIsTyping(false);
+  }
+};
 
   useEffect(() => {
     if (messagesEndRef.current) {
