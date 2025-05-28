@@ -8,12 +8,12 @@ import FloatingChatbot from "@/components/shared/floating-chatbot";
 import { ThemeProvider } from "next-themes";
 import HeroSection from "@/sections/Hero/hero-section";
 import FeaturesSection from "@/sections/Features/features-section";
-import FaqSection from "@/sections/FAQs/faq-section";
+// import FaqSection from "@/sections/FAQs/faq-section";
 import Footer from "@/sections/marginals/footer";
 import ParticlesBackground from "@/components/shared/particle-background";
 import CustomCursor from "@/components/shared/custom-cursor";
 import ScrollProgress from "@/components/shared/scroll-progress";
-import NoiseTexture from "@/components/shared/noise-texture";
+// import NoiseTexture from "@/components/shared/noise-texture";
 import MarqueeText from "@/components/marquee-text";
 import VerticalMenuIndicator from "@/components/shared/vertical-menu-indicator";
 import { useScroll } from "framer-motion";
@@ -76,7 +76,7 @@ export default function Home() {
             <ChatbotServices />
             <InvestorSection />
             <TeamMembersSection />
-            <FaqSection />
+            {/* <FaqSection /> */}
             <Footer />
             <FloatingChatbot />  
             
