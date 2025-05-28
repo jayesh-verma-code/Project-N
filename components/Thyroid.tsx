@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Menu, X, MessageSquarePlus, Settings, LogOut, HeartPulse, Trash2 } from 'lucide-react';
+import { Menu, X, MessageSquarePlus, Settings, LogOut, HeartPulse, Trash2, Minimize2, Maximize2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 type Message = {
@@ -46,6 +46,7 @@ export default function Thyroid() {
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [chatHistory, setChatHistory] = useState<ChatHistoryItem[]>([]);
+  const [isAnalysisMinimized, setIsAnalysisMinimized] = useState<boolean>(false);
   const router = useRouter();
   
   // Initialize with welcome message
@@ -60,6 +61,8 @@ export default function Thyroid() {
 
 
   const toggleSidebar = () => setIsOpen(!isOpen);
+  const toggleAnalysisMinimize = () => setIsAnalysisMinimized(!isAnalysisMinimized);
+  
   const handleNewChat = () => {
     if (messages.length > 1) { // Only save if there's more than just the initial message
       const firstUserMessage = messages.find(msg => msg.sender === 'user');
@@ -323,47 +326,80 @@ export default function Thyroid() {
     const confidencePercent = confidence.toFixed(1) + '%';
     
     return (
-      <div className="bg-gray-800 p-4 rounded-lg mt-4 mb-4">
-        <h3 className="text-blue-400 font-bold mb-2">Thyroid CT Analysis Results</h3>
-        <div className="space-y-3">
-          <div className="flex justify-between items-center">
-            <span className="text-gray-300 font-medium">Classification:</span>
-            <span className={
-              predictionData.prediction === 'Malignant' ? 'text-red-400 font-bold' :
-              predictionData.prediction === 'Benign' ? 'text-yellow-400 font-bold' :
-              'text-green-400 font-bold'
-            }>
-              {predictionData.prediction}
-            </span>
-          </div>
-          <div className="flex justify-between items-center">
-            <span className="text-gray-300 font-medium">Confidence:</span>
-            <span className="text-blue-300 font-bold">{confidencePercent}</span>
-          </div>
-          <div className="w-full bg-gray-600 rounded-full h-3">
-            <div 
-              className="bg-blue-500 h-3 rounded-full transition-all duration-500" 
-              style={{ width: `${confidence}%` }}
-            ></div>
-          </div>
-          <div className="mt-2">
-            <span className="text-gray-300 font-medium text-sm">All Confidence Scores:</span>
-            <div className="text-sm space-y-1">
-              <div className="flex justify-between">
-                <span className="text-gray-400">Benign:</span>
-                <span className="text-yellow-300">{predictionData.confidence_scores.Benign.toFixed(1)}%</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-400">Malignant:</span>
-                <span className="text-red-300">{predictionData.confidence_scores.Malignant.toFixed(1)}%</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-400">Normal:</span>
-                <span className="text-green-300">{predictionData.confidence_scores.Normal.toFixed(1)}%</span>
+      <div className="bg-gray-800 rounded-lg mt-4 mb-4 overflow-hidden">
+        <div className="flex items-center justify-between p-4 border-b border-gray-700">
+          <h3 className="text-blue-400 font-bold">Thyroid CT Analysis Results</h3>
+          <button
+            onClick={toggleAnalysisMinimize}
+            className="text-gray-400 hover:text-white transition-colors"
+            title={isAnalysisMinimized ? "Expand results" : "Minimize results"}
+          >
+            {isAnalysisMinimized ? (
+              <Maximize2 className="w-5 h-5" />
+            ) : (
+              <Minimize2 className="w-5 h-5" />
+            )}
+          </button>
+        </div>
+        
+        {!isAnalysisMinimized && (
+          <div className="p-4 space-y-3">
+            <div className="flex justify-between items-center">
+              <span className="text-gray-300 font-medium">Classification:</span>
+              <span className={
+                predictionData.prediction === 'Malignant' ? 'text-red-400 font-bold' :
+                predictionData.prediction === 'Benign' ? 'text-yellow-400 font-bold' :
+                'text-green-400 font-bold'
+              }>
+                {predictionData.prediction}
+              </span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-gray-300 font-medium">Confidence:</span>
+              <span className="text-blue-300 font-bold">{confidencePercent}</span>
+            </div>
+            <div className="w-full bg-gray-600 rounded-full h-3">
+              <div 
+                className="bg-blue-500 h-3 rounded-full transition-all duration-500" 
+                style={{ width: `${confidence}%` }}
+              ></div>
+            </div>
+            <div className="mt-2">
+              <span className="text-gray-300 font-medium text-sm">All Confidence Scores:</span>
+              <div className="text-sm space-y-1">
+                <div className="flex justify-between">
+                  <span className="text-gray-400">Benign:</span>
+                  <span className="text-yellow-300">{predictionData.confidence_scores.Benign.toFixed(1)}%</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-400">Malignant:</span>
+                  <span className="text-red-300">{predictionData.confidence_scores.Malignant.toFixed(1)}%</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-400">Normal:</span>
+                  <span className="text-green-300">{predictionData.confidence_scores.Normal.toFixed(1)}%</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
+        
+        {isAnalysisMinimized && (
+          <div className="p-4">
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-gray-300">
+                Classification: <span className={
+                  predictionData.prediction === 'Malignant' ? 'text-red-400 font-bold' :
+                  predictionData.prediction === 'Benign' ? 'text-yellow-400 font-bold' :
+                  'text-green-400 font-bold'
+                }>
+                  {predictionData.prediction}
+                </span>
+              </span>
+              <span className="text-sm text-blue-300 font-bold">{confidencePercent}</span>
+            </div>
+          </div>
+        )}
       </div>
     );
   };
@@ -396,7 +432,7 @@ export default function Thyroid() {
         onClick={toggleSidebar}
         className={`fixed z-50 p-2 rounded-full transition-all ${
           isOpen
-            ? "left-64 top-6 bg-gray-700/50"
+            ? "left-56 top-6 bg-gray-700/50"
             : "left-6 top-6 bg-indigo-600"
         }`}
         aria-label={isOpen ? "Close sidebar" : "Open sidebar"}
@@ -480,12 +516,7 @@ export default function Thyroid() {
         />
       )}
 
-
-
-
-
-
-      <main className="flex-1 flex flex-col max-w-4xl mx-auto w-full p-4 rounded-lg my-4">
+      <main className="flex-1 flex flex-col max-w-6xl mx-auto w-full p-4 rounded-lg my-4">
         {/* Header */}
         <div className="text-center mb-4 pb-4">
           <h1 className="text-4xl font-bold text-blue-500 mb-2">Healthmate</h1>
@@ -507,8 +538,8 @@ export default function Thyroid() {
           </div>
         )}
 
-        {/* Chat Area */}
-        <div ref={chatContainerRef} className="flex-1 mb-4 overflow-y-auto max-h-[50vh] px-2">
+        {/* Chat Area - Made wider */}
+        <div ref={chatContainerRef} className="flex-1 mb-4 overflow-y-auto max-h-[60vh] px-2">
           <div className="flex flex-col space-y-4">
             {messages.map((message) => (
               <div 
@@ -517,7 +548,7 @@ export default function Thyroid() {
                   message.sender === 'user' 
                     ? 'bg-blue-800 text-white self-end rounded-tl-lg rounded-tr-lg rounded-bl-lg' 
                     : 'bg-blue-600 text-white self-start rounded-tr-lg rounded-br-lg rounded-bl-lg'
-                } p-3 max-w-[80%] shadow`}
+                } p-3 max-w-[85%] shadow`}
               >
                 <p className="whitespace-pre-line">{message.text}</p>
                 {message.image && (
