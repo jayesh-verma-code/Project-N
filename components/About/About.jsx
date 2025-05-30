@@ -252,7 +252,7 @@ export default function AboutUs() {
   return (
     <div ref={componentRef}>
       <div className="flex items-center justify-center min-h-screen mt-0 pt-0 bg-black/50">
-        <div className="md:w-3/5 w-4/5 h-[100vh] md:h-[80vh]">
+        <div className="w-full max-w-6xl px-4">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -264,7 +264,8 @@ export default function AboutUs() {
             </h1>
           </motion.div>
 
-          <div className="relative w-full md:h-[calc(80vh-80px)] h-[calc(70vh-75px)] [perspective:1500px]">
+          {/* 16:9 Aspect Ratio Container */}
+          <div className="relative w-full aspect-video [perspective:1500px] max-w-5xl mx-auto">
 
             {/* Flip Card */}
             <motion.div
