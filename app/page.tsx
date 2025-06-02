@@ -20,6 +20,7 @@ import { useScroll } from "framer-motion";
 import About from "@/components/About/About";
 import TeamMembersSection from "@/sections/Pioneer/pioneer";
 import InvestorSection from "@/sections/Patron/Investors";
+import Nav from "@/components/Nav/nav"
 // import Fitarth from "@/components/CommunityServices/fitronx-Card";
 
 
@@ -68,6 +69,7 @@ export default function Home() {
         ) : (
           <>
             <Navbar scrolled={scrolled} />
+            {/* <Nav/> */}
             <HeroSection />
             <About />
             {/* <Fitarth /> */}
