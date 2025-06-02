@@ -61,7 +61,7 @@ export default function Home() {
         <ScrollProgress scrollYProgress={scrollYProgress} />
         {/* <NoiseTexture /> */}
         <ParticlesBackground />
-        <VerticalMenuIndicator />
+        {/* <VerticalMenuIndicator /> */}
 
         {!introComplete ? (
           <IntroAnimation onComplete={handleIntroComplete} />
@@ -70,13 +70,13 @@ export default function Home() {
             <Navbar scrolled={scrolled} />
             <HeroSection />
             <About />
-            {/* <Fitarth/> */}
-            <MarqueeText />
+            {/* <Fitarth /> */}
+             <MarqueeText />
             <FeaturesSection />
             <ChatbotServices />
             <InvestorSection />
-            <TeamMembersSection />
-            {/* <FaqSection /> */}
+            <TeamMembersSection /> 
+            {/* <FaqSection />  */}
             <Footer />
             <FloatingChatbot />  
             

@@ -160,6 +160,14 @@ function Card({ title, imagePath }: { title: string; imagePath: string }) {
     setIsHovered(false);
   };
 
+  // Determine the link based on the title
+  const getLinkPath = () => {
+    if (title === "Daily Stress Check") {
+      return "/bubble";
+    }
+    return "/mindease/chat";
+  };
+
   return (
     <motion.div
       style={{
@@ -258,7 +266,7 @@ function Card({ title, imagePath }: { title: string; imagePath: string }) {
         </motion.h1>
       </div>
 
-      <Link href={"/mindease/chat"} className="pb-4 transform-gpu" style={{ transform: "translateZ(25px)" }}>
+      <Link href={getLinkPath()} className="pb-4 transform-gpu" style={{ transform: "translateZ(25px)" }}>
         <motion.div
           variants={buttonVariants}
           whileHover="hover"
