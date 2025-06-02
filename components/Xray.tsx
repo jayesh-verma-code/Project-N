@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect, useRef } from 'react';
 
 type Message = {
@@ -8,31 +9,30 @@ type Message = {
   image?: string; // Base64 encoded image
 };
 
-type XRayAnalysisData = {
-  result_image: string;
-  predictions: Array<{
-    score: number;
-    label: string;
-    box: {
-      xmin: number;
-      ymin: number;
-      xmax: number;
-      ymax: number;
-    };
-  }>;
+type AnalysisData = {
+  body_part: {
+    prediction: string;
+    confidence: number;
+    class_probabilities: Record<string, number>;
+  };
+  fracture: {
+    prediction: string;
+    confidence: number;
+    class_probabilities: Record<string, number>;
+  };
+  summary: string;
   explanation: string;
-  session_id: string;
 };
 
 export default function XRayAnalyzer() {
   const [inputValue, setInputValue] = useState<string>('');
   const [initialMessage] = useState<string>('Welcome to the X-ray Analysis section. Please upload an X-ray scan image first to begin analysis and discussion.');
-  const apiUrl = "https://a815-34-139-161-51.ngrok-free.app/"; // Update this to your API URL
+  const apiUrl = "https://xray-662622027382.europe-west1.run.app";
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [messages, setMessages] = useState<Message[]>([]);
-  const [analysisData, setAnalysisData] = useState<XRayAnalysisData | null>(null);
+  const [analysisData, setAnalysisData] = useState<AnalysisData | null>(null);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [analysisComplete, setAnalysisComplete] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -81,10 +81,26 @@ export default function XRayAnalyzer() {
     }
   };
 
+  // Helper function to safely access nested properties
+  const safeGetAnalysisValue = (obj: any, path: string[], defaultValue: any = 'Unknown') => {
+    try {
+      return path.reduce((current, key) => current && current[key], obj) ?? defaultValue;
+    } catch {
+      return defaultValue;
+    }
+  };
+
   const handleUploadXRay = async () => {
     if (!selectedImage) return;
     
     setIsLoading(true);
+
+    const processingMessage: Message = {
+      id: generateId(),
+      text: "Analyzing your X-ray scan...",
+      sender: 'bot',
+      timestamp: new Date()
+    };
     
     try {
       // Add user message with image
@@ -101,21 +117,12 @@ export default function XRayAnalyzer() {
       // Create form data for upload
       const formData = new FormData();
       formData.append('file', selectedImage);
-      formData.append('model_choice', 'pretrained'); // Using pretrained models
-      formData.append('confidence_threshold', '0.6'); // Default confidence threshold
       
       // Add processing message
-      const processingMessage: Message = {
-        id: generateId(),
-        text: "Analyzing your X-ray scan...",
-        sender: 'bot',
-        timestamp: new Date()
-      };
-      
       setMessages(prev => [...prev, processingMessage]);
       
       // Make API call to analyze endpoint
-      const response = await fetch(`${apiUrl}/analyze`, {
+      const response = await fetch(`${apiUrl}/chat`, {
         method: 'POST',
         body: formData
       });
@@ -124,38 +131,47 @@ export default function XRayAnalyzer() {
         throw new Error(`API request failed: ${response.status} ${response.statusText}`);
       }
       
-      const data: XRayAnalysisData = await response.json();
+      const data = await response.json();
       console.log('X-ray analysis response:', data);
-      
-      // Store analysis data and session ID
-      setAnalysisData(data);
-      setSessionId(data.session_id);
-      setAnalysisComplete(true);
       
       // Remove the processing message
       setMessages(prev => prev.filter(msg => msg.id !== processingMessage.id));
       
-      // Create analysis summary
-      const detectionCount = data.predictions.length;
-      const highConfidenceDetections = data.predictions.filter(p => p.score > 0.8).length;
-      
+      // Handle different possible response structures
       let summaryText = `Analysis Complete!\n\n`;
-      summaryText += `Detections Found: ${detectionCount}\n`;
-      if (detectionCount > 0) {
-        summaryText += `High Confidence Detections: ${highConfidenceDetections}\n`;
-        summaryText += `Top Detection: ${data.predictions[0]?.label} (${(data.predictions[0]?.score * 100).toFixed(1)}%)\n\n`;
-      } else {
-        summaryText += `No fractures detected above confidence threshold.\n\n`;
-      }
-      summaryText += `Medical Analysis:\n${data.explanation}\n\nYou can now ask me questions about this analysis.`;
       
-      // Add analysis result message with the processed image
+      // Try to extract analysis data with safe access
+      const analysis = data.analysis || data;
+      
+      // Handle body part prediction
+      const bodyPartPrediction = safeGetAnalysisValue(analysis, ['body_part', 'prediction'], 'Unknown');
+      const bodyPartConfidence = safeGetAnalysisValue(analysis, ['body_part', 'confidence'], 0);
+      const bodyPartConfidencePercent = typeof bodyPartConfidence === 'number' ? (bodyPartConfidence * 100).toFixed(1) : 'Unknown';
+      
+      // Handle fracture prediction
+      const fracturePrediction = safeGetAnalysisValue(analysis, ['fracture', 'prediction'], 'Unknown');
+      const fractureConfidence = safeGetAnalysisValue(analysis, ['fracture', 'confidence'], 0);
+      const fractureConfidencePercent = typeof fractureConfidence === 'number' ? (fractureConfidence * 100).toFixed(1) : 'Unknown';
+      
+      // Handle explanation
+      const explanation = data.explanation || data.summary || 'Analysis completed successfully.';
+      
+      summaryText += `Body Part: ${bodyPartPrediction} (${bodyPartConfidencePercent}%)\n`;
+      summaryText += `Fracture Status: ${fracturePrediction} (${fractureConfidencePercent}%)\n\n`;
+      summaryText += `Medical Analysis:\n${explanation}\n\nYou can now ask me questions about this analysis.`;
+      
+      // Store analysis data and session ID
+      setAnalysisData(analysis);
+      setSessionId(data.session_id || generateId()); // Fallback session ID if not provided
+      setAnalysisComplete(true);
+      
+      // Add analysis result message
       const resultMessage: Message = {
         id: generateId(),
         text: summaryText,
         sender: 'bot',
         timestamp: new Date(),
-        image: data.result_image // This contains the image with detection boxes
+        image: previewImage || undefined
       };
       
       setMessages(prev => [...prev, resultMessage]);
@@ -170,7 +186,7 @@ export default function XRayAnalyzer() {
     } catch (error) {
       console.error('Error uploading X-ray scan:', error);
       // Remove processing message if it exists
-      setMessages(prev => prev.filter(msg => msg.text !== "Analyzing your X-ray scan..."));
+      setMessages(prev => prev.filter(msg => msg.id !== processingMessage.id));
       
       // Add error message
       const errorMessage: Message = {
@@ -198,6 +214,7 @@ export default function XRayAnalyzer() {
         timestamp: new Date()
       };
       setMessages(prev => [...prev, promptMessage]);
+      setInputValue('');
       return;
     }
     
@@ -236,7 +253,7 @@ export default function XRayAnalyzer() {
       // Add bot response
       const botMessage: Message = {
         id: generateId(),
-        text: data.response,
+        text: data.response || data.message || 'I received your message but couldn\'t generate a proper response.',
         sender: 'bot',
         timestamp: new Date()
       };
@@ -265,39 +282,39 @@ export default function XRayAnalyzer() {
   const renderAnalysisResults = () => {
     if (!analysisData) return null;
     
-    const detectionCount = analysisData.predictions.length;
-    const avgConfidence = detectionCount > 0 
-      ? analysisData.predictions.reduce((sum, p) => sum + p.score, 0) / detectionCount 
-      : 0;
+    const bodyPartPrediction = safeGetAnalysisValue(analysisData, ['body_part', 'prediction'], 'Unknown');
+    const bodyPartConfidence = safeGetAnalysisValue(analysisData, ['body_part', 'confidence'], 0);
+    const bodyPartConfidencePercent = typeof bodyPartConfidence === 'number' ? (bodyPartConfidence * 100).toFixed(1) : 'Unknown';
+    
+    const fracturePrediction = safeGetAnalysisValue(analysisData, ['fracture', 'prediction'], 'Unknown');
+    const fractureConfidence = safeGetAnalysisValue(analysisData, ['fracture', 'confidence'], 0);
+    const fractureConfidencePercent = typeof fractureConfidence === 'number' ? (fractureConfidence * 100).toFixed(1) : 'Unknown';
     
     return (
       <div className="bg-gray-800 p-4 rounded-lg mt-4 mb-4">
         <h3 className="text-blue-400 font-bold mb-2">X-ray Analysis Results</h3>
         <div className="space-y-3">
           <div className="flex justify-between items-center">
-            <span className="text-gray-300 font-medium">Detections:</span>
-            <span className="text-blue-300 font-bold">{detectionCount}</span>
+            <span className="text-gray-300 font-medium">Body Part:</span>
+            <span className="text-blue-300 font-bold">{bodyPartPrediction}</span>
           </div>
-          {detectionCount > 0 && (
-            <>
-              <div className="flex justify-between items-center">
-                <span className="text-gray-300 font-medium">Avg Confidence:</span>
-                <span className="text-green-300 font-bold">{(avgConfidence * 100).toFixed(1)}%</span>
-              </div>
-              <div className="w-full bg-gray-600 rounded-full h-3">
-                <div 
-                  className="bg-blue-500 h-3 rounded-full transition-all duration-500" 
-                  style={{ width: `${avgConfidence * 100}%` }}
-                ></div>
-              </div>
-              <div className="mt-2">
-                <span className="text-gray-300 font-medium text-sm">Top Detection:</span>
-                <div className="text-blue-300 text-sm">
-                  {analysisData.predictions[0]?.label} ({(analysisData.predictions[0]?.score * 100).toFixed(1)}%)
-                </div>
-              </div>
-            </>
-          )}
+          <div className="flex justify-between items-center">
+            <span className="text-gray-300 font-medium">Confidence:</span>
+            <span className="text-green-300 font-bold">{bodyPartConfidencePercent}%</span>
+          </div>
+          
+          <div className="flex justify-between items-center mt-4">
+            <span className="text-gray-300 font-medium">Fracture Status:</span>
+            <span className={`font-bold ${
+              fracturePrediction === 'Fracture' ? 'text-red-400' : 'text-green-400'
+            }`}>
+              {fracturePrediction}
+            </span>
+          </div>
+          <div className="flex justify-between items-center">
+            <span className="text-gray-300 font-medium">Confidence:</span>
+            <span className="text-green-300 font-bold">{fractureConfidencePercent}%</span>
+          </div>
         </div>
       </div>
     );
@@ -332,7 +349,6 @@ export default function XRayAnalyzer() {
             <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
             <span className="text-sm text-green-500">Online</span>
           </div>
-         
         </div>
 
         {/* Analysis Status */}
@@ -501,6 +517,18 @@ export default function XRayAnalyzer() {
             : "Step 2: Ask questions about your X-ray analysis results"
           }
         </div>
+
+        {/* Clear chat button for debugging */}
+        {analysisComplete && (
+          <div className="mt-2 text-center">
+            <button 
+              onClick={clearChat}
+              className="text-gray-500 hover:text-gray-300 text-xs underline"
+            >
+              Clear Chat & Start Over
+            </button>
+          </div>
+        )}
       </main>
     </div>
   );
