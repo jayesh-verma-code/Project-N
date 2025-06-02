@@ -23,12 +23,10 @@ export default function BubblePage() {
   const [gameActive, setGameActive] = useState(false);
   const [timeLeft, setTimeLeft] = useState(20);
   const [score, setScore] = useState(0);
-  const [highScore, setHighScore] = useState(() => {
-    const saved = localStorage.getItem('bubbleGameHighScore');
-    return saved ? parseInt(saved, 10) : 0;
-  });
+  const [highScore, setHighScore] = useState(0);
   const [missedRedBubbles, setMissedRedBubbles] = useState(0);
   const [showRedBubbleMessage, setShowRedBubbleMessage] = useState(false);
+  const [isClient, setIsClient] = useState(false);
   
   const nextId = useRef(0);
   const animationFrameId = useRef<number | null>(null);
@@ -39,12 +37,21 @@ export default function BubblePage() {
   const bubblesRef = useRef<Bubble[]>([]);
   bubblesRef.current = bubbles;
 
+  // Initialize client-side state and load high score
+  useEffect(() => {
+    setIsClient(true);
+    const saved = localStorage.getItem('bubbleGameHighScore');
+    if (saved) {
+      setHighScore(parseInt(saved, 10));
+    }
+  }, []);
+
   // Create a bubble with gentler wobble parameters
   const createBubble = useCallback((): Bubble => {
     return {
       id: nextId.current++,
-      x: Math.random() * window.innerWidth,
-      y: window.innerHeight + 50,
+      x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 800),
+      y: (typeof window !== 'undefined' ? window.innerHeight : 600) + 50,
       size: Math.random() * 60 + 20,
       // Slower speed for gentler movement
       speed: Math.random() * 0.1 + 0.05,
@@ -79,7 +86,7 @@ export default function BubblePage() {
     if (poppedBubble?.isRed && gameActive) {
       setScore(prev => {
         const newScore = prev + 1;
-        if (newScore > highScore) {
+        if (newScore > highScore && isClient) {
           setHighScore(newScore);
           localStorage.setItem('bubbleGameHighScore', newScore.toString());
         }
@@ -87,7 +94,7 @@ export default function BubblePage() {
       });
     }
     setBubbles(prev => prev.filter(bubble => bubble.id !== id));
-  }, [gameActive, highScore]);
+  }, [gameActive, highScore, isClient]);
 
   // Fixed timer implementation
   const startGame = useCallback(() => {
@@ -123,80 +130,78 @@ export default function BubblePage() {
   }, [gameActive]);
 
   // Updated bubble movement and tracking
-const updateBubbles = useCallback(() => {
-  const now = Date.now();
-  
-  // Create new bubbles at a more reasonable rate (every 400ms)
-  if (now - lastBubbleTime.current > 400) {
-    setBubbles(prev => [...prev, createBubble()]);
-    lastBubbleTime.current = now;
-  }
-
-  // Make a random bubble red every 2-3 seconds during game
-  if (gameActive && now - lastRedBubbleTime.current > (2000 + Math.random() * 1000)) {
-    makeRandomBubbleRed();
-    lastRedBubbleTime.current = now;
-  }
-
-  // Update game timer
-  updateTimer();
-
-  // Update existing bubbles with smooth movement
-  setBubbles(prev => {
-    let missedRedInThisFrame = 0; // Count missed red bubbles in this frame
+  const updateBubbles = useCallback(() => {
+    if (typeof window === 'undefined') return;
     
-    const updatedBubbles = prev.reduce((acc, bubble) => {
-      // Calculate elapsed time for smoother animation
-      const elapsed = now - bubble.startTime;
-      const progress = elapsed * bubble.speed / 1000;
-      
-      // Calculate new position with smoother vertical movement
-      const y = window.innerHeight - progress * (window.innerHeight + bubble.size);
-      
-      // Remove bubbles that have gone off-screen
-      if (y < -bubble.size) {
-        // Track missed red bubbles
-        if (bubble.isRed && gameActive) {
-          missedRedInThisFrame++;
-        }
-        return acc; // Don't include this bubble in the updated array
-      }
-      
-      // Calculate gentle horizontal wobble
-      const xOffset = Math.sin(bubble.wobble) * bubble.wobbleAmount;
-      
-      return [
-        ...acc,
-        {
-          ...bubble,
-          y,
-          // Add wobble to x position
-          x: bubble.x + xOffset,
-          // Increment wobble angle very slowly
-          wobble: bubble.wobble + bubble.wobbleSpeed
-        }
-      ];
-    }, [] as Bubble[]);
-
-    // Update missed red bubbles count if any were missed in this frame
-    if (missedRedInThisFrame > 0) {
-      setMissedRedBubbles(prev => prev + missedRedInThisFrame);
+    const now = Date.now();
+    
+    // Create new bubbles at a more reasonable rate (every 400ms)
+    if (now - lastBubbleTime.current > 400) {
+      setBubbles(prev => [...prev, createBubble()]);
+      lastBubbleTime.current = now;
     }
 
-    return updatedBubbles;
-  });
+    // Make a random bubble red every 2-3 seconds during game
+    if (gameActive && now - lastRedBubbleTime.current > (2000 + Math.random() * 1000)) {
+      makeRandomBubbleRed();
+      lastRedBubbleTime.current = now;
+    }
 
-  // Continue animation loop
-  animationFrameId.current = requestAnimationFrame(updateBubbles);
-}, [createBubble, makeRandomBubbleRed, gameActive, updateTimer]);
+    // Update game timer
+    updateTimer();
+
+    // Update existing bubbles with smooth movement
+    setBubbles(prev => {
+      let missedRedInThisFrame = 0; // Count missed red bubbles in this frame
+      
+      const updatedBubbles = prev.reduce((acc, bubble) => {
+        // Calculate elapsed time for smoother animation
+        const elapsed = now - bubble.startTime;
+        const progress = elapsed * bubble.speed / 1000;
+        
+        // Calculate new position with smoother vertical movement
+        const y = window.innerHeight - progress * (window.innerHeight + bubble.size);
+        
+        // Remove bubbles that have gone off-screen
+        if (y < -bubble.size) {
+          // Track missed red bubbles
+          if (bubble.isRed && gameActive) {
+            missedRedInThisFrame++;
+          }
+          return acc; // Don't include this bubble in the updated array
+        }
+        
+        // Calculate gentle horizontal wobble
+        const xOffset = Math.sin(bubble.wobble) * bubble.wobbleAmount;
+        
+        return [
+          ...acc,
+          {
+            ...bubble,
+            y,
+            // Add wobble to x position
+            x: bubble.x + xOffset,
+            // Increment wobble angle very slowly
+            wobble: bubble.wobble + bubble.wobbleSpeed
+          }
+        ];
+      }, [] as Bubble[]);
+
+      // Update missed red bubbles count if any were missed in this frame
+      if (missedRedInThisFrame > 0) {
+        setMissedRedBubbles(prev => prev + missedRedInThisFrame);
+      }
+
+      return updatedBubbles;
+    });
+
+    // Continue animation loop
+    animationFrameId.current = requestAnimationFrame(updateBubbles);
+  }, [createBubble, makeRandomBubbleRed, gameActive, updateTimer]);
 
   // Initial setup and cleanup
   useEffect(() => {
-    // Load high score from localStorage
-    const savedHighScore = localStorage.getItem('bubbleGameHighScore');
-    if (savedHighScore) {
-      setHighScore(parseInt(savedHighScore, 10));
-    }
+    if (!isClient) return;
     
     // Start with a few bubbles
     const initialBubbles = Array(5).fill(0).map(() => createBubble());
@@ -211,7 +216,7 @@ const updateBubbles = useCallback(() => {
         cancelAnimationFrame(animationFrameId.current);
       }
     };
-  }, [createBubble, updateBubbles]);
+  }, [createBubble, updateBubbles, isClient]);
 
   // Bubble style generation
   const getBubbleStyle = useCallback((bubble: Bubble) => {
@@ -260,6 +265,11 @@ const updateBubbles = useCallback(() => {
 
   // Count metrics
   const redBubblesOnScreen = bubbles.filter(b => b.isRed).length;
+
+  // Don't render anything until client-side hydration is complete
+  if (!isClient) {
+    return <div className="w-full h-screen bg-gradient-to-b from-gray-900 via-slate-900 to-black" />;
+  }
 
   return (
     <div 
@@ -406,16 +416,15 @@ const updateBubbles = useCallback(() => {
 
       {/* Game end screen */}
       {!gameActive && score > 0 && (
-       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
-                bg-white/10 backdrop-blur-xl shadow-2xl p-8 rounded-2xl text-center 
-                transition-transform duration-500 hover:scale-105 hover:bg-white/20 
-                border border-white/20">
-  <h2 className="text-3xl font-extrabold text-white mb-4 drop-shadow-lg">Game Over!</h2>
-  <p className="text-2xl text-white/90 mb-1">Your Score: <span className="font-semibold">{score}</span></p>
-  <p className="text-xl text-white/80">High Score: <span className="font-semibold">{highScore}</span></p>
-  <p className="text-lg text-red-400 mt-3 font-medium">Missed Red Bubbles: {missedRedBubbles}</p>
-</div>
-
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
+                  bg-white/10 backdrop-blur-xl shadow-2xl p-8 rounded-2xl text-center 
+                  transition-transform duration-500 hover:scale-105 hover:bg-white/20 
+                  border border-white/20">
+          <h2 className="text-3xl font-extrabold text-white mb-4 drop-shadow-lg">Game Over!</h2>
+          <p className="text-2xl text-white/90 mb-1">Your Score: <span className="font-semibold">{score}</span></p>
+          <p className="text-xl text-white/80">High Score: <span className="font-semibold">{highScore}</span></p>
+          <p className="text-lg text-red-400 mt-3 font-medium">Missed Red Bubbles: {missedRedBubbles}</p>
+        </div>
       )}
 
       {/* Instructions */}
