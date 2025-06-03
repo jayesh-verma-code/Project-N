@@ -1,13 +1,12 @@
 "use client";
-
 import { useEffect, useState, useRef } from "react";
 import IntroAnimation from "@/components/shared/intro-animation";
-import Navbar from "@/sections/marginals/navbar";
-import ChatbotServices from "@/sections/ChatBotServices/chatbot-services";
+// import Navbar from "@/sections/marginals/navbar";
+// import ChatbotServices from "@/sections/ChatBotServices/chatbot-services";
 import FloatingChatbot from "@/components/shared/floating-chatbot";
 import { ThemeProvider } from "next-themes";
 import HeroSection from "@/sections/Hero/hero-section";
-import FeaturesSection from "@/sections/Features/features-section";
+// import FeaturesSection from "@/sections/Features/features-section";
 // import FaqSection from "@/sections/FAQs/faq-section";
 import Footer from "@/sections/marginals/footer";
 import ParticlesBackground from "@/components/shared/particle-background";
@@ -15,11 +14,11 @@ import CustomCursor from "@/components/shared/custom-cursor";
 import ScrollProgress from "@/components/shared/scroll-progress";
 // import NoiseTexture from "@/components/shared/noise-texture";
 import MarqueeText from "@/components/marquee-text";
-import VerticalMenuIndicator from "@/components/shared/vertical-menu-indicator";
+// import VerticalMenuIndicator from "@/components/shared/vertical-menu-indicator";
 import { useScroll } from "framer-motion";
 import About from "@/components/About/About";
-import TeamMembersSection from "@/sections/Pioneer/pioneer";
-import InvestorSection from "@/sections/Patron/Investors";
+// import TeamMembersSection from "@/sections/Pioneer/pioneer";
+// import InvestorSection from "@/sections/Patron/Investors";
 import Nav from "@/components/Nav/nav"
 // import Fitarth from "@/components/CommunityServices/fitronx-Card";
 
@@ -68,16 +67,16 @@ export default function Home() {
           <IntroAnimation onComplete={handleIntroComplete} />
         ) : (
           <>
-            <Navbar scrolled={scrolled} />
-            {/* <Nav/> */}
+            {/* <Navbar scrolled={scrolled} /> */}
+            <Nav />
             <HeroSection />
             <About />
             {/* <Fitarth /> */}
              <MarqueeText />
-            <FeaturesSection />
-            <ChatbotServices />
+            {/* <FeaturesSection /> */}
+            {/* <ChatbotServices />
             <InvestorSection />
-            <TeamMembersSection /> 
+            <TeamMembersSection />  */}
             {/* <FaqSection />  */}
             <Footer />
             <FloatingChatbot />  
