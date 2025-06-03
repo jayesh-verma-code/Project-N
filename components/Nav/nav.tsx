@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
 
 const LeftNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -8,7 +9,12 @@ const LeftNavbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const menuItems = ['Home', 'Features', 'Services', 'Pioneers'];
+  const menuItems = [
+    { name: 'Home', path: '/' },
+    { name: 'Features', path: '/Features' },
+    { name: 'Services', path: '/Services' },
+    { name: 'Pioneers', path: '/Pioneers' }
+  ];
 
   // Animation variants with sliding effect
   const menuVariants = {
@@ -48,25 +54,130 @@ const LeftNavbar = () => {
     },
   };
 
-  // Background overlay animation
-  const overlayVariants = {
-    closed: {
-      opacity: 0,
+  // Hamburger line animations with continuous initial animation
+  const topLineVariants = {
+    initial: {
+      width: 0,
+      x: -12,
+      rotate: 0,
+      y: 0
     },
-    open: {
-      opacity: 1,
+    animate: {
+      width: "24px",
+      x: 0,
+      rotate: 0,
+      y: 0,
       transition: {
-        duration: 0.4,
+        delay: 0.2,
+        duration: 0.5,
         ease: [0.33, 1, 0.68, 1],
-      },
+        repeat: isMenuOpen ? Number.POSITIVE_INFINITY : 0,
+        repeatType: "loop" as const,
+        repeatDelay: 2
+      }
     },
-    exit: {
-      opacity: 0,
+    closed: {
+      rotate: 0,
+      y: 0,
+      width: "24px",
+      x: 0,
       transition: {
         duration: 0.3,
-        ease: [0.76, 0, 0.24, 1],
-      },
+        ease: [0.76, 0, 0.24, 1]
+      }
     },
+    open: {
+      rotate: 45,
+      y: 6,
+      width: "24px",
+      x: 0,
+      transition: {
+        duration: 0.3,
+        ease: [0.76, 0, 0.24, 1]
+      }
+    }
+  };
+
+  const middleLineVariants = {
+    initial: {
+      width: 0,
+      x: -12,
+      opacity: 1
+    },
+    animate: {
+      width: "24px",
+      x: 0,
+      opacity: 1,
+      transition: {
+        delay: 0.3,
+        duration: 0.5,
+        ease: [0.33, 1, 0.68, 1],
+        repeat: isMenuOpen ? Number.POSITIVE_INFINITY : 0,
+        repeatType: "loop" as const,
+        repeatDelay: 2
+      }
+    },
+    closed: {
+      opacity: 1,
+      x: 0,
+      width: "24px",
+      transition: {
+        duration: 0.3,
+        ease: [0.76, 0, 0.24, 1]
+      }
+    },
+    open: {
+      opacity: 0,
+      x: 0,
+      width: "24px",
+      transition: {
+        duration: 0.3,
+        ease: [0.76, 0, 0.24, 1]
+      }
+    }
+  };
+
+  const bottomLineVariants = {
+    initial: {
+      width: 0,
+      x: -8,
+      rotate: 0,
+      y: 0
+    },
+    animate: {
+      width: "16px",
+      x: 0,
+      rotate: 0,
+      y: 0,
+      transition: {
+        delay: 0.4,
+        duration: 0.5,
+        ease: [0.33, 1, 0.68, 1],
+        repeat: isMenuOpen ? Number.POSITIVE_INFINITY : 0,
+        repeatType: "loop" as const,
+        repeatDelay: 2
+      }
+    },
+    closed: {
+      rotate: 0,
+      y: 0,
+      width: "16px",
+      x: 0,
+      transition: {
+        duration: 0.3,
+        ease: [0.76, 0, 0.24, 1]
+      }
+    },
+    open: {
+      rotate: -45,
+      y: -6,
+      width: "24px",
+      x: 0,
+      transition: {
+        duration: 0.3,
+        ease: [0.76, 0, 0.24, 1]
+      }
+    }
   };
 
   return (
@@ -110,38 +221,32 @@ const LeftNavbar = () => {
             x: isMenuOpen ? "calc(100vw - 4rem)" : "-50%",
             y: isMenuOpen ? 0 : "-50%",
           }}
-          className="relative w-8 h-8 sm:w-9 sm:h-11 md:w-10 md:h-12 rounded-lg bg-white/20 backdrop-blur-sm border-2 border-white/30 flex items-center justify-center cursor-pointer shadow-lg"
+          className="relative w-8 h-8 sm:w-9 sm:h-11 md:w-10 md:h-12 rounded-lg flex items-center justify-center cursor-pointer shadow-lg"
           whileHover={{ 
             scale: 1.05, 
-            backgroundColor: "rgba(255, 255, 255, 0.25)",
-            borderColor: "rgba(255, 255, 255, 0.5)"
+            backgroundColor: "",
+            borderColor: ""
           }}
           whileTap={{ scale: 0.95 }}
         >
           <div className="flex flex-col items-center justify-center space-y-1 sm:space-y-1.5">
             <motion.div
-              className="w-6  h-0.5 bg-white rounded-full shadow-sm"
-              animate={{
-                rotate: isMenuOpen ? 45 : 0,
-                y: isMenuOpen ? 6 : 0,
-              }}
-              transition={{ duration: 0.3, ease: [0.76, 0, 0.24, 1] }}
+              className="h-0.5 bg-white rounded-full shadow-sm origin-center"
+              variants={topLineVariants}
+              initial="initial"
+              animate={isMenuOpen ? "open" : ["animate", "closed"]}
             />
             <motion.div
-              className="w-6 h-0.5 bg-white rounded-full shadow-sm"
-              animate={{
-                opacity: isMenuOpen ? 0 : 1,
-                x: isMenuOpen ? -15 : 0,
-              }}
-              transition={{ duration: 0.3, ease: [0.76, 0, 0.24, 1] }}
+              className="h-0.5 bg-white rounded-full shadow-sm origin-center"
+              variants={middleLineVariants}
+              initial="initial"
+              animate={isMenuOpen ? "open" : ["animate", "closed"]}
             />
             <motion.div
-              className="w-4 sm:w-5 md:w-6 h-0.5 bg-white rounded-full shadow-sm"
-              animate={{
-                rotate: isMenuOpen ? -45 : 0,
-                y: isMenuOpen ? -6 : 0,
-              }}
-              transition={{ duration: 0.3, ease: [0.76, 0, 0.24, 1] }}
+              className="h-0.5 bg-white rounded-full shadow-sm origin-center"
+              variants={bottomLineVariants}
+              initial="initial"
+              animate={isMenuOpen ? "open" : ["animate", "closed"]}
             />
           </div>
         </motion.button>
@@ -167,38 +272,36 @@ const LeftNavbar = () => {
               <div className="space-y-6 sm:space-y-8 flex flex-col sm:flex-row sm:gap-6 gap-8 md:gap-10">
                 {menuItems.map((item, index) => (
                   <motion.div
-                    key={item}
+                    key={item.name}
                     variants={itemVariants}
                     className="overflow-hidden"
                   >
-                    <motion.button
-                      className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-bold text-white hover:text-gray-300 transition-colors duration-300 relative group cursor-pointer"
-                      onClick={() => {
-                        setIsMenuOpen(false);
-                        // Handle navigation here
-                        console.log(`Navigate to ${item}`);
-                      }}
-                      whileHover={{ x: 20 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      {item}
-                      
-                      {/* Hover underline effect */}
-                      <motion.div
-                        className="absolute left-0 bottom-0 h-0.5 sm:h-1 bg-white"
-                        initial={{ width: 0 }}
-                        whileHover={{ width: "100%" }}
-                        transition={{ duration: 0.3, ease: [0.33, 1, 0.68, 1] }}
-                      />
-                      
-                      {/* Hover glow effect */}
-                      <motion.div
-                        className="absolute inset-0 bg-white/5 rounded-lg -z-10"
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileHover={{ opacity: 1, scale: 1.05 }}
+                    <Link href={item.path} passHref>
+                      <motion.button
+                        className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-bold text-white hover:text-gray-300 transition-colors duration-300 relative group cursor-pointer"
+                        onClick={() => setIsMenuOpen(false)}
+                        whileHover={{ x: 20 }}
                         transition={{ duration: 0.2 }}
-                      />
-                    </motion.button>
+                      >
+                        {item.name}
+                        
+                        {/* Hover underline effect */}
+                        <motion.div
+                          className="absolute left-0 bottom-0 h-0.5 sm:h-1 bg-white"
+                          initial={{ width: 0 }}
+                          whileHover={{ width: "100%" }}
+                          transition={{ duration: 0.3, ease: [0.33, 1, 0.68, 1] }}
+                        />
+                        
+                        {/* Hover glow effect */}
+                        <motion.div
+                          className="absolute inset-0 bg-white/5 rounded-lg -z-10"
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          whileHover={{ opacity: 1, scale: 1.05 }}
+                          transition={{ duration: 0.2 }}
+                        />
+                      </motion.button>
+                    </Link>
                   </motion.div>
                 ))}
               </div>
