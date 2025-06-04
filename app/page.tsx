@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
 import IntroAnimation from "@/components/shared/intro-animation";
-// import Navbar from "@/sections/marginals/navbar";
+import Navbar from "@/sections/marginals/navbar";
 // import ChatbotServices from "@/sections/ChatBotServices/chatbot-services";
 import FloatingChatbot from "@/components/shared/floating-chatbot";
 import { ThemeProvider } from "next-themes";
@@ -67,7 +67,7 @@ export default function Home() {
           <IntroAnimation onComplete={handleIntroComplete} />
         ) : (
           <>
-            {/* <Navbar scrolled={scrolled} /> */}
+            <Navbar scrolled={scrolled} />
             <Nav />
             <HeroSection />
             <About />
