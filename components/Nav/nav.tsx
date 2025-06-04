@@ -1,9 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 
 const LeftNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  // Check if device is desktop
+  useEffect(() => {
+    const checkIsDesktop = () => {
+      setIsDesktop(window.innerWidth >= 768); // md breakpoint
+    };
+
+    checkIsDesktop();
+    window.addEventListener('resize', checkIsDesktop);
+
+    return () => window.removeEventListener('resize', checkIsDesktop);
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -180,14 +193,19 @@ const LeftNavbar = () => {
     }
   };
 
+  // Only render on desktop devices
+  if (!isDesktop) {
+    return null;
+  }
+
   return (
     <>
       {/* Left Navbar */}
-      <div className="fixed left-0 top-0 h-full w-12 sm:w-14 md:w-16 bg-white/10 backdrop-blur-lg border-r border-white/20 z-50 flex flex-col items-center py-4 sm:py-6 md:py-8">
+      <div className="fixed left-0 top-0 h-full w-16 bg-white/10 backdrop-blur-lg border-r border-white/20 z-50 flex flex-col items-center py-8">
         {/* Logo */}
         <div className='flex items-center space-x-2 cursor-hover-trigger'>
           <motion.div
-            className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 bg-white rounded-full flex items-center justify-center relative overflow-hidden"
+            className="w-10 h-10 bg-white rounded-full flex items-center justify-center relative overflow-hidden"
             whileHover={{
               rotate: 180,
               transition: { duration: 0.5, ease: "circOut" },
@@ -205,7 +223,7 @@ const LeftNavbar = () => {
             <img
               src="https://res.cloudinary.com/dqqyuvg1v/image/upload/v1741948683/Vector_z4x9e1.png"
               alt="NirveonX Logo"
-              className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 relative z-10"
+              className="w-6 h-6 relative z-10"
             />
           </motion.div>
         </div>
@@ -221,7 +239,7 @@ const LeftNavbar = () => {
             x: isMenuOpen ? "calc(100vw - 4rem)" : "-50%",
             y: isMenuOpen ? 0 : "-50%",
           }}
-          className="relative w-8 h-8 sm:w-9 sm:h-11 md:w-10 md:h-12 rounded-lg flex items-center justify-center cursor-pointer shadow-lg"
+          className="relative w-10 h-12 rounded-lg flex items-center justify-center cursor-pointer shadow-lg"
           whileHover={{ 
             scale: 1.05, 
             backgroundColor: "",
@@ -229,7 +247,7 @@ const LeftNavbar = () => {
           }}
           whileTap={{ scale: 0.95 }}
         >
-          <div className="flex flex-col items-center justify-center space-y-1 sm:space-y-1.5">
+          <div className="flex flex-col items-center justify-center space-y-1.5">
             <motion.div
               className="h-0.5 bg-white rounded-full shadow-sm origin-center"
               variants={topLineVariants}
@@ -269,7 +287,7 @@ const LeftNavbar = () => {
               animate="open"
               exit="exit"
             >
-              <div className="space-y-6 sm:space-y-8 flex flex-col sm:flex-row sm:gap-6 gap-8 md:gap-10">
+              <div className="space-y-10 flex flex-row gap-10">
                 {menuItems.map((item, index) => (
                   <motion.div
                     key={item.name}
@@ -278,7 +296,7 @@ const LeftNavbar = () => {
                   >
                     <Link href={item.path} passHref>
                       <motion.button
-                        className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-bold text-white hover:text-gray-300 transition-colors duration-300 relative group cursor-pointer"
+                        className="text-5xl font-bold text-white hover:text-gray-300 transition-colors duration-300 relative group cursor-pointer"
                         onClick={() => setIsMenuOpen(false)}
                         whileHover={{ x: 20 }}
                         transition={{ duration: 0.2 }}
@@ -287,7 +305,7 @@ const LeftNavbar = () => {
                         
                         {/* Hover underline effect */}
                         <motion.div
-                          className="absolute left-0 bottom-0 h-0.5 sm:h-1 bg-white"
+                          className="absolute left-0 bottom-0 h-1 bg-white"
                           initial={{ width: 0 }}
                           whileHover={{ width: "100%" }}
                           transition={{ duration: 0.3, ease: [0.33, 1, 0.68, 1] }}
@@ -309,9 +327,9 @@ const LeftNavbar = () => {
               {/* Close hint */}
               <motion.div
                 variants={itemVariants}
-                className="mt-12 sm:mt-16"
+                className="mt-16"
               >
-                <p className="text-gray-400 text-base sm:text-lg">
+                <p className="text-gray-400 text-lg">
                   NirveonX
                 </p>
               </motion.div>

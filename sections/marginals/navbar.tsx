@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useMediaQuery } from "@/hooks/use-media-query";
-import { NavLink } from "@/components/NavBar/NavLink";
 import { Logo } from "@/components/NavBar/NavLogo";
 import { HamburgerButton } from "@/components/NavBar/HamburgerButton";
 import { MobileMenu } from "@/components/NavBar/MobileMenu";
@@ -18,10 +17,10 @@ import {
 
 // Constants
 export const NAV_ITEMS = [
-  { href: "#home", label: "Home" },
-  { href: "#features", label: "Features" },
-  { href: "#services", label: "Services" },
-  { href: "#founding", label: "Pioneers" },
+  { href: "home", label: "Home" },
+  { href: "Features", label: "Features" },
+  { href: "Services", label: "Services" },
+  { href: "Pioneers", label: "Pioneers" },
   // { href: "#faq", label: "FAQ" },
   { href: "#contact", label: "Contact" },
 ];
@@ -79,30 +78,26 @@ export interface NavbarProps {
   scrolled: boolean;
 }
 
-export interface NavLinkProps {
-  href: string;
-  label: string;
-  isHovered: boolean;
-  onHover: () => void;
-  onLeave: () => void;
-}
-
 export default function Navbar({ scrolled }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const { scrollYProgress } = useScroll();
   const containerRef = useRef<HTMLDivElement>(null);
-  const isDesktop = useMediaQuery("(min-width: 768px)");
+  const isMobile = useMediaQuery("(max-width: 767px)");
   const opacity = useTransform(scrollYProgress, [0, 0.1], [1, 0.9]);
 
-  // Close menu when resizing to desktop
+  // Close menu when resizing to desktop (hide navbar completely)
   useEffect(() => {
-    if (isDesktop && isOpen) {
+    if (!isMobile && isOpen) {
       setIsOpen(false);
     }
-  }, [isDesktop, isOpen]);
+  }, [isMobile, isOpen]);
 
   const toggleMenu = () => setIsOpen(!isOpen);
+
+  // Only render on mobile devices
+  if (!isMobile) {
+    return null;
+  }
 
   return (
     <div ref={containerRef}>
@@ -118,77 +113,39 @@ export default function Navbar({ scrolled }: NavbarProps) {
           <div className="flex items-center justify-between">
             <Logo />
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-1">
-              {NAV_ITEMS.map((item) => (
-                <NavLink
-                  key={item.href}
-                  href={item.href}
-                  label={item.label}
-                  isHovered={hoveredItem === item.href}
-                  onHover={() => setHoveredItem(item.href)}
-                  onLeave={() => setHoveredItem(null)}
-                />
-              ))}
-              {/* Theme toggle placeholder */}
-            </div>
-            <div className="flex flex-row gap-3">
-              {/* Sign In Button */}
+            <div className="flex items-center gap-3">
+              {/* Mobile Auth Buttons */}
               <SignedOut>
                 <motion.div
-                  className=""
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <Button className="bg-black text-white hover:bg-gray-800 relative overflow-hidden group max-md:hidden">
+                  <Button className="bg-black text-white hover:bg-gray-800 text-sm px-3 py-2">
                     <SignInButton />
                   </Button>
                 </motion.div>
               </SignedOut>
 
-              {/* User Button when signed in */}
               <SignedIn>
                 <motion.div
-                  className=""
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <Button className="bg-black text-white hover:bg-gray-800 relative overflow-hidden group max-md:hidden">
-                    <UserButton showName 
-                     appearance={{
+                  <UserButton 
+                    showName={false}
+                    appearance={{
                       elements: {
                         userButtonBox: "text-white",
                         userButtonText: "text-white",
                         userButtonOuterIdentifier: "text-white",
                         userButtonTrigger: "text-white"
                       }
-                    }}/>
-                  </Button>
+                    }}
+                  />
                 </motion.div>
               </SignedIn>
 
-              {/* Sign Up Button */}
-              <SignedOut>
-                <motion.div
-                  className=""
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Button className="bg-black text-white hover:bg-gray-800 relative overflow-hidden group max-md:hidden">
-                    <SignUpButton />
-                    <motion.span
-                      className="absolute inset-0 bg-gray-800"
-                      initial={{ y: "100%" }}
-                      whileHover={{ y: "0%" }}
-                      transition={{ duration: 0.3, ease: [0.33, 1, 0.68, 1] }}
-                    />
-                  </Button>
-                </motion.div>
-              </SignedOut>
-            </div>
-
-            {/* Hamburger Menu Button (mobile only) */}
-            <div className="md:hidden">
+              {/* Hamburger Menu Button */}
               <HamburgerButton isOpen={isOpen} toggleMenu={toggleMenu} />
             </div>
           </div>
