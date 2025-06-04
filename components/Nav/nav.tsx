@@ -183,7 +183,7 @@ const LeftNavbar = () => {
   return (
     <>
       {/* Left Navbar */}
-      <div className="fixed left-0 top-0 h-full w-12 sm:w-14 md:w-16 bg-white/10 backdrop-blur-lg border-r border-white/20 z-50 flex flex-col items-center py-4 sm:py-6 md:py-8">
+      <div className="fixed left-0 top-0 h-full w-12 sm:w-14 md:w-16  border-r border-white/20 z-50 flex flex-col items-center py-4 sm:py-6 md:py-8">
         {/* Logo */}
         <div className='flex items-center space-x-2 cursor-hover-trigger'>
           <motion.div
