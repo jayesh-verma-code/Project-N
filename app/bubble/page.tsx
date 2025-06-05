@@ -333,13 +333,13 @@ export default function BubblePage() {
       </div>
 
       {/* Red bubble message */}
-      {showRedBubbleMessage && redBubblesOnScreen > 0 && (
+      {/* {showRedBubbleMessage && redBubblesOnScreen > 0 && (
         <div className="absolute top-36 left-1/2 transform -translate-x-1/2 z-10 animate-pulse">
           <p className="text-red-400 text-xl font-bold bg-black bg-opacity-50 px-4 py-2 rounded-full shadow-lg">
             POP THE RED BUBBLE{redBubblesOnScreen > 1 ? 'S' : ''}!
           </p>
         </div>
-      )}
+      )} */}
 
       {/* Bubbles */}
       {bubbles.map(bubble => (
