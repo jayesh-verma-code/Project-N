@@ -110,8 +110,8 @@ export async function GET() {
         const client = new MongoClient(uri);
         await client.connect();
 
-        const db: Db = client.db('testData');
-        const collection: Collection<TeamMember> = db.collection('testData');
+        const db: Db = client.db('internData');
+        const collection: Collection<TeamMember> = db.collection('internData');
         const teamMembers: TeamMember[] = await collection.find({}).toArray();
 
         await client.close();
