@@ -9,15 +9,22 @@ import NoiseTexture from "@/components/shared/noise-texture";
 import ParticlesBackground from "@/components/shared/particle-background";
 import { TeamMemberCard } from "@/components/Team/TeamMemberCard";
 import { SkeletonCard } from "@/components/Team/SkeletonCard";
-import { teamMembers } from "@/contents/team-section";
 
 export interface TeamMember {
+  _id: string;
   id: string;
   name: string;
   role: string;
   avatar: string;
   category: "leadership" | "employee" | "intern";
-  education?: string; // Optional education field
+  education?: string;
+  status?: number;
+}
+
+interface ApiResponse {
+  success: boolean;
+  data: TeamMember[];
+  message?: string;
 }
 
 const containerVariants = {
@@ -45,21 +52,59 @@ const itemVariants = {
 export default function TeamPage() {
   const [activeTab, setActiveTab] = useState("all");
   const [isLoading, setIsLoading] = useState(true);
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
+  const [error, setError] = useState<string | null>(null);
   const headerRef = useRef(null);
   const isHeaderInView = useInView(headerRef);
 
+  // Fetch team members from API
   useEffect(() => {
-    // Simulate loading delay
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
+    const fetchTeamMembers = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        
+        const response = await fetch('/api/team', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
 
-    return () => clearTimeout(timer);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data: ApiResponse = await response.json();
+        
+        if (data.success && data.data) {
+          // Filter out inactive members (status !== 1) if needed
+          const activeMembers = data.data.filter(member => 
+            member.status === undefined || member.status === 1
+          );
+          setTeamMembers(activeMembers);
+        } else {
+          throw new Error(data.message || 'Failed to fetch team members');
+        }
+      } catch (err) {
+        console.error('Error fetching team members:', err);
+        setError(err instanceof Error ? err.message : 'Failed to load team members');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchTeamMembers();
   }, []);
 
   const filteredMembers = teamMembers.filter(
     (member) => activeTab === "all" || member.category === activeTab
   );
+
+  // Retry function for error state
+  const handleRetry = () => {
+    window.location.reload();
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white overflow-hidden cursor-default">
@@ -159,41 +204,70 @@ export default function TeamPage() {
       {/* Team Members Grid */}
       <main className="px-4 pb-16 md:pb-24">
         <div className="container mx-auto">
-          {isLoading ? (
+          {/* Loading State */}
+          {isLoading && (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
               {[...Array(12)].map((_, index) => (
                 <SkeletonCard key={index} delay={index * 0.05} />
               ))}
             </div>
-          ) : (
-            <motion.div
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-8"
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-            >
-              {filteredMembers.map((member, index) => (
-                <TeamMemberCard
-                  key={member.id}
-                  member={member}
-                  variants={itemVariants}
-                  index={index}
-                />
-              ))}
-            </motion.div>
           )}
 
-          {!isLoading && filteredMembers.length === 0 && (
+          {/* Error State */}
+          {error && !isLoading && (
             <motion.div
               className="text-center py-20"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6 }}
             >
-              <p className="text-xl text-gray-400">
-                No team members found in this category.
-              </p>
+              <div className="bg-red-900/20 border border-red-800 rounded-lg p-6 max-w-md mx-auto">
+                <p className="text-red-400 mb-4">
+                  Failed to load team members: {error}
+                </p>
+                <button
+                  onClick={handleRetry}
+                  className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg transition-colors"
+                >
+                  Retry
+                </button>
+              </div>
             </motion.div>
+          )}
+
+          {/* Success State with Data */}
+          {!isLoading && !error && (
+            <>
+              <motion.div
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-8"
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+              >
+                {filteredMembers.map((member, index) => (
+                  <TeamMemberCard
+                    key={member._id}
+                    member={member}
+                    variants={itemVariants}
+                    index={index}
+                  />
+                ))}
+              </motion.div>
+
+              {/* No Results State */}
+              {filteredMembers.length === 0 && (
+                <motion.div
+                  className="text-center py-20"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <p className="text-xl text-gray-400">
+                    No team members found in this category.
+                  </p>
+                </motion.div>
+              )}
+            </>
           )}
         </div>
       </main>
