@@ -265,7 +265,7 @@ export default function AboutUs() {
           </motion.div>
 
           {/* 16:9 Aspect Ratio Container */}
-          <div className="relative w-full aspect-video [perspective:1500px] max-w-5xl mx-auto">
+          <div className="relative w-full [aspect-ratio:2/1] [perspective:1500px] max-w-5xl mx-auto">
 
             {/* Flip Card */}
             <motion.div
