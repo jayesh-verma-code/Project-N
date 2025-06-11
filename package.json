@@ -26,6 +26,7 @@
     "cloudinary": "^2.6.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.4.10",
+    "gsap": "^3.13.0",
     "lucide-react": "^0.479.0",
     "mongodb": "^6.17.0",
     "next": "^15.2.5",
