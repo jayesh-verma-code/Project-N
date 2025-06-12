@@ -68,22 +68,22 @@ const LeftNavbar = () => {
     { 
       name: 'Home', 
       path: '/',
-      image: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=1200&h=800&fit=crop&crop=entropy&auto=format'
+      image: 'https://res.cloudinary.com/dg3qhhnjo/image/upload/v1749716087/home_thd5et.jpg'
     },
     { 
       name: 'Features', 
       path: '/Features',
-      image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&h=800&fit=crop&crop=entropy&auto=format'
+      image: 'https://res.cloudinary.com/dg3qhhnjo/image/upload/v1749716003/Feacture_vkfxw7.jpg'
     },
     { 
       name: 'Services', 
       path: '/Services',
-      image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&h=800&fit=crop&crop=entropy&auto=format'
+      image: 'https://res.cloudinary.com/dg3qhhnjo/image/upload/v1749716057/Service_fyitnj.jpg'
     },
     { 
       name: 'Pioneers', 
       path: '/Pioneers',
-      image: 'https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=1200&h=800&fit=crop&crop=entropy&auto=format'
+      image: 'https://res.cloudinary.com/dg3qhhnjo/image/upload/v1749715931/pioneer_b9hg9j.jpg'
     }
   ];
 
