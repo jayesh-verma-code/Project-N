@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import React, { useRef } from "react";
 import { ThemeProvider } from "next-themes";
 import ParticlesBackground from "@/components/shared/particle-background";
 import CustomCursor from "@/components/shared/custom-cursor";
