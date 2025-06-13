@@ -11,14 +11,6 @@ type Message = {
   image?: string; // Base64 encoded image
 };
 
-type CTAnalysisData = {
-  prediction: string;
-  confidence: number;
-  explanation: string;
-  result_image: string;
-  session_id: string;
-};
-
 type ChatHistoryItem = {
   id: string;
   title: string;
@@ -27,19 +19,17 @@ type ChatHistoryItem = {
   messages: Message[];
 };
 
-const API_BASE_URL = "https://general-chatbot-258649051254.europe-west1.run.app";
+const API_BASE_URL = "https://healthcare-chatbot-662622027382.europe-west1.run.app";
 
 export default function GeneralChat() {
   const [inputValue, setInputValue] = useState<string>('');
   const [initialMessage] = useState<string>('Welcome to the HealthMate AI assistant. How can I help you today?');
-  const [selectedImage, setSelectedImage] = useState<File | null>(null);
-  const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [chatHistory, setChatHistory] = useState<ChatHistoryItem[]>([]);
+  const [pdfFileName, setPdfFileName] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const pdfInputRef = useRef<HTMLInputElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
@@ -181,29 +171,24 @@ export default function GeneralChat() {
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setSelectedImage(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewImage(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
   const handlePdfUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file || !sessionId) return;
     
     setIsLoading(true);
+    setPdfFileName(file.name);
     
     try {
       const formData = new FormData();
       formData.append('file', file);
+      formData.append('session_id', sessionId);
       
-      const response = await fetch(`${API_BASE_URL}/upload-pdf/${sessionId}`, {
+      // If there's a message, include it as a question about the PDF
+      if (inputValue.trim()) {
+        formData.append('message', inputValue.trim());
+      }
+      
+      const response = await fetch(`${API_BASE_URL}/chat/`, {
         method: 'POST',
         body: formData
       });
@@ -212,9 +197,31 @@ export default function GeneralChat() {
       
       const data = await response.json();
       
+      // Add user message if there was one
+      if (inputValue.trim()) {
+        const userMessage: Message = {
+          id: generateId(),
+          text: inputValue,
+          sender: 'user',
+          timestamp: new Date()
+        };
+        setMessages(prev => [...prev, userMessage]);
+        setInputValue('');
+      }
+      
+      // Add PDF upload notification
+      const uploadMessage: Message = {
+        id: generateId(),
+        text: `Uploaded PDF: ${file.name}`,
+        sender: 'user',
+        timestamp: new Date()
+      };
+      setMessages(prev => [...prev, uploadMessage]);
+      
+      // Add bot response
       const botMessage: Message = {
         id: generateId(),
-        text: "PDF uploaded successfully! You can now ask questions about its content.",
+        text: data.response,
         sender: 'bot',
         timestamp: new Date()
       };
@@ -233,17 +240,9 @@ export default function GeneralChat() {
       setMessages(prev => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
-      if (pdfInputRef.current) {
-        pdfInputRef.current.value = '';
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
       }
-    }
-  };
-
-  const removeImage = () => {
-    setSelectedImage(null);
-    setPreviewImage(null);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = '';
     }
   };
 
@@ -257,21 +256,11 @@ export default function GeneralChat() {
         id: generateId(),
         text: inputValue,
         sender: 'user',
-        timestamp: new Date(),
-        image: previewImage || undefined
+        timestamp: new Date()
       };
       
       setMessages(prev => [...prev, userMessage]);
       setInputValue('');
-      
-      // Clear image after sending
-      if (previewImage) {
-        setSelectedImage(null);
-        setPreviewImage(null);
-        if (fileInputRef.current) {
-          fileInputRef.current.value = '';
-        }
-      }
       
       const response = await fetch(`${API_BASE_URL}/chat/`, {
         method: 'POST',
@@ -319,15 +308,8 @@ export default function GeneralChat() {
       sender: 'bot',
       timestamp: new Date()
     }]);
-    setSelectedImage(null);
-    setPreviewImage(null);
     setInputValue('');
-    if (fileInputRef.current) {
-      fileInputRef.current.value = '';
-    }
-    if (pdfInputRef.current) {
-      pdfInputRef.current.value = '';
-    }
+    setPdfFileName(null);
   };
 
   return (
@@ -433,6 +415,25 @@ export default function GeneralChat() {
           </div>
         </div>
 
+        {/* PDF upload indicator */}
+        {pdfFileName && (
+          <div className="bg-blue-900/30 border border-blue-700 rounded-lg p-3 mb-4 flex items-center justify-between">
+            <div className="flex items-center">
+              <svg className="w-5 h-5 mr-2 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+              </svg>
+              <span className="text-sm text-blue-300 truncate max-w-xs">{pdfFileName}</span>
+            </div>
+            <button 
+              onClick={() => setPdfFileName(null)}
+              className="text-blue-400 hover:text-white"
+              title="Remove PDF"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        )}
+
         {/* Chat Area */}
         <div ref={chatContainerRef} className="flex-1 mb-4 overflow-y-auto max-h-[50vh] px-2">
           <div className="flex flex-col space-y-4">
@@ -446,13 +447,6 @@ export default function GeneralChat() {
                 } p-3 max-w-[80%] shadow`}
               >
                 <p className="whitespace-pre-line">{message.text}</p>
-                {message.image && (
-                  <img 
-                    src={message.image} 
-                    alt="User uploaded" 
-                    className="mt-2 max-h-64 rounded-lg" 
-                  />
-                )}
               </div>
             ))}
             
@@ -468,31 +462,6 @@ export default function GeneralChat() {
             )}
           </div>
         </div>
-        
-        {/* Image preview for upload */}
-        {previewImage && (
-          <div className="relative self-start mb-4 w-full">
-            <div className="bg-gray-800 p-3 rounded-lg">
-              <h3 className="text-blue-400 font-bold mb-2">Image to send:</h3>
-              <div className="relative inline-block">
-                <img 
-                  src={previewImage} 
-                  alt="Preview" 
-                  className="max-h-64 rounded-lg border border-gray-600"
-                />
-                <button 
-                  onClick={removeImage}
-                  className="absolute top-2 right-2 bg-black bg-opacity-50 rounded-full p-1 hover:bg-opacity-70"
-                >
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* Input Area */}
         <div className="relative bottom-0 bg-gray-800 text-white rounded-full px-4 py-3 pr-36 focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -510,32 +479,10 @@ export default function GeneralChat() {
             disabled={isLoading}
           />
           <div className="absolute right-2 bottom-2 flex space-x-3 items-center">
-            {/* Image upload button */}
-            <input
-              type="file"
-              ref={fileInputRef}
-              onChange={handleImageUpload}
-              accept="image/*"
-              className="hidden"
-            />
-            
-            <button 
-              className="text-gray-400 hover:text-white w-7 h-7 flex items-center justify-center"
-              onClick={() => fileInputRef.current?.click()}
-              disabled={isLoading}
-              title="Upload image"
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                <polyline points="17 8 12 3 7 8"></polyline>
-                <line x1="12" y1="3" x2="12" y2="15"></line>
-              </svg>
-            </button>
-            
             {/* PDF upload button */}
             <input
               type="file"
-              ref={pdfInputRef}
+              ref={fileInputRef}
               onChange={handlePdfUpload}
               accept=".pdf"
               className="hidden"
@@ -543,7 +490,7 @@ export default function GeneralChat() {
             
             <button 
               className="text-gray-400 hover:text-white w-7 h-7 flex items-center justify-center"
-              onClick={() => pdfInputRef.current?.click()}
+              onClick={() => fileInputRef.current?.click()}
               disabled={isLoading}
               title="Upload PDF"
             >
