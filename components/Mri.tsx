@@ -10,11 +10,15 @@ type Message = {
   image?: string; // Base64 encoded image
 };
 
-type CTAnalysisData = {
-  classification: string;
+type AnalysisData = {
+  prediction: string;
   confidence: number;
-  session_id: string;
+  type: string;
+  affects: string;
+  severity: string;
+  class_probabilities: Record<string, number>;
   explanation?: string;
+  session_id?: string;
 };
 
 type ChatHistoryItem = {
@@ -34,7 +38,7 @@ export default function Mri() {
   const [isImageMinimized, setIsImageMinimized] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [messages, setMessages] = useState<Message[]>([]);
-  const [ctData, setCTData] = useState<CTAnalysisData | null>(null);
+  const [analysisData, setAnalysisData] = useState<AnalysisData | null>(null);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [analysisComplete, setAnalysisComplete] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -85,8 +89,32 @@ export default function Mri() {
       setMessages(chatToLoad.messages);
       setSessionId(chatToLoad.sessionId);
       setAnalysisComplete(!!chatToLoad.sessionId);
+      
+      // Find analysis data from messages
+      const analysisMessage = chatToLoad.messages.find(msg => 
+        msg.sender === 'bot' && msg.text.includes('Analysis Complete!')
+      );
+      if (analysisMessage) {
+        setAnalysisData({
+          prediction: extractValue(analysisMessage.text, 'Condition:'),
+          confidence: parseFloat(extractValue(analysisMessage.text, 'Confidence:').replace('%', '')),
+          type: extractValue(analysisMessage.text, 'Type:'),
+          affects: extractValue(analysisMessage.text, 'Affects:'),
+          severity: extractValue(analysisMessage.text, 'Severity:'),
+          class_probabilities: {},
+          explanation: analysisMessage.text.split('Explanation:')[1]?.trim()
+        });
+      }
+      
       setIsOpen(false);
     }
+  };
+
+  // Helper to extract values from message text
+  const extractValue = (text: string, key: string) => {
+    const regex = new RegExp(`${key}\\s*([^\\n]+)`);
+    const match = text.match(regex);
+    return match ? match[1].trim() : 'Unknown';
   };
 
   const deleteChat = (chatId: string, e: React.MouseEvent) => {
@@ -152,6 +180,9 @@ export default function Mri() {
       
       const formData = new FormData();
       formData.append('file', selectedImage);
+      if (sessionId) {
+        formData.append('session_id', sessionId);
+      }
       
       const processingMessage: Message = {
         id: generateId(),
@@ -162,59 +193,32 @@ export default function Mri() {
       
       setMessages(prev => [...prev, processingMessage]);
       
-      const response = await fetch(`${apiUrl}/analyze_mri/`, {
+      const response = await fetch(`${apiUrl}/chat`, {
         method: 'POST',
         body: formData
       });
       
       if (!response.ok) throw new Error('API request failed');
       
-      const data: CTAnalysisData = await response.json();
+      const data = await response.json();
       console.log('MRI analysis response:', data);
       
-      setCTData(data);
-      setSessionId(data.session_id);
-      
-      setMessages(prev => prev.filter(msg => msg.id !== processingMessage.id));
-      
-      const initialResultMessage: Message = {
-        id: generateId(),
-        text: `Analysis Complete!\n\nCondition: ${data.classification}\nConfidence: ${data.confidence.toFixed(1)}%\n\nGetting detailed explanation...`,
-        sender: 'bot',
-        timestamp: new Date()
-      };
-      
-      setMessages(prev => [...prev, initialResultMessage]);
-      
-      // Get explanation
-      const explanationFormData = new FormData();
-      explanationFormData.append('classification', data.classification);
-      explanationFormData.append('confidence', data.confidence.toString());
-      
-      const explanationResponse = await fetch(`${apiUrl}/explanation/`, {
-        method: 'POST',
-        body: explanationFormData
-      });
-      
-      if (!explanationResponse.ok) throw new Error('Explanation API request failed');
-      
-      const explanationData = await explanationResponse.json();
-      console.log('Explanation response:', explanationData);
-      
-      const finalResultMessage: Message = {
-        id: generateId(),
-        text: `Analysis Complete!\n\nCondition: ${data.classification}\nConfidence: ${data.confidence.toFixed(1)}%\n\nExplanation:\n${explanationData.explanation}\n\nYou can now ask me questions about this analysis.`,
-        sender: 'bot',
-        timestamp: new Date()
-      };
-      
-      setMessages(prev => prev.map(msg => 
-        msg.id === initialResultMessage.id ? finalResultMessage : msg
-      ));
-      
-      setCTData(prev => prev ? { ...prev, explanation: explanationData.explanation } : prev);
-      
-      setAnalysisComplete(true);
+      if (data.new_analysis) {
+        setAnalysisData(data.new_analysis);
+        setSessionId(data.session_id);
+        
+        setMessages(prev => prev.filter(msg => msg.id !== processingMessage.id));
+        
+        const resultMessage: Message = {
+          id: generateId(),
+          text: `Analysis Complete!\n\nCondition: ${data.new_analysis.prediction}\nConfidence: ${data.new_analysis.confidence.toFixed(1)}%\nType: ${data.new_analysis.type}\nAffects: ${data.new_analysis.affects}\nSeverity: ${data.new_analysis.severity}\n\n${data.response}`,
+          sender: 'bot',
+          timestamp: new Date()
+        };
+        
+        setMessages(prev => [...prev, resultMessage]);
+        setAnalysisComplete(true);
+      }
       
       setSelectedImage(null);
       setPreviewImage(null);
@@ -266,13 +270,15 @@ export default function Mri() {
       
       setMessages(prev => [...prev, userMessage]);
 
-      const formData = new FormData();
-      formData.append('session_id', sessionId || '');
-      formData.append('user_question', inputValue);
-      
-      const response = await fetch(`${apiUrl}/chat/`, {
+      const response = await fetch(`${apiUrl}/chat`, {
         method: 'POST',
-        body: formData
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          session_id: sessionId,
+          message: inputValue
+        })
       });
       
       if (!response.ok) throw new Error('API request failed');
@@ -282,7 +288,7 @@ export default function Mri() {
       
       const botMessage: Message = {
         id: generateId(),
-        text: data.assistant_response,
+        text: data.response,
         sender: 'bot',
         timestamp: new Date()
       };
@@ -306,9 +312,9 @@ export default function Mri() {
   };
 
   const renderAnalysisResults = () => {
-    if (!ctData) return null;
+    if (!analysisData) return null;
     
-    const confidencePercent = ctData.confidence.toFixed(1) + '%';
+    const confidencePercent = analysisData.confidence.toFixed(1) + '%';
     
     return (
       <div className="bg-gray-800 rounded-lg mt-4 mb-4 overflow-hidden">
@@ -331,7 +337,19 @@ export default function Mri() {
           <div className="p-4 space-y-3">
             <div className="flex justify-between items-center">
               <span className="text-gray-300 font-medium">Condition:</span>
-              <span className="text-blue-300 font-bold">{ctData.classification}</span>
+              <span className="text-blue-300 font-bold">{analysisData.prediction}</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-gray-300 font-medium">Type:</span>
+              <span className="text-blue-300">{analysisData.type}</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-gray-300 font-medium">Affects:</span>
+              <span className="text-blue-300">{analysisData.affects}</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-gray-300 font-medium">Severity:</span>
+              <span className="text-blue-300">{analysisData.severity}</span>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-gray-300 font-medium">Confidence:</span>
@@ -340,13 +358,13 @@ export default function Mri() {
             <div className="w-full bg-gray-600 rounded-full h-3">
               <div 
                 className="bg-blue-500 h-3 rounded-full transition-all duration-500" 
-                style={{ width: `${ctData.confidence}%` }}
+                style={{ width: `${analysisData.confidence}%` }}
               ></div>
             </div>
-            {ctData.explanation && (
+            {analysisData.explanation && (
               <div className="mt-2">
                 <span className="text-gray-300 font-medium text-sm">Explanation:</span>
-                <p className="text-gray-200 text-sm mt-1">{ctData.explanation}</p>
+                <p className="text-gray-200 text-sm mt-1">{analysisData.explanation}</p>
               </div>
             )}
           </div>
@@ -356,7 +374,7 @@ export default function Mri() {
           <div className="p-4">
             <div className="flex items-center justify-between">
               <span className="text-sm text-gray-300">
-                Condition: <span className="text-blue-300 font-bold">{ctData.classification}</span>
+                Condition: <span className="text-blue-300 font-bold">{analysisData.prediction}</span>
               </span>
               <span className="text-sm text-green-300 font-bold">{confidencePercent}</span>
             </div>
@@ -373,7 +391,7 @@ export default function Mri() {
       sender: 'bot',
       timestamp: new Date()
     }]);
-    setCTData(null);
+    setAnalysisData(null);
     setSessionId(null);
     setAnalysisComplete(false);
     setSelectedImage(null);
@@ -387,7 +405,7 @@ export default function Mri() {
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col">
-
+      {/* Sidebar toggle button */}
       <button
         onClick={toggleSidebar}
         className={`fixed z-50 p-2 rounded-full transition-all ${
@@ -404,6 +422,7 @@ export default function Mri() {
         )}
       </button>
 
+      {/* Sidebar */}
       <div
         className={`fixed h-screen w-72 bg-white/10 backdrop-blur-lg border-r border-gray-700/20 flex flex-col z-40 transition-all duration-300 ${
           isOpen ? "left-0" : "-left-full"
@@ -535,7 +554,7 @@ export default function Mri() {
         </div>
         
         {/* MRI Analysis Results */}
-        {ctData && renderAnalysisResults()}
+        {analysisData && renderAnalysisResults()}
         
         {/* Image preview for upload */}
         {previewImage && (
