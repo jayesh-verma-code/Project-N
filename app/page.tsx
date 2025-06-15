@@ -19,9 +19,10 @@ import { useScroll } from "framer-motion";
 import About from "@/components/About/About";
 // import TeamMembersSection from "@/sections/Pioneer/pioneer";
 // import InvestorSection from "@/sections/Patron/Investors";
-import Nav from "@/components/Nav/nav"
+import Nav from "@/components/Nav/nav";
 // import Fitarth from "@/components/CommunityServices/fitronx-Card";
-
+import VisionMissionCards from "@/components/visionmissioncards";
+import Image from "next/image";
 
 export default function Home() {
   const [introComplete, setIntroComplete] = useState(false);
@@ -32,9 +33,9 @@ export default function Home() {
   useEffect(() => {
     // Use sessionStorage instead of localStorage
     // This will persist only for the current browsing session
-    const hasSeenIntro = sessionStorage.getItem('hasSeenIntro') === 'true';
+    const hasSeenIntro = sessionStorage.getItem("hasSeenIntro") === "true";
     setIntroComplete(hasSeenIntro);
-    
+
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
@@ -46,10 +47,10 @@ export default function Home() {
   const handleIntroComplete = () => {
     setIntroComplete(true);
     // Save to sessionStorage instead of localStorage
-    sessionStorage.setItem('hasSeenIntro', 'true');
+    sessionStorage.setItem("hasSeenIntro", "true");
   };
 
- return (
+  return (
     <ThemeProvider attribute="class" defaultTheme="dark">
       <main
         ref={containerRef}
@@ -71,16 +72,18 @@ export default function Home() {
             <Nav />
             <HeroSection />
             <About />
+
+          <VisionMissionCards/>
+
             {/* <Fitarth /> */}
-             <MarqueeText />
+            <MarqueeText />
             {/* <FeaturesSection /> */}
             {/* <ChatbotServices />
             <InvestorSection />
             <TeamMembersSection />  */}
             {/* <FaqSection />  */}
             <Footer />
-            <FloatingChatbot />  
-            
+            <FloatingChatbot />
           </>
         )}
       </main>
