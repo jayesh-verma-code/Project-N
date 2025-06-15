@@ -120,9 +120,9 @@ export default function Navbar({ scrolled }: NavbarProps) {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <Button className="bg-black text-white hover:bg-gray-800 text-sm px-3 py-2">
+                  <div className="bg-black text-white hover:bg-gray-800 text-sm px-3 py-2">
                     <SignInButton />
-                  </Button>
+                  </div>
                 </motion.div>
               </SignedOut>
 
