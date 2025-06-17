@@ -86,3 +86,88 @@ export default function PioneerCard({ member, direction }: PioneerCardProps) {
     </Card>
   );
 }
+// 'use client';
+
+// import { useRef, useEffect } from 'react';
+// import { motion, useInView, useAnimation } from 'framer-motion';
+// import { TeamMember } from '@/types/team';
+
+// interface PioneerCardProps {
+//   member: TeamMember;
+//   direction: number;
+// }
+
+// export default function PioneerCard({ member }: PioneerCardProps) {
+//   const ref = useRef(null);
+  
+
+//   const isInView = useInView(ref, {
+//     once: true,
+//     margin: '-50% 0px -50% 0px', 
+//   });
+
+//   const controls = useAnimation();
+
+//   useEffect(() => {
+//     if (isInView) {
+//       controls.start({
+//         x: 0,
+//         opacity: 1,
+//         transition: { duration: 0.6, ease: 'easeOut' },
+//       });
+//     }
+//   }, [isInView, controls]);
+
+//   return (
+//     <section
+//       ref={ref}
+//       className="w-full flex flex-col md:flex-row items-center justify-center gap-36 min-h-screen lg:px-16"
+//     >
+//       {/* Left Content */}
+//       <div className="w-1/3 space-y-4">
+//         <h2 className="text-3xl font-bold text-gray-100">{member.name}</h2>
+//         <h2 className="text-base font-bold text-[#668bb0]">{member.role}</h2>
+//         <p className="text-lg text-gray-400">
+//           {member.description}
+//         </p>
+//       </div>
+
+//       {/* Right: Animated Image & Background */}
+//       <div className="relative w-[320px] h-[320px] flex items-center justify-center rounded-full overflow-visible">
+//         {/* Fixed Dotted Circle */}
+//         <svg
+//           className="absolute w-[350px] h-[350px] z-0 top-14"
+//           viewBox="0 0 320 320"
+//           fill="none"
+//         >
+//           <circle
+//             cx="160"
+//             cy="160"
+//             r="140"
+//             stroke="#FF2D55"
+//             strokeWidth="1"
+//             strokeDasharray="10 10"
+//           />
+//         </svg>
+
+//         {/* Moving Image + Background */}
+//         <motion.div
+//           initial={{ x: 900, opacity: 0 }}
+//           animate={controls}
+//           className="absolute w-[280px] h-[280px] flex items-center justify-center"
+//         >
+//           {/* Background Circle */}
+//           <div className="absolute w-full h-full left-12 top-5 rounded-full bg-gradient-to-br from-red-500 to-orange-400 z-0 opacity-50" />
+
+//           {/* Image */}
+//           <img
+//             src={member.avatar}
+//             alt={member.name}
+//             className="w-full h-full object-cover rounded-full z-10"
+//           />
+//         </motion.div>
+//       </div>
+//     </section>
+//   );
+// }
+

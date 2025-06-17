@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { menuItems, socialLinks, footerLinks } from './navbarData';
+import { useRouter } from 'next/navigation';
 
 const LeftNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -9,6 +10,7 @@ const LeftNavbar = () => {
   
   const imageContainerRef = useRef<HTMLDivElement>(null);
   const currentImageRef = useRef<HTMLImageElement>(null);
+  const router = useRouter();
 
   // Check if device is desktop
   useEffect(() => {
@@ -376,7 +378,9 @@ const LeftNavbar = () => {
                     >
                       <motion.button
                         className="text-3xl lg:text-5xl xl:text-6xl font-bold text-white hover:text-gray-200 transition-all duration-300 relative group cursor-pointer"
-                        onClick={() => setIsMenuOpen(false)}
+                        onClick={() => {
+                          item.path? router.push(item.path) : null;
+                        }}
                         onMouseEnter={() => handleItemHover(item.name)}
                         onMouseLeave={handleItemLeave}
                         whileHover={{ 
@@ -403,6 +407,7 @@ const LeftNavbar = () => {
                           transition={{ duration: 0.2 }}
                         />
                       </motion.button>
+                      
                     </motion.div>
                   ))}
                 </div>
