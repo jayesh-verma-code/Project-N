@@ -348,7 +348,7 @@ const LeftNavbar = () => {
             >
               <img
                 ref={currentImageRef}
-                src=""
+                src={menuItems[0].image}
                 alt="Background"
                 className="w-full h-full object-cover"
                 style={{ 
