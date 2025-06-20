@@ -1,15 +1,23 @@
+
 "use client";
+
 
 import React, { JSX, useRef } from "react";
 import { motion, useInView, Variants } from "framer-motion";
 import { Shield, Zap, BarChart, Clock, Users, Globe } from "lucide-react";
-import { FeatureCard } from "@/components/Features/FeatureCard";
+
+
 import { FEATURES } from "../../contents/features-section"; // Importing the content
+import FeatureCard from "@/components/Features/FeatureCard";
+
+
+
 
 // Define the type for the ICONS object
 type IconType = {
   [key: string]: JSX.Element;
 };
+
 
 const ICONS: IconType = {
   Shield: <Shield className="h-10 w-10 text-white" />,
@@ -19,6 +27,7 @@ const ICONS: IconType = {
   Users: <Users className="h-10 w-10 text-white" />,
   Globe: <Globe className="h-10 w-10 text-white" />,
 };
+
 
 // Animation variants
 const CONTAINER_VARIANTS: Variants = {
@@ -30,6 +39,7 @@ const CONTAINER_VARIANTS: Variants = {
     },
   },
 };
+
 
 const ITEM_VARIANTS: Variants = {
   hidden: { y: 50, opacity: 0 },
@@ -43,9 +53,11 @@ const ITEM_VARIANTS: Variants = {
   },
 };
 
+
 export default function FeaturesSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
+
 
   return (
     <section
@@ -57,6 +69,7 @@ export default function FeaturesSection() {
         <div className="absolute top-0 left-0 w-1/2 h-1/2 bg-gradient-radial from-gray-800/20 to-transparent opacity-30" />
         <div className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-gradient-radial from-gray-800/20 to-transparent opacity-30" />
       </div>
+
 
       <div className="container mx-auto relative z-10">
         <motion.div
@@ -74,15 +87,17 @@ export default function FeaturesSection() {
           </p>
         </motion.div>
 
+
         <motion.div
           variants={CONTAINER_VARIANTS}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 gap-8"
         >
           {FEATURES.map((feature, index) => (
             <FeatureCard
               key={index}
+              index={index}
               feature={{
                 ...feature,
                 icon: ICONS[feature.icon], // Map icon name to actual component
@@ -95,3 +110,4 @@ export default function FeaturesSection() {
     </section>
   );
 }
+
