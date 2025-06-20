@@ -1,173 +1,129 @@
-import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
-import { TeamMember } from "@/types/team";
-import { useScreenSize } from "@/hooks/useScreenSize";
+'use client';
+
+import { useRef, useEffect } from 'react';
+import { motion, useInView, useAnimation } from 'framer-motion';
+import { TeamMember } from '@/types/team';
 
 interface PioneerCardProps {
   member: TeamMember;
   direction: number;
 }
 
-export default function PioneerCard({ member, direction }: PioneerCardProps) {
-  const { isMobile } = useScreenSize();
+export default function PioneerCard({ member }: PioneerCardProps) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, {
+    once: true,
+    margin: '-50% 0px -50% 0px',
+  });
+
+  const controls = useAnimation();
+  const outerControls = useAnimation();
+  const innerControls = useAnimation();
+
+  useEffect(() => {
+    if (isInView) {
+      // Initial slide-in animation
+      controls.start({
+        x: 0,
+        opacity: 1,
+        transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] },
+      }).then(() => {
+        // Outer (orange) circle animation - starts from right, moves in larger orbit
+        outerControls.start({
+          x: [80, 40, -40, -80, -40, 40, 80], // Larger radius, starts right
+          y: [0, 60, 80, 0, -80, -60, 0],
+          transition: { 
+            duration: 8,
+            ease: [0.4, 0, 0.6, 1], // Custom cubic-bezier for smoothness
+            repeat: Infinity,
+            repeatType: "loop"
+          }
+        });
+        
+        // Inner (image) circle animation - starts from right, moves in smaller orbit
+        innerControls.start({
+          x: [60, 30, -30, -60, -30, 30, 60], // Smaller radius, starts right
+          y: [0, 45, 60, 0, -60, -45, 0],
+          transition: { 
+            duration: 10,
+            ease: [0.4, 0, 0.6, 1], // Same easing for consistency
+            repeat: Infinity,
+            repeatType: "loop"
+          }
+        });
+      });
+    }
+  }, [isInView, controls, outerControls, innerControls]);
 
   return (
-    <Card className="bg-black/10 border-white/10 backdrop-blur-sm shadow-lg overflow-hidden transition-all duration-300 hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:border-white/20">
-      <CardContent className="p-1">
-        <div id="pioneer" className="flex flex-col sm:flex-row">
+    <section
+      ref={ref}
+      className="w-full flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24 min-h-screen px-4 sm:px-8 md:px-12 lg:px-16"
+    >
+      {/* Left Content */}
+      <div className="w-full md:w-1/2 space-y-4 text-center md:text-left">
+        <h2 className="text-2xl sm:text-3xl font-bold text-gray-100">{member.name}</h2>
+        <h3 className="text-sm sm:text-base font-bold text-[#668bb0]">{member.role}</h3>
+        <p className="text-base sm:text-lg text-gray-400">{member.description}</p>
+      </div>
+
+      {/* Right: Animated Image & Background */}
+      <div className="relative w-[250px] h-[250px] sm:w-[280px] sm:h-[280px] md:w-[320px] md:h-[320px] flex items-center justify-center rounded-full overflow-visible">
+        {/* Fixed Dotted Circle */}
+        <svg
+          className="absolute w-full h-full z-0"
+          viewBox="0 0 320 320"
+          fill="none"
+        >
+          <circle
+            cx="160"
+            cy="160"
+            r="140"
+            stroke="#FF2D55"
+            strokeWidth="1"
+            strokeDasharray="10 10"
+          />
+        </svg>
+
+        {/* Moving Container */}
+        <motion.div
+          initial={{ x: 900, opacity: 0 }}
+          animate={controls}
+          className="absolute w-full h-full"
+        >
+          {/* Orange Background Circle (outer movement) - starts from right */}
+          <motion.div 
+            className="absolute w-[85%] h-[85%] rounded-full bg-gradient-to-br from-red-500 to-orange-400 z-0 opacity-60"
+            initial={{ x: 80, y: 0 }} // Start position on the right
+            animate={outerControls}
+            style={{
+              top: '50%',
+              left: '50%',
+              translateX: '-50%',
+              translateY: '-50%'
+            }}
+          />
+
+          {/* Image Circle (inner movement) - starts from right */}
           <motion.div
-            className="w-full sm:w-2/5 relative overflow-hidden h-[200px] sm:h-[450px]"
-            initial={{ opacity: 0, x: direction > 0 ? 50 : -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.1, duration: 0.3 }}
+            className="absolute w-[75%] h-[75%] rounded-full overflow-hidden z-10 ring-2 ring-white/20"
+            initial={{ x: 60, y: 0 }} // Start position on the right
+            animate={innerControls}
+            style={{
+              top: '50%',
+              left: '50%',
+              translateX: '-50%',
+              translateY: '-50%'
+            }}
           >
-            <motion.img
+            <img
               src={member.avatar}
               alt={member.name}
-              className="object-contain w-full h-full"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              whileHover={{
-                scale: 1.05,
-                transition: { duration: 0.3 },
-              }}
+              className="w-full h-full object-cover"
             />
           </motion.div>
-
-          <div className="w-full sm:w-3/5 p-4 xs:p-5 sm:p-5 md:p-6 lg:p-8 flex flex-col group">
-            <motion.div
-              className="mb-2 sm:mb-2 md:mb-3 lg:mb-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.3 }}
-            >
-              <h3 className="text-lg xs:text-xl sm:text-xl md:text-2xl lg:text-3xl font-bold text-white mb-1 md:mb-2 transition-all duration-300 group-hover:text-blue-400">
-                {member.name}
-              </h3>
-              <p className="text-sm xs:text-base sm:text-base md:text-lg lg:text-xl text-white/80 font-medium mb-2 sm:mb-2 md:mb-3 transition-all duration-300 group-hover:text-blue-300">
-                {member.role}
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3, duration: 0.3 }}
-              className="overflow-y-auto pr-2 max-h-[180px] sm:max-h-[350px]"
-              style={{ scrollbarWidth: "thin" }}
-            >
-              <motion.p
-                className="text-sm sm:text-base text-gray-300"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
-              >
-                {member.description.split(" ").map((word, wordIndex) => (
-                  <motion.span
-                    key={wordIndex}
-                    className="inline-block mr-1"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{
-                      delay: wordIndex * (isMobile ? 0.03 : 0.02),
-                      duration: 0.3,
-                      ease: "easeOut",
-                    }}
-                  >
-                    {word}{" "}
-                  </motion.span>
-                ))}
-              </motion.p>
-            </motion.div>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
+        </motion.div>
+      </div>
+    </section>
   );
 }
-// 'use client';
-
-// import { useRef, useEffect } from 'react';
-// import { motion, useInView, useAnimation } from 'framer-motion';
-// import { TeamMember } from '@/types/team';
-
-// interface PioneerCardProps {
-//   member: TeamMember;
-//   direction: number;
-// }
-
-// export default function PioneerCard({ member }: PioneerCardProps) {
-//   const ref = useRef(null);
-  
-
-//   const isInView = useInView(ref, {
-//     once: true,
-//     margin: '-50% 0px -50% 0px', 
-//   });
-
-//   const controls = useAnimation();
-
-//   useEffect(() => {
-//     if (isInView) {
-//       controls.start({
-//         x: 0,
-//         opacity: 1,
-//         transition: { duration: 0.6, ease: 'easeOut' },
-//       });
-//     }
-//   }, [isInView, controls]);
-
-//   return (
-//     <section
-//       ref={ref}
-//       className="w-full flex flex-col md:flex-row items-center justify-center gap-36 min-h-screen lg:px-16"
-//     >
-//       {/* Left Content */}
-//       <div className="w-1/3 space-y-4">
-//         <h2 className="text-3xl font-bold text-gray-100">{member.name}</h2>
-//         <h2 className="text-base font-bold text-[#668bb0]">{member.role}</h2>
-//         <p className="text-lg text-gray-400">
-//           {member.description}
-//         </p>
-//       </div>
-
-//       {/* Right: Animated Image & Background */}
-//       <div className="relative w-[320px] h-[320px] flex items-center justify-center rounded-full overflow-visible">
-//         {/* Fixed Dotted Circle */}
-//         <svg
-//           className="absolute w-[350px] h-[350px] z-0 top-14"
-//           viewBox="0 0 320 320"
-//           fill="none"
-//         >
-//           <circle
-//             cx="160"
-//             cy="160"
-//             r="140"
-//             stroke="#FF2D55"
-//             strokeWidth="1"
-//             strokeDasharray="10 10"
-//           />
-//         </svg>
-
-//         {/* Moving Image + Background */}
-//         <motion.div
-//           initial={{ x: 900, opacity: 0 }}
-//           animate={controls}
-//           className="absolute w-[280px] h-[280px] flex items-center justify-center"
-//         >
-//           {/* Background Circle */}
-//           <div className="absolute w-full h-full left-12 top-5 rounded-full bg-gradient-to-br from-red-500 to-orange-400 z-0 opacity-50" />
-
-//           {/* Image */}
-//           <img
-//             src={member.avatar}
-//             alt={member.name}
-//             className="w-full h-full object-cover rounded-full z-10"
-//           />
-//         </motion.div>
-//       </div>
-//     </section>
-//   );
-// }
-
