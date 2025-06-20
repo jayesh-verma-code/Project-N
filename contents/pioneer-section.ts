@@ -13,25 +13,25 @@ export const pioneers: TeamMember[] = [
   {
     id: "CEO",
     name: "Ayush Kumar Sahoo",
-    role: "Founder & Managing Director",
+    role: "Co-Founder & CSO",
     description:
-      "Ayush Kumar Sahoo is the Founder & Managing Director of NirveonX, leading AI-driven healthcare innovation to enhance accessibility and patient outcomes. Currently pursuing B.Tech in Chemical Engineering at NIT Rourkela. A national-level athlete, he applies strategic thinking and technology to bridge AI and real-world healthcare challenges.",
+      "Ayush Kumar Sahoo is the Co-Founder & Chief Strategy Officer (CSO) of NirveonX, leading AI-driven healthcare innovation to enhance accessibility and patient outcomes. Currently pursuing B.Tech in Chemical Engineering at NIT Rourkela. A national-level athlete, he applies strategic thinking and technology to bridge AI and real-world healthcare challenges.",
     avatar:
       "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742285267/WhatsApp_Image_2025-03-18_at_02.54.10_zk0air.jpg",
   },
   {
     id: "Co-founder",
     name: "Sumedha Musunuri",
-    role: "CWO & Co-Founder",
+    role: "CWO",
     description:
-      "Sumedha Musunuri is the Co-Founder & Chief Wellness Officer (CWO) of NirveonX, dedicated to healthcare accessibility, mental wellness, and elder care. Currently pursuing MBBS at Great Eastern Medical School, she specializes in Physiology, Biochemistry, Pathology, and Microbiology, with strong clinical exposure. A Pratibha Award recipient for academic excellence, she blends medical expertise with creativity as a singer, dancer, artist, and fashion designer, striving to drive innovation in healthcare and wellness.",
+      "Sumedha Musunuri is the Chief Wellness Officer (CWO) of NirveonX, dedicated to healthcare accessibility, mental wellness, and elder care. Currently pursuing MBBS at Great Eastern Medical School, she specializes in Physiology, Biochemistry, Pathology, and Microbiology, with strong clinical exposure. A Pratibha Award recipient for academic excellence, she blends medical expertise with creativity as a singer, dancer, artist, and fashion designer, striving to drive innovation in healthcare and wellness.",
     avatar:
       "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742245692/WhatsApp_Image_2025-03-18_at_00.42.37_hwsgiw.jpg",
   },
   {
     id: "Coo",
     name: "Kasu Naren Karthik Raju",
-    role: "Co-Founder and COO",
+    role: "COO",
     description:
       "Karthik is the COO of NirveonX, specializing in AI, ML, and Data Analytics, driving business growth and scalable solutions. A charismatic speaker, he captivates audiences with his strong communication skills. As a national-level karate champion, he applies discipline and resilience from the dojo to the boardroom, making a lasting impact through creativity and leadership.",
     avatar:
