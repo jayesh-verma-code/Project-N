@@ -7,7 +7,7 @@ import { motion, useInView, Variants } from "framer-motion";
 import { Shield, Zap, BarChart, Clock, Users, Globe } from "lucide-react";
 
 
-import { FEATURES } from "../../contents/features-section"; // Importing the content
+import { FEATURES } from "../../contents/features-section"; 
 import FeatureCard from "@/components/Features/FeatureCard";
 
 
@@ -100,7 +100,7 @@ export default function FeaturesSection() {
               index={index}
               feature={{
                 ...feature,
-                icon: ICONS[feature.icon], // Map icon name to actual component
+                icon: ICONS[feature.icon], 
               }}
               variants={ITEM_VARIANTS}
             />

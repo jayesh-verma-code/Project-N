@@ -12,7 +12,7 @@ export interface FeatureCardProps {
       bgColor: string;
       glowColor: string;
       borderColor: string;
-      bgImage: string;
+      bgImage: string;  //images
     };
     variants: Variants,
     index: number

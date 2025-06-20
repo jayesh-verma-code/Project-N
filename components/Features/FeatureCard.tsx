@@ -49,7 +49,7 @@ function FeatureCard({ feature, index }: FeatureCardProps) {
       />
 
 
-      {/* Background image */}
+      
       <motion.img
         src={feature.bgImage}
         alt={feature.title}
