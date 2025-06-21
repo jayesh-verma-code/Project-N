@@ -114,7 +114,7 @@ function FeatureCard({ feature, index }: FeatureCardProps) {
               y: 20,
             }}
         transition={{ duration: 0.4, ease: 'easeOut', delay: 0.1 }}
-        className="absolute bottom-4 lg:bottom-8 right-4 text-sm md:text-[18px] text-gray-300 max-w-[90%] md:max-w-lg text-start z-20 "
+        className="absolute bottom-4 lg:bottom-8 right-4 font-semibold text-sm md:text-[22px] text-gray-300 max-w-[90%] md:max-w-lg text-start z-20 "
       >
         {feature.description}
       </motion.p>
