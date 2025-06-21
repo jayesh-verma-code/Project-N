@@ -1,4 +1,3 @@
-
 'use client'
 import { FeatureCardProps } from '@/types/features'
 import { motion } from 'framer-motion'

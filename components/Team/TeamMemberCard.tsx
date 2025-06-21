@@ -188,7 +188,7 @@ export function TeamMemberCard({ member, variants }: TeamMemberCardProps) {
             <Badge
               className={`${
                 categoryColors[member.category]
-              } mb-4 py-1 px-3 transition-all duration-300 ${
+              } mb-4 py-1 px-3 text-white transition-all duration-300 ${
                 shouldAnimate ? "shadow-lg shadow-blue-500/20" : ""
               }`}
             >

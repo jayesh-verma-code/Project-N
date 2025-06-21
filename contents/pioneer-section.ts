@@ -4,18 +4,18 @@ export const pioneers: TeamMember[] = [
   {
     id: "founder",
     name: "Kavali Deekshith",
-    role: "CEO & Chairman",
+    role: "CEO & Co-Founder",
     description:
-      "Kavali Deekshith is the Chairman & CEO of NirveonX, leading AI-driven healthcare innovation with strong leadership and strategic vision. A B.Tech AI & ML student at JNTUH, he is a visionary entrepreneur, AI innovator, and dynamic leader known for his decision-making, problem-solving, and team-building skills. A CBSE merit holder and national-level science project winner, he blends technical expertise, business acumen, and creativity to drive impactful change in healthcare and AI.",
+      "Kavali Deekshith is the Co-Founder & CEO of NirveonX, leading AI-driven healthcare innovation with strong leadership and strategic vision. A B.Tech AI & ML student at JNTUH, he is a visionary entrepreneur, AI innovator, and dynamic leader known for his decision-making, problem-solving, and team-building skills. A CBSE merit holder and national-level science project winner, he blends technical expertise, business acumen, and creativity to drive impactful change in healthcare and AI.",
     avatar:
       "/DeekshitBhaiya.jpg",
   },
   {
     id: "CEO",
     name: "Ayush Kumar Sahoo",
-    role: "Co-Founder & CSO",
+    role: "Co-Founder & CFO",
     description:
-      "Ayush Kumar Sahoo is the Co-Founder & Chief Strategy Officer (CSO) of NirveonX, leading AI-driven healthcare innovation to enhance accessibility and patient outcomes. Currently pursuing B.Tech in Chemical Engineering at NIT Rourkela. A national-level athlete, he applies strategic thinking and technology to bridge AI and real-world healthcare challenges.",
+      "Ayush Kumar Sahoo is the Co-Founder & CFO of NirveonX, leading AI-driven healthcare innovation to enhance accessibility and patient outcomes. Currently pursuing B.Tech in Chemical Engineering at NIT Rourkela. A national-level athlete, he applies strategic thinking and technology to bridge AI and real-world healthcare challenges.",
     avatar:
       "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742285267/WhatsApp_Image_2025-03-18_at_02.54.10_zk0air.jpg",
   },
@@ -29,12 +29,12 @@ export const pioneers: TeamMember[] = [
       "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742245692/WhatsApp_Image_2025-03-18_at_00.42.37_hwsgiw.jpg",
   },
   {
-    id: "Coo",
-    name: "Kasu Naren Karthik Raju",
-    role: "COO",
+    id: "Cto",
+    name: "Ashwani Senapati",
+    role: "CTO",
     description:
-      "Karthik is the COO of NirveonX, specializing in AI, ML, and Data Analytics, driving business growth and scalable solutions. A charismatic speaker, he captivates audiences with his strong communication skills. As a national-level karate champion, he applies discipline and resilience from the dojo to the boardroom, making a lasting impact through creativity and leadership.",
+      "Ashwani Senapati is a Full Stack Developer and emerging tech leader from NIT Rourkela, with a strong foundation in web development, machine learning, and blockchain technologies. His portfolio includes award-winning projects like Hexadepth, a medical AI tool that won a hackathon for transforming DICOM images into 3D models using GANs.He has built platforms for IEEE INDISCON 2025, BookingJini, and HackOdisha, showcasing his ability to blend user-focused design with powerful backend architecture. Currently leading the tech vision at NirveonX, Ashwani combines deep technical skills with a passion for innovation to build smart, scalable, and impactful healthcare solutions.",
     avatar:
-      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742975940/WhatsApp_Image_2025-03-26_at_03.48.01_jy9g6w.jpg",
+      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742124405/ashwani_pqhesg.png",
   },
 ];

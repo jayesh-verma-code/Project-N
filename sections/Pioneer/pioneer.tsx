@@ -215,7 +215,7 @@ export default function TeamMembersSection() {
           {/* // Updated */}
             {pioneers.map((member, index) => (
               <div key={index} className="w-full "> 
-                <PioneerCard member={member} direction={0} />
+                <PioneerCard member={member} direction={0} numofmem={index} />
               </div>
             ))}
           </div>

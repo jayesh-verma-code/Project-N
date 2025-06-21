@@ -1,15 +1,20 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect,useState } from 'react';
 import { motion, useInView, useAnimation } from 'framer-motion';
 import { TeamMember } from '@/types/team';
 
 interface PioneerCardProps {
   member: TeamMember;
   direction: number;
+  numofmem:number;
 }
 
-export default function PioneerCard({ member }: PioneerCardProps) {
+export default function PioneerCard({ member,numofmem }: PioneerCardProps) {
+  const [colorCard, setColorCard] = useState({
+    stroke: '#FFFFFF',
+    bgColor:'#8FA0A8'
+  })
   const ref = useRef(null);
   const isInView = useInView(ref, {
     once: true,
@@ -73,7 +78,29 @@ export default function PioneerCard({ member }: PioneerCardProps) {
       });
     }
   }, [isInView, controls, dottedControls, outerControls, innerControls]);
-
+  useEffect(() => {
+    // const colors = [
+    //   { stroke: '#FF2D55', bgColor: '#FF2D55' },
+    //   { stroke: '#FF9500', bgColor: '#FF9500' },
+    //   { stroke: '#4CD964', bgColor: '#4CD964' },
+    //   { stroke: '#5AC8FA', bgColor: '#5AC8FA' },
+    //   { stroke: '#5856D6', bgColor: '#5856D6' },
+    // ];
+    // setColorCard(colors[numofmem % colors.length]);
+    if(numofmem%2==0){
+      setColorCard({
+        stroke: '#FFFFFF',
+        bgColor: '#8FA0A8'
+      });
+    }
+    else{
+      setColorCard({
+        stroke: '#FF2D55',
+        bgColor: '#D4A089'
+      });
+    }
+  }, [numofmem]);
+  
   return (
     <section
       ref={ref}
@@ -111,7 +138,7 @@ export default function PioneerCard({ member }: PioneerCardProps) {
               cx="160"
               cy="160"
               r="140"
-              stroke="#FF2D55"
+              stroke={colorCard.stroke}
               strokeWidth="1"
               strokeDasharray="10 10"
             />
@@ -126,10 +153,11 @@ export default function PioneerCard({ member }: PioneerCardProps) {
         >
           {/* Orange Background Circle (outer movement) - opposite pattern */}
           <motion.div 
-            className="absolute w-[75%] h-[75%] md:w-[80%] md:h-[80%] rounded-full bg-gradient-to-br from-red-500 to-orange-400 z-5 opacity-60"
+            className={`absolute w-[75%] h-[75%] md:w-[80%] md:h-[80%] rounded-full   z-5 `}
             initial={{ x: -50, y: 0 }} // Start position opposite to dotted
             animate={outerControls}
             style={{
+              background: ` ${colorCard.bgColor} `,
               top: '50%',
               left: '50%',
               translateX: '-50%',
