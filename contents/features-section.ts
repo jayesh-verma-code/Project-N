@@ -8,6 +8,7 @@ export const FEATURES = [
       bgColor: "bg-purple-500",
       glowColor: "bg-purple-400",
       borderColor: "bg-purple-300",
+      bgImage:  "/int.png"
     },
     {
       title: "Personalized Health Plans",
@@ -18,6 +19,7 @@ export const FEATURES = [
       bgColor: "bg-blue-500",
       glowColor: "bg-blue-400",
       borderColor: "bg-blue-300",
+      bgImage:  "/personal.jpg"
     },
     {
       title: "Real-Time Health Monitoring",
@@ -28,6 +30,7 @@ export const FEATURES = [
       bgColor: "bg-green-500",
       glowColor: "bg-green-400",
       borderColor: "bg-green-300",
+      bgImage:  "/real-time.jpg"
     },
     {
       title: "24/7 Virtual Assistance",
@@ -38,6 +41,7 @@ export const FEATURES = [
       bgColor: "bg-amber-500",
       glowColor: "bg-amber-400",
       borderColor: "bg-amber-300",
+      bgImage:  "/24.jpg"
     },
     {
       title: "India’s Premier Healthcare Network",
@@ -48,6 +52,7 @@ export const FEATURES = [
       bgColor: "bg-pink-500",
       glowColor: "bg-pink-400",
       borderColor: "bg-pink-300",
+      bgImage:  "/india.jpg"
     },
     {
       title: "Military-Grade Data Protection",
@@ -58,5 +63,6 @@ export const FEATURES = [
       bgColor: "bg-teal-500",
       glowColor: "bg-teal-400",
       borderColor: "bg-teal-300",
+      bgImage:  "/military.jpg"
     },
   ];

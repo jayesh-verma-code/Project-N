@@ -60,9 +60,9 @@ export const MobileMenu = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: 
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <Button className="bg-black text-white hover:bg-gray-800 relative overflow-hidden group border border-white/20">
+                    <div className="bg-black text-white hover:bg-gray-800 relative overflow-hidden group border border-white/20">
                       <SignInButton />
-                    </Button>
+                    </div>
                   </motion.div>
                 </SignedOut>
 

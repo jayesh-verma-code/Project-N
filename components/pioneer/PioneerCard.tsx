@@ -1,88 +1,190 @@
-import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
-import { TeamMember } from "@/types/team";
-import { useScreenSize } from "@/hooks/useScreenSize";
+'use client';
+
+import { useRef, useEffect,useState } from 'react';
+import { motion, useInView, useAnimation } from 'framer-motion';
+import { TeamMember } from '@/types/team';
 
 interface PioneerCardProps {
   member: TeamMember;
   direction: number;
+  numofmem:number;
 }
 
-export default function PioneerCard({ member, direction }: PioneerCardProps) {
-  const { isMobile } = useScreenSize();
+export default function PioneerCard({ member,numofmem }: PioneerCardProps) {
+  const [colorCard, setColorCard] = useState({
+    stroke: '#FFFFFF',
+    bgColor:'#8FA0A8'
+  })
+  const ref = useRef(null);
+  const isInView = useInView(ref, {
+    once: true,
+    margin: '-50% 0px -50% 0px',
+  });
 
+  const controls = useAnimation();
+  const dottedControls = useAnimation();
+  const outerControls = useAnimation();
+  const innerControls = useAnimation();
+
+  useEffect(() => {
+    if (isInView) {
+      // Initial slide-in animation
+      controls.start({
+        x: 0,
+        opacity: 1,
+        transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] },
+      }).then(() => {
+        // All animations start simultaneously with same duration - faster and smoother
+        const animationDuration = 6;
+        
+        // Dotted circle animation - smooth continuous square pattern
+        const dottedRadius = 30;
+        dottedControls.start({
+          x: [dottedRadius, dottedRadius, -dottedRadius, -dottedRadius, dottedRadius], 
+          y: [0, dottedRadius, dottedRadius, -dottedRadius, 0],
+          transition: { 
+            duration: animationDuration,
+            ease: [0.45, 0, 0.55, 1], // Smooth easing for continuous flow
+            repeat: Infinity,
+            repeatType: "loop"
+          }
+        });
+        
+        // Outer (orange) circle animation - smooth continuous opposite pattern
+        const outerRadius = 50;
+        outerControls.start({
+          x: [-outerRadius, -outerRadius, outerRadius, outerRadius, -outerRadius], 
+          y: [0, -outerRadius, -outerRadius, outerRadius, 0],
+          transition: { 
+            duration: animationDuration,
+            ease: [0.45, 0, 0.55, 1], // Same smooth easing
+            repeat: Infinity,
+            repeatType: "loop"
+          }
+        });
+        
+        // Inner (image) circle animation - smooth continuous quarter offset pattern
+        const innerRadius = 40;
+        innerControls.start({
+          x: [0, innerRadius, innerRadius, -innerRadius, -innerRadius, 0], // Added extra point for smoother loop
+          y: [-innerRadius, 0, innerRadius, innerRadius, -innerRadius, -innerRadius],
+          transition: { 
+            duration: animationDuration,
+            ease: [0.45, 0, 0.55, 1], // Same smooth easing
+            repeat: Infinity,
+            repeatType: "loop"
+          }
+        });
+      });
+    }
+  }, [isInView, controls, dottedControls, outerControls, innerControls]);
+  useEffect(() => {
+    // const colors = [
+    //   { stroke: '#FF2D55', bgColor: '#FF2D55' },
+    //   { stroke: '#FF9500', bgColor: '#FF9500' },
+    //   { stroke: '#4CD964', bgColor: '#4CD964' },
+    //   { stroke: '#5AC8FA', bgColor: '#5AC8FA' },
+    //   { stroke: '#5856D6', bgColor: '#5856D6' },
+    // ];
+    // setColorCard(colors[numofmem % colors.length]);
+    if(numofmem%2==0){
+      setColorCard({
+        stroke: '#FFFFFF',
+        bgColor: '#8FA0A8'
+      });
+    }
+    else{
+      setColorCard({
+        stroke: '#FF2D55',
+        bgColor: '#D4A089'
+      });
+    }
+  }, [numofmem]);
+  
   return (
-    <Card className="bg-black/10 border-white/10 backdrop-blur-sm shadow-lg overflow-hidden transition-all duration-300 hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:border-white/20">
-      <CardContent className="p-1">
-        <div id="pioneer" className="flex flex-col sm:flex-row">
-          <motion.div
-            className="w-full sm:w-2/5 relative overflow-hidden h-[200px] sm:h-[450px]"
-            initial={{ opacity: 0, x: direction > 0 ? 50 : -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.1, duration: 0.3 }}
+    <section
+      ref={ref}
+      className="w-full flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24 min-h-screen px-4 sm:px-8 md:px-12 lg:px-16"
+    >
+      {/* Left Content */}
+      <div className="w-full md:w-1/2 space-y-4 text-center md:text-left">
+        <h2 className="text-2xl sm:text-3xl font-bold text-gray-100">{member.name}</h2>
+        <h3 className="text-sm sm:text-base font-bold text-[#668bb0]">{member.role}</h3>
+        <p className="text-base sm:text-lg text-gray-400">{member.description}</p>
+      </div>
+
+      {/* Right: Animated Image & Background */}
+      <div className="relative w-[250px] h-[250px] sm:w-[280px] sm:h-[280px] md:w-[320px] md:h-[320px] flex items-center justify-center rounded-full overflow-visible">
+        {/* Moving Dotted Circle */}
+        <motion.div
+          initial={{ x: 900, opacity: 0 }}
+          animate={controls}
+          className="absolute w-full h-full z-0"
+        >
+          <motion.svg
+            className="absolute w-full h-full"
+            viewBox="0 0 320 320"
+            fill="none"
+            initial={{ x: 30, y: 0 }}
+            animate={dottedControls}
+            style={{
+              top: '50%',
+              left: '50%',
+              translateX: '-50%',
+              translateY: '-50%'
+            }}
           >
-            <motion.img
+            <circle
+              cx="160"
+              cy="160"
+              r="140"
+              stroke={colorCard.stroke}
+              strokeWidth="1"
+              strokeDasharray="10 10"
+            />
+          </motion.svg>
+        </motion.div>
+
+        {/* Moving Container */}
+        <motion.div
+          initial={{ x: 900, opacity: 0 }}
+          animate={controls}
+          className="absolute w-full h-full"
+        >
+          {/* Orange Background Circle (outer movement) - opposite pattern */}
+          <motion.div 
+            className={`absolute w-[75%] h-[75%] md:w-[80%] md:h-[80%] rounded-full   z-5 `}
+            initial={{ x: -50, y: 0 }} // Start position opposite to dotted
+            animate={outerControls}
+            style={{
+              background: ` ${colorCard.bgColor} `,
+              top: '50%',
+              left: '50%',
+              translateX: '-50%',
+              translateY: '-50%'
+            }}
+          />
+
+          {/* Image Circle (inner movement) - quarter offset pattern, stays within bounds */}
+          <motion.div
+            className="absolute w-[75%] h-[75%] md:w-[80%] md:h-[80%] rounded-full overflow-hidden z-10 ring-2 ring-white/20"
+            initial={{ x: 0, y: -40 }} // Start position at top
+            animate={innerControls}
+            style={{
+              top: '50%',
+              left: '50%',
+              translateX: '-50%',
+              translateY: '-50%'
+            }}
+          >
+            <img
               src={member.avatar}
               alt={member.name}
-              className="object-contain w-full h-full"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              whileHover={{
-                scale: 1.05,
-                transition: { duration: 0.3 },
-              }}
+              className="w-full h-full object-cover"
             />
           </motion.div>
-
-          <div className="w-full sm:w-3/5 p-4 xs:p-5 sm:p-5 md:p-6 lg:p-8 flex flex-col group">
-            <motion.div
-              className="mb-2 sm:mb-2 md:mb-3 lg:mb-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.3 }}
-            >
-              <h3 className="text-lg xs:text-xl sm:text-xl md:text-2xl lg:text-3xl font-bold text-white mb-1 md:mb-2 transition-all duration-300 group-hover:text-blue-400">
-                {member.name}
-              </h3>
-              <p className="text-sm xs:text-base sm:text-base md:text-lg lg:text-xl text-white/80 font-medium mb-2 sm:mb-2 md:mb-3 transition-all duration-300 group-hover:text-blue-300">
-                {member.role}
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3, duration: 0.3 }}
-              className="overflow-y-auto pr-2 max-h-[180px] sm:max-h-[350px]"
-              style={{ scrollbarWidth: "thin" }}
-            >
-              <motion.p
-                className="text-sm sm:text-base text-gray-300"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
-              >
-                {member.description.split(" ").map((word, wordIndex) => (
-                  <motion.span
-                    key={wordIndex}
-                    className="inline-block mr-1"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{
-                      delay: wordIndex * (isMobile ? 0.03 : 0.02),
-                      duration: 0.3,
-                      ease: "easeOut",
-                    }}
-                  >
-                    {word}{" "}
-                  </motion.span>
-                ))}
-              </motion.p>
-            </motion.div>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
+        </motion.div>
+      </div>
+    </section>
   );
 }

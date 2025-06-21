@@ -1,4 +1,7 @@
+
+
 import { Variants } from "framer-motion";
+
 
 export interface FeatureCardProps {
     feature: {
@@ -9,6 +12,7 @@ export interface FeatureCardProps {
       bgColor: string;
       glowColor: string;
       borderColor: string;
+      bgImage: string;  //images
     };
     variants: Variants,
     index: number
