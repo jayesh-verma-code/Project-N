@@ -8,7 +8,7 @@ export const FEATURES = [
       bgColor: "bg-purple-500",
       glowColor: "bg-purple-400",
       borderColor: "bg-purple-300",
-      bgImage:  "/int.png"
+      bgImage:  "/Int.png"
     },
     {
       title: "Personalized Health Plans",
