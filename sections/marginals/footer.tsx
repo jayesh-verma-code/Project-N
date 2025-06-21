@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { FooterSection } from "@/components/Footer/FooterSection";
 import { FooterLink } from "@/components/Footer/FooterLink";
-import { SocialLinks } from "@/components/Footer/SocialLinks";
+//import { SocialLinks } from "@/components/Footer/SocialLinks";
 import { SubscriptionForm } from "@/components/Footer/SubsSciptionForm";
 import { FooterBottom } from "@/components/Footer/FooterBottom";
 
@@ -39,21 +39,21 @@ export default function Footer() {
         className="container mx-auto px-4 relative z-10"
         style={{ opacity, y }}
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-16">
           {/* Company Info */}
           <FooterSection title="NirveonX" delay={0}>
             <p className="text-gray-400 mb-6">
               One AI, Infinite Care – Health, Wellness & Beyond. Transforming
               healthcare with cutting-edge AI technology.
             </p>
-            <SocialLinks />
+            {/* <SocialLinks /> */}
           </FooterSection>
 
           {/* Quick Links */}
           <FooterSection title="Quick Links" delay={staggerDelay}>
-            {["Home", "Features", "Services", "Pioneers", "FAQ"].map(
+            {["Home", "Features", "Services", "Pioneers"].map(
               (item) => (
-                <FooterLink key={item} href={`#${item.toLowerCase()}`}>
+                <FooterLink key={item} href={`${item[0]}${item.slice(1).toLowerCase()}`}>
                   {item}
                 </FooterLink>
               )
@@ -61,7 +61,7 @@ export default function Footer() {
           </FooterSection>
 
           {/* Legal */}
-          <FooterSection title="Legal" delay={staggerDelay * 2}>
+          {/* <FooterSection title="Legal" delay={staggerDelay * 2}>
             {[
               "Terms of Service",
               "Privacy Policy",
@@ -73,7 +73,7 @@ export default function Footer() {
                 {item}
               </FooterLink>
             ))}
-          </FooterSection>
+          </FooterSection> */}
 
           {/* Subscribe */}
           <FooterSection title="Subscribe" delay={staggerDelay * 3}>

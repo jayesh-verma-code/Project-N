@@ -42,6 +42,8 @@ export async function POST(request: NextRequest) {
         const db: Db = client.db('internData');
         const collection: Collection<TeamMember> = db.collection('internData');
 
+        
+
         // Check for duplicate entry based on all fields (excluding avatar)
         const duplicateQuery = {
             name: name,
@@ -105,26 +107,50 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET() {
-    try {
-        const uri = `mongodb+srv://ayushgudu004:6LzvwmkVwbLa5WJR@interndata.yg4nqdi.mongodb.net/`;
-        const client = new MongoClient(uri);
-        await client.connect();
+  try {
+    const uri = `mongodb+srv://ayushgudu004:6LzvwmkVwbLa5WJR@interndata.yg4nqdi.mongodb.net/`;
+    const client = new MongoClient(uri);
+    await client.connect();
 
-        const db: Db = client.db('internData');
-        const collection: Collection<TeamMember> = db.collection('internData');
-        const teamMembers: TeamMember[] = await collection.find({}).toArray();
+    const db: Db = client.db("internData");
+    const collection: Collection<TeamMember> = db.collection("internData");
 
-        await client.close();
+    const teamMembers = await collection
+      .aggregate([
+        {
+          $addFields: {
+            sortPriority: {
+              $switch: {
+                branches: [
+                  { case: { $eq: ["$name", "Nikhil Sanka"] }, then: 1 },
+                  { case: { $eq: ["$name", "Kavali Deekshith"] }, then: 2 },
+                  { case: { $eq: ["$name", "Ayush Kumar Sahoo"] }, then: 3 }, // Removed trailing space
+                  { case: { $eq: ["$name", "Sumedha Musunuri"] }, then: 4 },
+                  { case: { $eq: ["$name", "Ashwani Senapati"] }, then: 5 },
+                    
+                ],
+                default: 99,
+              },
+            },
+            originalOrder: "$_id"
+          },
+        },
+        { $sort: { sortPriority: 1, originalOrder: 1 } },
+        { $project: { sortPriority: 0, originalOrder: 0 } }
+      ])
+      .toArray();
 
-        return NextResponse.json({
-            success: true,
-            data: teamMembers
-        });
-    } catch (error) {
-        console.error('Error:', error);
-        return NextResponse.json(
-            { success: false, message: 'Failed to fetch team members' },
-            { status: 500 }
-        );
-    }
+    await client.close();
+
+    return NextResponse.json({
+      success: true,
+      data: teamMembers,
+    });
+  } catch (error) {
+    console.error("Error:", error);
+    return NextResponse.json(
+      { success: false, message: "Failed to fetch team members" },
+      { status: 500 }
+    );
+  }
 }
