@@ -10,5 +10,6 @@ export interface FeatureCardProps {
       glowColor: string;
       borderColor: string;
     };
-    variants: Variants;
+    variants: Variants,
+    index: number
   }

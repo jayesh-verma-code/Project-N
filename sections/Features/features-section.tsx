@@ -3,8 +3,10 @@
 import React, { JSX, useRef } from "react";
 import { motion, useInView, Variants } from "framer-motion";
 import { Shield, Zap, BarChart, Clock, Users, Globe } from "lucide-react";
-import { FeatureCard } from "@/components/Features/FeatureCard";
+
 import { FEATURES } from "../../contents/features-section"; // Importing the content
+import FeatureCard from "@/components/Features/FeatureCard";
+
 
 // Define the type for the ICONS object
 type IconType = {
@@ -78,11 +80,12 @@ export default function FeaturesSection() {
           variants={CONTAINER_VARIANTS}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 gap-8"
         >
           {FEATURES.map((feature, index) => (
             <FeatureCard
               key={index}
+              index={index}
               feature={{
                 ...feature,
                 icon: ICONS[feature.icon], // Map icon name to actual component
