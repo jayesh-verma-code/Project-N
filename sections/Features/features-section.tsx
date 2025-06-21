@@ -5,8 +5,9 @@
 import React, { JSX, useRef } from "react";
 import { motion, useInView, Variants } from "framer-motion";
 import { Shield, Zap, BarChart, Clock, Users, Globe } from "lucide-react";
-import { FeatureCard } from "@/components/Features/FeatureCard";
+
 import { FEATURES } from "../../contents/features-section"; // Importing the content
+import FeatureCard from "@/components/Features/FeatureCard";
 
 // Define the type for the ICONS object
 type IconType = {

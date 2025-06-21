@@ -93,7 +93,7 @@ function FeatureCard({ feature, index }: FeatureCardProps) {
             }
         }
         transition={{ duration: 0.4, ease: 'easeInOut' }}
-        className="text-white text-base md:text-2xl font-semibold z-20 whitespace-nowrap "
+        className="text-white text-base md:text-3xl font-semibold z-20 whitespace-nowrap "
       >
         {feature.title}
       </motion.h3>
