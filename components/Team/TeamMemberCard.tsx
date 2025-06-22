@@ -65,7 +65,15 @@ export function TeamMemberCard({ member, variants }: TeamMemberCardProps) {
       />
 
       {/* Card content */}
-      <div className="relative h-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-xl overflow-hidden shadow-xl border border-gray-700/50">
+      <div className={`relative h-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-xl overflow-hidden border border-gray-700/50
+        ${!isMobile ? 'shadow-none group-hover:shadow-[0_0_40px_15px_rgba(99,102,241,0.3)]' : 'shadow-xl'}
+        transition-all duration-500 ease-in-out`}
+        style={{
+          boxShadow: shouldAnimate && !isMobile 
+            ? '0 0 40px 15px rgba(99, 102, 241, 0.3), 0 0 70px 25px rgba(168, 85, 247, 0.2)' 
+            : 'none'
+        }}
+      >
         {/* Animated shine effect */}
         <motion.div
           className="absolute inset-0 opacity-0"
@@ -148,7 +156,7 @@ export function TeamMemberCard({ member, variants }: TeamMemberCardProps) {
             }
           >
             {/* Animated ring */}
-            {/* <motion.div
+            <motion.div
               className="absolute -inset-4 rounded-full"
               animate={{
                 opacity: shouldAnimate ? 1 : 0,
@@ -167,7 +175,7 @@ export function TeamMemberCard({ member, variants }: TeamMemberCardProps) {
               style={{
                 filter: "blur(8px)",
               }}
-            /> */}
+            />
             <Avatar className="h-32 w-32 ring-2 ring-white/20 relative z-10 transition-all duration-300">
               <AvatarImage src={member.avatar} alt={member.name} />
               <AvatarFallback className="text-3xl font-bold bg-gradient-to-br from-gray-700 to-gray-900 text-white">
