@@ -230,7 +230,7 @@ export default function TeamMembersSection() {
             handleDotClick={handleDotClick}
           /> */}
 
-          <div className="space h-12 w-full"></div>
+          {/* <div className="space h-12 w-full"></div>
           <div className="w-full h-2 flex flex-row justify-center items-center">
             <motion.div
               whileHover={{ scale: 1.1 }}
@@ -244,7 +244,7 @@ export default function TeamMembersSection() {
                 Meet Our Team
               </button>
             </motion.div>
-          </div>
+          </div> */}
         </motion.div>
       </div>
     </section>
