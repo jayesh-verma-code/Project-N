@@ -37,4 +37,22 @@ export const pioneers: TeamMember[] = [
     avatar:
       "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742124405/ashwani_pqhesg.png",
   },
+  {
+    id: "Cooooo",
+    name: "Sanjana Chaudhary",
+    role: "COO",
+    description:
+      "Sanjana Chaudhary is the Chief Operating Officer at NirveonX, where she turns big ideas into real-world impact. A final-year Computer Science undergraduate, she keeps the engine running - aligning teams, streamlining operations, and ensuring every part of the company works in sync to deliver affordable, AI-powered healthcare. From managing product rollouts to supporting doctors and patients, Sanjana ensures that innovation at NirveonX stays grounded in care, clarity, and execution.",
+    avatar:
+      "https://res.cloudinary.com/dnfq7ty1x/image/upload/v1750670920/bq1ewdubbpnfizmjt9a4.jpg",
+  },
+  {
+    id: "Chooo",
+    name: "Deepti Manjari Nayak",
+    role: "CHO",
+    description:
+      "Deepti Manjari Nayak serves as the Chief Hiring Officer at NirveonX, where she shapes the future of the organization by bringing together purpose-driven talent. She leads recruitment with strategy and heart—crafting hiring frameworks, nurturing company culture, and ensuring that every team is equipped to push boundaries in AI-driven healthcare. From identifying rising stars to building strong internal systems, Deepti drives a people-first approach that powers innovation, care, and sustainable growth across the company.",
+    avatar:
+      "https://res.cloudinary.com/dnfq7ty1x/image/upload/v1750666091/sdc73yjkpzu952rpi9ku.jpg",
+  }
 ];
