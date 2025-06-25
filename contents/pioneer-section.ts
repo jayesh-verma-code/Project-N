@@ -15,7 +15,7 @@ export const pioneers: TeamMember[] = [
     name: "Ayush Kumar Sahoo",
     role: "Co-Founder & CFO",
     description:
-      "Ayush Kumar Sahoo is the Co-Founder & CFO of NirveonX, leading AI-driven healthcare innovation to enhance accessibility and patient outcomes. Currently pursuing B.Tech in Chemical Engineering at NIT Rourkela. A national-level athlete, he applies strategic thinking and technology to bridge AI and real-world healthcare challenges.",
+      "Ayush Kumar Sahoo is the Co-Founder and Chief Financial Officer at NirveonX, where he turns vision into viable strategy. A final-year BTech student at NIT Rourkela, Ayush brings technical rigor and financial focus to every decision. He keeps the numbers sharp and the mission steady - shaping business models, managing budgets, and building financial systems that fuel sustainable growth. From driving fundraising efforts to optimizing costs and ensuring compliance, Ayush makes sure every step forward is financially sound and purpose-driven. With a clear eye on both impact and investment, he helps NirveonX scale responsibly in the world of AI-powered healthcare.",
     avatar:
       "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742285267/WhatsApp_Image_2025-03-18_at_02.54.10_zk0air.jpg",
   },
@@ -71,7 +71,7 @@ export  const additionalPioneer: TeamMember[] = [
     name: "Deepti Manjari Nayak",
     role: "CHO",
     description:
-      "Deepti Manjari Nayak serves as the Chief Hiring Officer at NirveonX, where she shapes the future of the organization by bringing together purpose-driven talent. She leads recruitment with strategy and heart—crafting hiring frameworks, nurturing company culture, and ensuring that every team is equipped to push boundaries in AI-driven healthcare. From identifying rising stars to building strong internal systems, Deepti drives a people-first approach that powers innovation, care, and sustainable growth across the company.",
+      "Deepti Manjari Nayak serves as the Chief Hiring Officer at NirveonX, where she shapes the future of the organization by bringing together purpose-driven talent. She leads recruitment with strategy and heartcrafting hiring frameworks, nurturing company culture, and ensuring that every team is equipped to push boundaries in AI-driven healthcare. From identifying rising stars to building strong internal systems, Deepti drives a people-first approach that powers innovation, care, and sustainable growth across the company.",
     avatar:
       "https://res.cloudinary.com/dnfq7ty1x/image/upload/v1750666091/sdc73yjkpzu952rpi9ku.jpg",
   }
