@@ -30,7 +30,7 @@ type Bud = {
 const GRID_SIZE = 24;
 const ACTIVATION_INTERVAL = 1500;
 const ACTIVE_DURATION = 2000;
-const GAME_DURATION = 5;
+const GAME_DURATION = 30;
 
 export default function BloomGame() {
     const containerRef = useRef<HTMLDivElement>(null);
