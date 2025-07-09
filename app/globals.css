@@ -557,3 +557,46 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .animate-spin-slow {
+    animation: spin 4s linear infinite;
+  }
+}
+/* styles/globals.css or your global stylesheet */
+.rhap_container {
+  background-color: #1e293b !important; /* Tailwind's slate-800 */
+  color: white !important;
+  border-radius: 0.5rem;
+}
+
+.rhap_time, .rhap_progress-indicator {
+  color: white !important;
+}
+
+.rhap_progress-bar-show-download {
+  background: #4ade80 !important; /* Tailwind's green-400 */
+}
+
+
+@keyframes ping-slow {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-ping-slow {
+  animation: ping-slow 1.2s ease-in-out infinite;
+}
+.drop-shadow-glow {
+  filter: drop-shadow(0 0 8px #f472b6); /* Pink glow */
+}
