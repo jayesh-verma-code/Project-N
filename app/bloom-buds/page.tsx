@@ -238,7 +238,6 @@ export default function BloomGame() {
 
                     <div className=" flex items-center justify-cente my-5">
                         <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-6 gap-6 md:gap-6 p-6 rounded-2xl border border-purple-600 bg-gradient-to-br from-[#1f1b2e] via-[#2c223f] to-[#1a162a] shadow-[inset_0_0_12px_#6b21a8] backdrop-blur-md transition-all duration-300">
-                            {/* your grid items here */}
 
                             {buds.map((bud) => (
                                 <img
