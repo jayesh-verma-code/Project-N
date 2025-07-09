@@ -3,6 +3,7 @@ import CustomCursor from '@/components/shared/custom-cursor';
 import ParticlesBackground from '@/components/shared/particle-background';
 import ChatbotServices from '@/sections/ChatBotServices/chatbot-services';
 import InvestorSection from '@/sections/Patron/Investors';
+import AdditionalTeamMembersSection from '@/sections/Pioneer/additionalPioneer';
 import TeamMembersSection from '@/sections/Pioneer/pioneer';
 import { ThemeProvider } from 'next-themes';
 import React,{useRef} from 'react'
@@ -18,6 +19,7 @@ const page = () => {
         <ParticlesBackground/>
         <InvestorSection/>
         <TeamMembersSection/>
+        <AdditionalTeamMembersSection/>
       </ThemeProvider>
     </div>
   )

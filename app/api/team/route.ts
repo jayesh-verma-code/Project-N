@@ -123,11 +123,14 @@ export async function GET() {
               $switch: {
                 branches: [
                   { case: { $eq: ["$name", "Nikhil Sanka"] }, then: 1 },
-                  { case: { $eq: ["$name", "Kavali Deekshith"] }, then: 2 },
-                  { case: { $eq: ["$name", "Ayush Kumar Sahoo"] }, then: 3 }, // Removed trailing space
-                  { case: { $eq: ["$name", "Sumedha Musunuri"] }, then: 4 },
-                  { case: { $eq: ["$name", "Ashwani Senapati"] }, then: 5 },
-                    
+                  {case:{$eq: ["$name", "Vishal Kavali "]}, then: 2},
+                  { case: { $eq: ["$name", "Kavali Deekshith"] }, then: 3 },
+                  { case: { $eq: ["$name", "Ayush Kumar Sahoo"] }, then: 4}, // Removed trailing space
+                  { case: { $eq: ["$name", "Ashwani Senapati"] }, then: 4 },
+                  { case: { $eq: ["$name", "Sumedha Musunuri"] }, then: 5 }, 
+                  {case: {$eq: ["$name", "Sanjana Chaudhary"]}, then: 6},
+                  {case:{$eq: ["$name", "Deepti Manjari Nayak"]}, then: 7},
+
                 ],
                 default: 99,
               },
