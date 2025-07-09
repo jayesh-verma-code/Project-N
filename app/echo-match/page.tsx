@@ -23,8 +23,8 @@ export default function GamePage() {
     const [countdown, setCountdown] = useState<number | null>(null);
     const [showPlayAgain, setShowPlayAgain] = useState(false);
     const [volume, setVolume] = useState(1);
-    const [startTime, setStartTime] = useState<number | null>(null); // ⬅️ Add this
-    const [responseTime, setResponseTime] = useState<number | null>(null); // ⬅️ Optional, to display time
+    const [startTime, setStartTime] = useState<number | null>(null); 
+    const [responseTime, setResponseTime] = useState<number | null>(null); 
     const [isPlaying, setIsPlaying] = useState(false);
 
     const startGame = () => {
