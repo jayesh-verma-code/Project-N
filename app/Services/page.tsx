@@ -4,6 +4,7 @@ import ParticlesBackground from '@/components/shared/particle-background';
 import ChatbotServices from './_components/ChatBotServicesNew';
 import { ThemeProvider } from 'next-themes';
 import React,{useRef} from 'react'
+import CommunityServicesPage from './_components/CommunityServicesPage';
 
 const page = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -13,6 +14,7 @@ const page = () => {
         <CustomCursor containerRef={containerRef as React.RefObject<HTMLDivElement>} />
         <ParticlesBackground/>
         <ChatbotServices/>
+        <CommunityServicesPage/>
       </ThemeProvider>
     </div>
   )
