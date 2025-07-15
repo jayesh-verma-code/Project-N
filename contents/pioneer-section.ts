@@ -13,9 +13,9 @@ export const pioneers: TeamMember[] = [
   {
     id: "CEO",
     name: "Ayush Kumar Sahoo",
-    role: "Co-Founder & CFO",
+    role: "Co-Founder & CMO",
     description:
-      "Ayush Kumar Sahoo is the Co-Founder and Chief Financial Officer at NirveonX, where he turns vision into viable strategy. A final-year BTech student at NIT Rourkela, Ayush brings technical rigor and financial focus to every decision. He keeps the numbers sharp and the mission steady - shaping business models, managing budgets, and building financial systems that fuel sustainable growth. From driving fundraising efforts to optimizing costs and ensuring compliance, Ayush makes sure every step forward is financially sound and purpose-driven. With a clear eye on both impact and investment, he helps NirveonX scale responsibly in the world of AI-powered healthcare.",
+      "Ayush Kumar Sahoo is the Co-Founder and Chief Marketing Officer at NirveonX, where he turns vision into viable strategy. A final-year BTech student at NIT Rourkela, Ayush brings technical rigor and financial focus to every decision. He keeps the numbers sharp and the mission steady - shaping business models, managing budgets, and building financial systems that fuel sustainable growth. From driving fundraising efforts to optimizing costs and ensuring compliance, Ayush makes sure every step forward is financially sound and purpose-driven. With a clear eye on both impact and investment, he helps NirveonX scale responsibly in the world of AI-powered healthcare.",
     avatar:
       "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1742285267/WhatsApp_Image_2025-03-18_at_02.54.10_zk0air.jpg",
   },
@@ -65,6 +65,15 @@ export  const additionalPioneer: TeamMember[] = [
       "Sanjana Chaudhary is the Chief Operating Officer at NirveonX, where she turns big ideas into real-world impact. A final-year Computer Science undergraduate, she keeps the engine running - aligning teams, streamlining operations, and ensuring every part of the company works in sync to deliver affordable, AI-powered healthcare. From managing product rollouts to supporting doctors and patients, Sanjana ensures that innovation at NirveonX stays grounded in care, clarity, and execution.",
     avatar:
       "https://res.cloudinary.com/dnfq7ty1x/image/upload/v1750670920/bq1ewdubbpnfizmjt9a4.jpg",
+  },
+  {
+    id: "CFO",
+    name: "Chalamalla Lochan Kumar",
+    role: "CFO",
+    description:
+      "Chalamalla Lochan Kumar serves as the Chief Financial Officer of NirveonX, bringing strategic financial leadership to the company's mission of revolutionizing healthcare through AI-driven innovation. A B.Tech AI & ML graduate from JNTUH, he combines deep technical understanding with robust financial expertise to drive sustainable growth and operational excellence. He oversees all financial operations, strategic planning, and investment decisions that fuel NirveonX's expansion in the AI healthcare sector. His unique blend of artificial intelligence knowledge and financial acumen enables him to evaluate technology investments, optimize resource allocation, and establish financial frameworks that support innovative healthcare solutions.",
+    avatar:
+      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1752586382/1750947689549_komco8.jpg",
   },
   {
     id: "Chooo",
