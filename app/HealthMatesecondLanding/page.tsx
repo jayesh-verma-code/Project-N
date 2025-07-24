@@ -84,6 +84,7 @@ export default function HealthMatePage() {
     { id: 'thyroid', title: 'Thyroid', image: '/image thytoid.png', icon: 'thyroid' },
     { id: 'sonography', title: 'Sonography', image: '/image sonography.png', icon: 'sonography' },
     { id: 'biopsy', title: 'General Chatbot', image: '/image biospy.png', icon: 'chat' },
+    { id:'ayurveda', title:'Ayurveda Chatbot',image:'/image biospy.png', icon:'chat'}
   ];
 
   return (
@@ -164,26 +165,26 @@ export default function HealthMatePage() {
               animate="visible"
               className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4"
             >
-              {categories.slice(0, 4).map(category => (
+              {categories.map(category => (
                 <CategoryCard key={category.id} category={category} />
               ))}
             </motion.div>
             
             {/* Last 3 cards centered */}
-            <div className="flex justify-center">
+            {/* <div className="flex justify-center">
               <motion.div 
                 variants={container}
                 initial="hidden"
                 animate="visible"
-                className="grid grid-cols-2 md:grid-cols-3 gap-4 w-full max-w-2xl"
+                className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-2xl"
               >
                 {categories.slice(4).map(category => (
                   <CategoryCard key={category.id} category={category} />
                 ))}
                 {/* Empty div to maintain grid alignment */}
-                <div className="hidden md:block"></div>
+                {/* <div className="hidden md:block"></div>
               </motion.div>
-            </div>
+            </div> */} 
           </div>
           
           {/* Bottom particle cluster */}
