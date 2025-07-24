@@ -9,6 +9,7 @@ import KidneyCTAnalysis from './Kidneyct';
 import XRayAnalyzer from './Xray';
 import Thyroid from './Thyroid';
 import GeneralChat from './GeneralChat';
+import AyurvedaChat from './AyurvedaChat';
 
 type Message = {
   id: string;
@@ -94,6 +95,11 @@ export default function Home() {
           case 'other':
             setInitialMessage('You\'ve selected Other medical categories. Please let me know what specific health topic you\'d like assistance with.');
             console.log('Category detected: other');
+            break;
+          case 'ayurveda':
+            setCatType("ayurveda");
+            setInitialMessage('You\'ve selected Ayurveda. Please let me know what specific health topic you\'d like assistance with.');
+            console.log('Category detected: ayurveda');
             break;
           default:
             setInitialMessage('How can I assist you with your health today?');
@@ -364,6 +370,8 @@ export default function Home() {
       <GeneralChat/>}
       {catType==="other" &&
       <GeneralChat/>}
+      {catType==="ayurveda" && 
+      <AyurvedaChat/>}
     </div>
   );
 }
