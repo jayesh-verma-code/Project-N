@@ -21,6 +21,13 @@ const chatBotServices: ChatBotService[] = [
       "FitronX is an AI-powered fitness platform that transforms wellness by organizing high energy, event based workouts. It brings together communities for immersive fitness experiences that boost health and build real human connections.",
     getStarted: "/fitronx",
   },
+  {
+    chatbot_name: "Doctor's Community Forum",
+    image: "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1753544249/download_fwleh3.jpg",
+    description:
+      "",
+    getStarted: "/forum",
+  },
 ];
 
 const useMediaQuery = (query: string) => {

@@ -9,6 +9,7 @@ import {
   SignedOut,
   UserButton,
 } from "@clerk/nextjs";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -64,13 +65,13 @@ export const metadata: Metadata = {
     title: "NirveonX | Revolutionizing Healthcare with AI",
     description:
       "Experience the future of healthcare with AI-powered diagnostics, virtual consultations, pet care, and mental wellness support.",
-    url: "https://nirveonx.com", 
+    url: "https://nirveonx.com",
     siteName: "NirveonX",
     locale: "en_US",
     type: "website",
     images: [
       {
-        url: "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1748971553/WhatsApp_Image_2025-06-03_at_22.53.50_cqli87.jpg", 
+        url: "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1748971553/WhatsApp_Image_2025-06-03_at_22.53.50_cqli87.jpg",
         width: 1200,
         height: 630,
         alt: "NirveonX - AI-Powered Healthcare Platform",
@@ -82,15 +83,17 @@ export const metadata: Metadata = {
     title: "NirveonX | AI-Powered Healthcare",
     description:
       "Personalized healthcare solutions powered by AI - from medical assistance to pet care and mental wellness.",
-    creator: "@nirveonx", 
-    images: ["https://res.cloudinary.com/dqqyuvg1v/image/upload/v1748971553/WhatsApp_Image_2025-06-03_at_22.53.50_cqli87.jpg"], 
+    creator: "@nirveonx",
+    images: [
+      "https://res.cloudinary.com/dqqyuvg1v/image/upload/v1748971553/WhatsApp_Image_2025-06-03_at_22.53.50_cqli87.jpg",
+    ],
   },
   viewport: {
     width: "device-width",
     initialScale: 1,
   },
   verification: {
-    google: "your-google-site-verification", 
+    google: "your-google-site-verification",
   },
 };
 
@@ -101,11 +104,18 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en" className="dark" style={{ colorScheme: "dark" }}>
+      <html lang="en" suppressHydrationWarning>
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          {children}
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>
