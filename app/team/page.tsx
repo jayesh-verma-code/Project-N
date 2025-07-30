@@ -9,6 +9,7 @@ import NoiseTexture from "@/components/shared/noise-texture";
 import ParticlesBackground from "@/components/shared/particle-background";
 import { TeamMemberCard } from "@/components/Team/TeamMemberCard";
 import { SkeletonCard } from "@/components/Team/SkeletonCard";
+import { useRouter } from "next/navigation";
 
 export interface TeamMember {
   _id: string;
@@ -56,6 +57,7 @@ export default function TeamPage() {
   const [error, setError] = useState<string | null>(null);
   const headerRef = useRef(null);
   const isHeaderInView = useInView(headerRef);
+  const router = useRouter();
 
   // Fetch team members from API
   useEffect(() => {
@@ -63,11 +65,11 @@ export default function TeamPage() {
       try {
         setIsLoading(true);
         setError(null);
-        
-        const response = await fetch('/api/team', {
-          method: 'GET',
+
+        const response = await fetch("/api/team", {
+          method: "GET",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         });
 
@@ -76,19 +78,21 @@ export default function TeamPage() {
         }
 
         const data: ApiResponse = await response.json();
-        
+
         if (data.success && data.data) {
           // Filter out inactive members (status !== 1) if needed
-          const activeMembers = data.data.filter(member => 
-            member.status === undefined || member.status === 1
+          const activeMembers = data.data.filter(
+            (member) => member.status === undefined || member.status === 1
           );
           setTeamMembers(activeMembers);
         } else {
-          throw new Error(data.message || 'Failed to fetch team members');
+          throw new Error(data.message || "Failed to fetch team members");
         }
       } catch (err) {
-        console.error('Error fetching team members:', err);
-        setError(err instanceof Error ? err.message : 'Failed to load team members');
+        console.error("Error fetching team members:", err);
+        setError(
+          err instanceof Error ? err.message : "Failed to load team members"
+        );
       } finally {
         setIsLoading(false);
       }
@@ -97,6 +101,7 @@ export default function TeamPage() {
     fetchTeamMembers();
   }, []);
 
+  const handleMeet = () => router.push("/certificates");
   const filteredMembers = teamMembers.filter(
     (member) => activeTab === "all" || member.category === activeTab
   );
@@ -270,6 +275,18 @@ export default function TeamPage() {
             </>
           )}
         </div>
+        <motion.div
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          className="touch-none flex justify-center mt-5"
+        >
+          <button
+            onClick={handleMeet}
+            className="px-6 py-2 bg-[#f9f9fb] text-black rounded-md active:text-white active:scale-105 active:shadow-lg transition-all duration-300 hover:text-white hover:bg-black hover:scale-105 hover:shadow-lg"
+          >
+            Certificates
+          </button>
+        </motion.div>
       </main>
     </div>
   );
