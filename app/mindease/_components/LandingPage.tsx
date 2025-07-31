@@ -127,6 +127,10 @@ export default function LandingPage() {
             title="Mindfulness Tips"
             imagePath="/Mindfull-mindease.png"
           />
+           <Card
+            title="Early Adult Support"
+            imagePath="/Mindfull-mindease.png"
+          />
         </motion.div>
       </div>
     </div>
@@ -164,6 +168,9 @@ function Card({ title, imagePath }: { title: string; imagePath: string }) {
   const getLinkPath = () => {
     if (title === "Daily Stress Check") {
       return "/bubble";
+    }
+    if (title === "Early Adult Support") {
+      return "/earlyAdult";
     }
     return "/mindease/chat";
   };
