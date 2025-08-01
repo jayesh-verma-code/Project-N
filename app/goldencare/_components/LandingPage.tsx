@@ -400,7 +400,7 @@ function Card({
           variants={buttonVariants}
           whileHover="hover"
           whileTap="tap"
-          onClick={(e) => handleNavigation(e, '/goldencare/chat')}
+          onClick={(e) => handleNavigation(e, '/Healthmate?category=biopsy')}
           className="bg-white/80 backdrop-filter backdrop-blur-sm text-black rounded-full py-2 px-3 text-xs font-medium text-center
                     relative overflow-hidden 
                     before:absolute before:inset-0 before:w-full before:h-full before:bg-gradient-to-r

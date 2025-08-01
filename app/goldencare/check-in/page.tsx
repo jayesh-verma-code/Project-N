@@ -577,7 +577,7 @@ const HealthCheckInPage = () => {
                   </Card>
                   <div className='flex flex-row items-center justify-center'>
                      <Button className='bg-gradient-to-r from-yellow-600 to-amber-600 hover:from-yellow-700 hover:to-amber-700 shadow-lg hover:shadow-amber-500/20 transition-all duration-300 py-6 text-white'>
-                   <Link href={"/goldencare/chat"}>Go To Chatbot</Link>
+                   <Link href={"/Healthmate?category=biopsy"}>Go To Chatbot</Link>
                   </Button>
                   </div>
                  
