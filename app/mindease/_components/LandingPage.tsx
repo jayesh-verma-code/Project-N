@@ -131,6 +131,10 @@ export default function LandingPage() {
             title="Early Adult Support"
             imagePath="/Mindfull-mindease.png"
           />
+          <Card
+            title="Indian Grandparent"
+            imagePath="/Mindfull-mindease.png"
+          />
         </motion.div>
       </div>
     </div>
@@ -169,8 +173,17 @@ function Card({ title, imagePath }: { title: string; imagePath: string }) {
     if (title === "Daily Stress Check") {
       return "/bubble";
     }
+     if (title === "Hobby-Based Theraphy") {
+      return "/echo-match";
+    }
+    if (title === "Guided Meditation") {
+      return "/bloom-buds";
+    }
     if (title === "Early Adult Support") {
       return "/earlyAdult";
+    }
+    if (title === "Indian Grandparent") {
+      return "/indiangrand";
     }
     return "/mindease/chat";
   };
