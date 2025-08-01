@@ -22,7 +22,7 @@ const CallScreenEnd: React.FC = () => {
   // Explicitly type app keys
   type AppKey = "goldencare" | "healthmate" | "pet-ai" | "mindease";
   const appRoutes: Record<AppKey, { landing: string; chat: string }> = {
-    goldencare: { landing: "/goldencare", chat: "/goldencare/chat" },
+    goldencare: { landing: "/goldencare", chat: "/Healthmate?category=biopsy" },
     healthmate: {
       landing: "/HealthMateLanding",
       chat: "/HealthMatesecondLanding",

@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Menu, X, MessageSquarePlus, Settings, LogOut, HeartPulse, Trash2 } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 
 type Message = {
   id: string;
@@ -22,8 +23,10 @@ type ChatHistoryItem = {
 const API_BASE_URL = "https://healthcare-chatbot-662622027382.europe-west1.run.app";
 
 export default function GeneralChat() {
+  const pathname = usePathname();
+  const [title, setTitle] = useState<string>('Healthmate');
   const [inputValue, setInputValue] = useState<string>('');
-  const [initialMessage] = useState<string>('Welcome to the HealthMate AI assistant. How can I help you today?');
+  const [initialMessage] = useState<string>(`Welcome to the AI assistant. How can I help you today?`);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [sessionId, setSessionId] = useState<string | null>(null);
@@ -33,6 +36,13 @@ export default function GeneralChat() {
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
+  useEffect(() => {
+  if (pathname !== '/goldencare/chat') {
+    setTitle('Healthmate');
+  } else {
+    setTitle('Goldencare');
+  }
+}, [pathname]);
 
   // Initialize session and load chat history
   useEffect(() => {
@@ -339,7 +349,7 @@ export default function GeneralChat() {
       >
         <div className="flex flex-row p-6 gap-2 border-b border-gray-700/10">
           <HeartPulse className="text-indigo-600 w-10 h-10" />
-          <h1 className="font-semibold text-lg text-white">Healthmate</h1>
+          <h1 className="font-semibold text-lg text-white">Chat</h1>
         </div>
 
         <div className="flex-1 flex flex-col justify-between p-4">
@@ -408,7 +418,7 @@ export default function GeneralChat() {
       <main className="flex-1 flex flex-col max-w-4xl mx-auto w-full p-4 rounded-lg my-4">
         {/* Header */}
         <div className="text-center mb-4 pb-4">
-          <h1 className="text-4xl font-bold text-blue-500 mb-2">Healthmate</h1>
+          <h1 className="text-4xl font-bold text-blue-500 mb-2">Chat</h1>
           <div className="inline-flex items-center bg-black rounded-full px-3 py-1 border border-green-500">
             <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
             <span className="text-sm text-green-500">Online</span>

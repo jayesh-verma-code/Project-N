@@ -45,7 +45,7 @@ export default function GoldencarePage() {
   const [userName, setUserName] = useState('None');
 
   // API URL
-  const API_URL = 'https://goldencarechat-api-latest-1.onrender.com/chat';
+  const API_URL = 'https://healthcare-chatbot-662622027382.europe-west1.run.app/chat';
 
   // Get current chat
   const currentChat = chatSessions.find((chat) => chat.id === currentChatId) || null;4
