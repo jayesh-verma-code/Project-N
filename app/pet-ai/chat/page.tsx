@@ -254,7 +254,7 @@ export default function PetAIPage() {
           formData.append('message', messageText);
         }
 
-        response = await fetch("hhttps://animal-skin-1093207603442.us-central1.run.app/health", {
+        response = await fetch("https://animal-skin-1093207603442.us-central1.run.app/health", {
           method: "POST",
           body: formData,
         });
