@@ -1,5 +1,8 @@
 "use client";
 import { useRef } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 import { ThemeProvider } from "next-themes";
 import ParticlesBackground from "@/components/shared/particle-background";
@@ -9,7 +12,36 @@ import NoiseTexture from "@/components/shared/noise-texture";
 import Healthmate from "@/components/Healthmate";
 import CustomCursor from "@/components/shared/custom-cursor";
 export default function Home() {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/auth/user", {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setUser(res.data.user);
+        setLoading(false);
+      })
+      .catch(() => {
+        setUser(null);
+        setLoading(false);
+        router.push("/signup");
+      });
+  }, [router]);
+
+  if (loading) {
+    return (
+      <div className="flex h-screen items-center justify-center text-white">
+        Loading...
+      </div>
+    );
+  }
+
+
   return (
     <ThemeProvider attribute="class" defaultTheme="dark">
       <main
