@@ -12,11 +12,13 @@ import NoiseTexture from "@/components/shared/noise-texture";
 import Healthmate from "@/components/Healthmate";
 import CustomCursor from "@/components/shared/custom-cursor";
 export default function Home() {
+  //19.0
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
 
+  //19.1 if not logged in, redirect to signup
   useEffect(() => {
     axios
       .get("http://localhost:8080/auth/user", {
@@ -33,6 +35,7 @@ export default function Home() {
       });
   }, [router]);
 
+  //19.2
   if (loading) {
     return (
       <div className="flex h-screen items-center justify-center text-white">

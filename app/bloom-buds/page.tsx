@@ -36,6 +36,7 @@ const ACTIVE_DURATION = 2000;
 const GAME_DURATION = 30;
 
 export default function BloomGame() {
+  //20.0
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const router = useRouter();
@@ -57,6 +58,7 @@ export default function BloomGame() {
     const playMiss = useSound('/sounds/wrong-tap.mp3');
     const playGameOver = useSound('/sounds/game-over.mp3');
 
+    //20.1
     useEffect(() => {
     axios
       .get("http://localhost:8080/auth/user", {
@@ -227,6 +229,7 @@ export default function BloomGame() {
         window.location.reload();
     };
 
+    //20.2
     if (loading) {
     return (
       <div className="flex h-screen items-center justify-center text-white">

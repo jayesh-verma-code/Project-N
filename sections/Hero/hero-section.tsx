@@ -80,6 +80,7 @@ export default function HeroSection() {
       ref={ref}
       className="h-screen items-center justify-center px-4 relative overflow-hidden"
     >
+      {/* //15.0 */}
       <Signup/>
       <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
         <div className="absolute inset-0 z-0">
