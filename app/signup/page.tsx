@@ -1,14 +1,40 @@
 //3.1 
 // Project-N/app/signup/page.tsx
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import ParticlesBackground from "@/components/shared/particle-background";
 import CustomCursor from "@/components/shared/custom-cursor";
 import BackButton from "@/components/Auth/BackButton";
-
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
 
 const page = () => {
+  const router = useRouter();
+    const [newSignupForm, setNewSignupForm] = useState({
+        username: '',
+        firstName: '',
+        password: ''
+    });
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const base = 'http://localhost:8080'; // Replace with your backend URL
+            const response = await axios.post( `${base}/auth/local`, newSignupForm);
+            if (response.status === 201) {
+                alert('User created successfully!');
+                router.push('/login'); // Redirect to listings page
+            }
+        } catch (error) {
+            console.error('Error creating User:', error);
+            alert('Failed to create user. Please try again.');
+        }
+    };
+
+    const handleChange = (e) => {
+        setNewSignupForm({ ...newSignupForm, [e.target.name]: e.target.value });
+    };
 
   const handleGoogleLogin = () => {
     // redirect user to backend google auth route
@@ -33,11 +59,11 @@ const page = () => {
                <p className="text-[0.8rem] text-gray-400">One AI. Infinite Care Health, Wellness</p>
                <p className="text-[0.8rem] text-gray-400"> & Beyond</p>
 
-               <form action="" className="flex flex-col gap-[0.5rem] pt-[1.5rem]">
-                <input className="py-[0.5rem] px-[1rem] w-[18rem] border-1 border-white/5 rounded-xl" type="text" placeholder="Name"/>
-                <input className="py-[0.5rem] px-[1rem] w-[18rem] border-1 border-white/5 rounded-xl" type="email" placeholder="Email"/>
-                <input className="py-[0.5rem] px-[1rem] w-[18rem] border-1 border-white/5 rounded-xl" type="passport" placeholder="Password"/>
-                <div className="w-[100%] flex justify-end py-[0.3rem]"><p className="text-[0.7rem] text-gray-400"><a href="">Forgot password?</a></p></div>
+               <form onSubmit={handleSubmit} className="flex flex-col gap-[0.5rem] pt-[1.5rem]">
+                <input name="firstName" onChange={handleChange} className="py-[0.5rem] px-[1rem] w-[18rem] border-1 border-white/5 rounded-xl" type="text" placeholder="Name" required/>
+                <input name="username" onChange={handleChange} className="py-[0.5rem] px-[1rem] w-[18rem] border-1 border-white/5 rounded-xl" type="email" placeholder="Email" required/>
+                <input name="password" onChange={handleChange} className="py-[0.5rem] px-[1rem] w-[18rem] border-1 border-white/5 rounded-xl" type="passport" placeholder="Password" required/>
+                <div className="w-[100%] flex justify-end py-[0.3rem]"><p className="text-[0.7rem] text-gray-400"><a href="/login">Already have a account ?</a></p></div>
                 <button className="cursor-pointer bg-white py-[0.5rem] text-black font-[500] text-[0.9rem] rounded-[0.6rem]">Get Started</button>
                </form>
 

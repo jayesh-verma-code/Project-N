@@ -1,4 +1,6 @@
 "use client";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 import React, { useState, useEffect } from 'react';
 import { 
@@ -41,6 +43,27 @@ import ParticlesBackground from '@/components/shared/particle-background';
 const API_URL = 'https://goldencare-api.onrender.com' ;
 
 const HealthCheckInPage = () => {
+  const [user, setUser] = useState(null);
+    const [authloading, setAuthLoading] = useState(true);
+    const router = useRouter();
+
+    //checking user authentication
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/auth/user", {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setUser(res.data.user);
+        setAuthLoading(false);
+      })
+      .catch(() => {
+        setUser(null);
+        setAuthLoading(false);
+        router.push("/signup");
+      });
+  }, [router]);
+
   // State for user name entry
   const [name, setName] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -189,6 +212,14 @@ const HealthCheckInPage = () => {
     }
   }, [message]);
 
+  if (authloading) {
+    return (
+      <div className="flex h-screen items-center justify-center text-white">
+        Loading...
+      </div>
+    );
+  }
+  
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-gray-950 text-white p-4 relative overflow-hidden">
       <ParticlesBackground/>

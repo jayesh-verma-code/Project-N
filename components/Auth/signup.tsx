@@ -20,6 +20,11 @@ const signup = () => {
     router.push("/signup");
  };
 
+ //26.3
+ const handleSLogIn = () => {
+    router.push("/login");
+ };
+
  //17.2
  const handleProfileToggle = () => {
     setIsProfileOpen(!isProfileOpen);
@@ -55,13 +60,17 @@ const signup = () => {
         {isProfileOpen && <Profile user={user} />}
       </div>
     ) : (
-      <div onClick={handleProfileToggle} className="relative cursor-pointer top-[-0.5rem] md:top-0 w-[2rem] h-[2rem] md:w-[2.5rem] md:h-[2.5rem] rounded-full bg-pink-600 text-[1.2rem] flex justify-center items-center">
-        {user.firstName && user.firstName[0].toUpperCase()}
+      <div onClick={handleProfileToggle} className="relative cursor-pointer top-[-0.5rem] md:top-0 w-[2rem] h-[2rem] md:w-[2.5rem] md:h-[2.5rem] rounded-full bg-pink-600 text-[1rem] flex justify-center items-center">
+        <p>{user.firstName && user.firstName[0].toUpperCase()}</p>
+         {isProfileOpen && <Profile user={user} />}
       </div>
     )}
   </div>
 ) : (
-  <p onClick={handleSignIn} className="cursor-pointer">Sign up</p>
+  <div className='flex gap-[1rem]'>
+    <p onClick={handleSignIn} className="cursor-pointer font-[500]">Sign up</p>
+    <p onClick={handleSLogIn} className='cursor-pointer font-[500]'>Log in</p>
+  </div>
 )}
 
     </div>
