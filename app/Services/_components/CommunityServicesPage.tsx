@@ -35,6 +35,13 @@ const chatBotServices: ChatBotService[] = [
       "Wellip is a gamified wellness platform for all ages, helping users build healthy habits, emotional resilience, and better lifestyle choices through simple, bite-sized lessons.",
     getStarted: "/wellip",
   },
+  {
+    chatbot_name: "AmboRapid",
+    image: "",// You can replace this with an actual image URL
+    description:
+    "AmboRapid is an emergency ambulance response system with real-time tracking, SOS alerts, and seamless hospital integration to save lives during critical moments.",
+    getStarted: "/AmboRapid",
+  },
 ];
 
 const useMediaQuery = (query: string) => {
