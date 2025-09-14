@@ -37,7 +37,7 @@ const chatBotServices: ChatBotService[] = [
   },
   {
     chatbot_name: "AmboRapid",
-    image: "",// You can replace this with an actual image URL
+    image: "https://res.cloudinary.com/dnkhur6aj/image/upload/v1757836488/AmboRapid_po6alt.png",
     description:
     "AmboRapid is an emergency ambulance response system with real-time tracking, SOS alerts, and seamless hospital integration to save lives during critical moments.",
     getStarted: "/AmboRapid",

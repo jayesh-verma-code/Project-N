@@ -4,9 +4,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Flame,
   UserCheck,
-  Languages,
-  Clock,
   Star,
+  MapPin,
+  FileText,
+  Phone,
+  Shield,
+  AlertCircle,
+  Ambulance,
+  HeartPulse
 } from "lucide-react";
 import Link from "next/link";
 
@@ -15,48 +20,31 @@ const cursorStyle = {
   cursor: "auto",
 };
 
-// Style for consistent particle background overlay (visual effect, non-interactive)
-const particleBackgroundStyle: React.CSSProperties = {
-  position: "absolute",
-  inset: 0,
-  zIndex: 0,
-  opacity: 0.3,
-  pointerEvents: "none",
-};
-
 // Emergency modules shown as feature cards in the first section
 const emergencyModules = [
   {
     title: "SOS Emergency",
     description: "Trigger instant SOS alerts to nearest ambulance & hospital.",
     icon: Flame,
-    color: "from-red-600 to-red-900",
-    bgColor: "bg-black/30",
-    borderColor: "border-white/10",
+    color: "from-red-500 to-red-700",
   },
   {
     title: "Live Tracking",
     description: "Track ambulance location and ETA in real-time.",
-    icon: Clock, 
-    color: "from-blue-600 to-blue-900",
-    bgColor: "bg-black/30",
-    borderColor: "border-white/10",
+    icon: MapPin,
+    color: "from-blue-500 to-blue-700",
   },
   {
     title: "Hospital Connect",
     description: "Direct connection to nearest emergency hospitals.",
-    icon: UserCheck,
-    color: "from-green-600 to-green-900",
-    bgColor: "bg-black/30",
-    borderColor: "border-white/10",
+    icon: HeartPulse,
+    color: "from-green-500 to-green-700",
   },
   {
     title: "Emergency Contacts",
     description: "Quick dial to saved family & doctors.",
-    icon: Languages,
-    color: "from-indigo-600 to-indigo-900",
-    bgColor: "bg-black/30",
-    borderColor: "border-white/10",
+    icon: Phone,
+    color: "from-purple-500 to-purple-700",
   },
 ];
 
@@ -65,26 +53,26 @@ const features = [
   {
     title: "SOS Button",
     description: "One-tap SOS alert to nearest ambulance and hospital.",
-    icon: Flame, 
-    color: "bg-red-600",
+    icon: AlertCircle,
+    color: "text-red-500",
   },
   {
     title: "Real-Time Tracking",
     description: "See your ambulance moving live on the map with ETA.",
-    icon: Clock, 
-    color: "bg-blue-600",
+    icon: MapPin,
+    color: "text-blue-500",
   },
   {
     title: "AI Support",
     description: "Preliminary AI-based guidance while ambulance arrives.",
-    icon: Star, 
-    color: "bg-purple-600",
+    icon: Star,
+    color: "text-purple-500",
   },
   {
     title: "Cross-Service Sync",
     description: "Integrated with NirveonX Omnicare ecosystem.",
-    icon: UserCheck,
-    color: "bg-green-600",
+    icon: Shield,
+    color: "text-green-500",
   },
 ];
 
@@ -99,17 +87,16 @@ const onboardingSteps = [
   {
     title: "Location Access",
     description: "Enable GPS for accurate ambulance dispatch.",
-    icon: Languages, // replace with MapPin
+    icon: MapPin,
     color: "bg-red-500",
   },
   {
     title: "Emergency Profile",
     description: "Add your medical info & emergency contacts.",
-    icon: Clock, // replace with FileText
+    icon: FileText,
     color: "bg-purple-500",
   },
 ];
-
 
 // Frequently Asked Questions (displayed at the bottom)
 const faqs = [
@@ -131,300 +118,331 @@ const faqs = [
   },
 ];
 
-
-
 // Main landing page component for AmboRapid
 const AmboRapidLandingPage = () => {
   // State to track which onboarding step is active
   const [activeOnboardingStep, setActiveOnboardingStep] = useState(0);
+  const [activeTab, setActiveTab] = useState("features");
 
   return (
-    <div className="min-h-screen bg-black" style={cursorStyle}>
-      {/* ================= Hero Section ================= */}
-      {/* Main headline, description, and CTA buttons */}
-      <section
-        className="relative bg-gradient-to-br from-black via-gray-900 to-black py-20"
-        style={cursorStyle}
-      >
-        {/* Particle background overlay */}
-        <div style={particleBackgroundStyle}>
-          <div className="noise"></div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800" style={cursorStyle}>
+      {/* ================= Header/Navigation ================= */}
+      <header className="sticky top-0 z-50 bg-gray-950/90 backdrop-blur-md border-b border-gray-800">
+        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+          <div className="flex items-center space-x-2">
+            <div className="bg-blue-700 p-2 rounded-lg">
+              {/* <Ambulance className="text-white" size={28} /> */}
+            </div>
+            <span className="text-2xl font-bold text-blue-200">Ambo<span className="text-red-400">Rapid</span></span>
+          </div>
+
+          <nav className="hidden md:flex space-x-8">
+            <a href="#features" className="text-gray-300 hover:text-blue-400 font-medium">Features</a>
+            <a href="#faqs" className="text-gray-300 hover:text-blue-400 font-medium">FAQs</a>
+            <a href="#contact" className="text-gray-300 hover:text-blue-400 font-medium">Contact</a>
+          </nav>
+
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-full font-semibold transition-colors shadow-lg"
+          >
+            Emergency SOS
+          </motion.button>
         </div>
-        <div
-          className="container mx-auto px-4 relative z-10"
-          style={cursorStyle}
-        >
-          <div className="text-center max-w-4xl mx-auto">
+      </header>
+
+      {/* ================= Hero Section ================= */}
+      <section className="relative py-16 md:py-24 overflow-hidden bg-gradient-to-br from-gray-900 to-gray-800">
+        <div className="absolute top-0 right-0 -mt-16 -mr-16 w-64 h-64 bg-blue-900 rounded-full opacity-40 blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 -mb-16 -ml-16 w-64 h-64 bg-red-900 rounded-full opacity-40 blur-3xl"></div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="flex flex-col items-center text-center max-w-3xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
+              className="w-full"
             >
-              {/* App name and subtitle */}
-              <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-                <span className="text-emerald-400">AmboRapid</span>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-100 mb-6">
+                <span className="text-white">Ambo</span>
+                <span className="text-red-500">Rapid</span>
+                <br />
+                Emergency <span className="text-red-500">Ambulance</span>
               </h1>
-              <h2 className="text-2xl md:text-3xl text-gray-300 mb-6">
-                NirveonX Omnicare
-              </h2>
-              {/* Main description */}
-              <p className="text-xl text-gray-300 mb-4 font-medium">
-                Fast, reliable emergency ambulance response with real-time tracking.
-              </p>
-              <p className="text-lg text-gray-400 mb-8 leading-relaxed">
-                Get immediate medical help with SOS alerts, ambulance tracking, 
+              <p className="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed">
+                Get immediate medical help with SOS alerts, real-time ambulance tracking,
                 and seamless hospital integration across India.
               </p>
-              {/* Call-to-action buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors shadow-lg backdrop-blur-sm border border-white/10"
+                  className="bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors shadow-lg flex items-center justify-center"
                 >
+                  <AlertCircle className="mr-2" size={24} />
                   Request Emergency Help
                 </motion.button>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="border border-white/20 text-white hover:bg-white/10 px-8 py-4 rounded-lg text-lg font-semibold transition-colors backdrop-blur-sm"
+                  className="border border-blue-400 text-blue-200 hover:bg-blue-900 px-8 py-4 rounded-lg text-lg font-semibold transition-colors"
                 >
                   Learn More
                 </motion.button>
+              </div>
+
+              {/* Emergency stats below buttons */}
+              <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="bg-gray-900 p-4 rounded-lg shadow-sm border border-gray-800"
+                >
+                  <div className="text-2xl font-bold text-red-400">24/7</div>
+                  <div className="text-gray-300">Emergency Support</div>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="bg-gray-900 p-4 rounded-lg shadow-sm border border-gray-800"
+                >
+                  <div className="text-2xl font-bold text-blue-400">8 min</div>
+                  <div className="text-gray-300">Avg. Response Time</div>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="bg-gray-900 p-4 rounded-lg shadow-sm border border-gray-800"
+                >
+                  <div className="text-2xl font-bold text-green-400">200+</div>
+                  <div className="text-gray-300">Cities Covered</div>
+                </motion.div>
               </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-  {/* ================= Emergency Modules Section ================= */}
-  {/* Cards for each emergency feature/module */}
-      <section
-        className="py-20 bg-gray-900/50 backdrop-blur-sm relative"
-        style={cursorStyle}
-      >
-        <div style={particleBackgroundStyle}>
-          <div className="noise"></div>
-        </div>
-        <div
-          className="container mx-auto px-4 relative z-10"
-          style={cursorStyle}
-        >
+      {/* ================= Emergency Modules Section ================= */}
+      <section id="features" className="py-16 bg-gray-950">
+        <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-white mb-4">
-              Emergency Response Features
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-100 mb-4">
+              Emergency Response <span className="text-red-400">Features</span>
             </h2>
-            <p className="text-xl text-gray-300">
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
               Tools designed to save lives in critical moments
             </p>
           </div>
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {emergencyModules.map((path, index) => (
+            {emergencyModules.map((module, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                whileHover={{
-                  scale: 1.03,
-                  boxShadow: "0 0 20px rgba(255,255,255,0.1)",
-                }}
-                className={`${path.bgColor} ${path.borderColor} border backdrop-blur-md rounded-xl p-6 text-center transition-all duration-300 glass`}
+                whileHover={{ y: -5 }}
+                className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl p-6 shadow-md border border-gray-800 transition-all duration-300"
               >
-                <div
-                  className={`inline-flex p-4 rounded-full bg-gradient-to-r ${path.color} text-white mb-4`}
-                >
-                  <path.icon size={32} />
+                <div className={`inline-flex p-3 rounded-lg bg-gradient-to-r ${module.color.replace('white', 'gray-900').replace('gray-50', 'gray-800')} text-white mb-4`}>
+                  <module.icon size={28} />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3">
-                  {path.title}
+                <h3 className="text-xl font-bold text-gray-100 mb-3">
+                  {module.title}
                 </h3>
-                <p className="text-gray-300">{path.description}</p>
+                <p className="text-gray-400">{module.description}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-  {/* ================= Core Features Section ================= */}
-  {/* Cards for core AmboRapid features */}
-      <section className="py-20 bg-black relative" style={cursorStyle}>
-        <div style={particleBackgroundStyle}>
-          <div className="noise"></div>
-        </div>
-        <div
-          className="container mx-auto px-4 relative z-10"
-          style={cursorStyle}
-        >
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-white mb-4">
-              Core AmboRapid Features
-            </h2>
-            <p className="text-xl text-gray-300">
-              Real-time emergency tools to ensure your safety
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
-            {features.map((feature, index) => (
+      {/* ================= Core Features Section ================= */}
+      <section className="py-16 bg-gray-900">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row">
+            <div className="md:w-1/2 mb-10 md:mb-0">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-100 mb-6">
+                How <span className="text-blue-400">AmboRapid</span> Works
+              </h2>
+              <p className="text-lg text-gray-400 mb-8">
+                Our seamless emergency response system ensures you get help when you need it most, with just a few taps on your phone.
+              </p>
+
+              <div className="flex border-b border-gray-800 mb-6">
+                <button
+                  className={`px-4 py-2 font-medium ${activeTab === "features" ? "text-blue-400 border-b-2 border-blue-400" : "text-gray-400"}`}
+                  onClick={() => setActiveTab("features")}
+                >
+                  Features
+                </button>
+                <button
+                  className={`px-4 py-2 font-medium ${activeTab === "onboarding" ? "text-blue-400 border-b-2 border-blue-400" : "text-gray-400"}`}
+                  onClick={() => setActiveTab("onboarding")}
+                >
+                  Setup
+                </button>
+              </div>
+
+              <AnimatePresence mode="wait">
+                {activeTab === "features" ? (
+                  <motion.div
+                    key="features"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 20 }}
+                    className="space-y-6"
+                  >
+                    {features.map((feature, index) => (
+                      <div key={index} className="flex items-start">
+                        <div className={`p-2 rounded-lg ${feature.color} bg-opacity-20 mr-4`}>
+                          <feature.icon className={feature.color} size={24} />
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-semibold text-gray-100 mb-1">{feature.title}</h3>
+                          <p className="text-gray-400">{feature.description}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="onboarding"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 20 }}
+                    className="space-y-6"
+                  >
+                    {onboardingSteps.map((step, index) => (
+                      <div key={index} className="flex items-start">
+                        <div className="bg-blue-900 text-blue-200 rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4">
+                          {index + 1}
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-semibold text-gray-100 mb-1">{step.title}</h3>
+                          <p className="text-gray-400">{step.description}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            <div className="md:w-1/2 flex justify-center">
               <motion.div
-                key={index}
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{
-                  scale: 1.05,
-                  boxShadow: "0 0 25px rgba(255,255,255,0.12)",
-                }}
-                className="bg-black/40 backdrop-blur-md rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-white/10 text-center"
+                transition={{ duration: 0.5 }}
+                className="bg-gray-950 p-8 rounded-2xl shadow-lg border border-gray-800 max-w-md"
               >
-                <div
-                  className={`inline-flex p-4 rounded-full ${feature.color} text-white mb-6`}
-                >
-                  <feature.icon size={32} />
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-3">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-300 text-lg">{feature.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-  {/* ================= Onboarding Section ================= */}
-  {/* Steps for onboarding new users, with animated details */}
-      <section className="py-20 bg-gray-900/30 backdrop-blur-sm relative" style={cursorStyle}>
-        <div style={particleBackgroundStyle}><div className="noise"></div></div>
-        <div className="container mx-auto px-4 relative z-10" style={cursorStyle}>
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-white mb-4">
-              Fast Onboarding
-            </h2>
-            <p className="text-xl text-gray-300">
-              Setup in under a minute for emergencies
-            </p>
-          </div>
-          <div className="max-w-3xl mx-auto">
-            <div className="grid md:grid-cols-3 gap-4 mb-8">
-              {onboardingSteps.map((step, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className={`text-center cursor-pointer p-4 rounded-lg transition-all duration-300 ${activeOnboardingStep === index ? "bg-emerald-900/40 border border-emerald-500/30 backdrop-blur-sm" : "hover:bg-gray-800/50 border border-transparent"}`}
-                  onClick={() => setActiveOnboardingStep(index)}
-                >
-                  <div className={`inline-flex p-3 rounded-full ${step.color} text-white mb-3`}>
-                    <step.icon size={28} />
+                <div className="text-center mb-6">
+                  <div className="bg-red-900 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <AlertCircle className="text-red-400" size={32} />
                   </div>
-                  <div className="text-lg font-semibold text-white mb-1">{step.title}</div>
-                  <div className="text-xs text-gray-400">{step.description}</div>
-                </motion.div>
-              ))}
-            </div>
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeOnboardingStep}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                className="bg-black/40 backdrop-blur-md rounded-xl p-8 shadow-lg border border-white/10 text-center"
-              >
-                <div
-                  className={`inline-flex p-4 rounded-full ${onboardingSteps[activeOnboardingStep].color} text-white mb-4`}
-                >
-                  {(() => {
-                    const IconComp = onboardingSteps[activeOnboardingStep].icon;
-                    return <IconComp size={32} />;
-                  })()}
+                  <h3 className="text-2xl font-bold text-gray-100 mb-2">Emergency SOS</h3>
+                  <p className="text-gray-400">One tap to get immediate help</p>
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-3">
-                  {onboardingSteps[activeOnboardingStep].title}
-                </h3>
-                <p className="text-lg text-gray-300">
-                  {onboardingSteps[activeOnboardingStep].description}
-                </p>
+
+                <div className="bg-gray-900 p-4 rounded-lg mb-6 border border-gray-800">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="font-medium text-gray-200">Your Location</span>
+                    <span className="text-blue-400 text-sm">Detected</span>
+                  </div>
+                  <div className="text-sm text-gray-400">123 Main St, City, State</div>
+                </div>
+
+                <button className="w-full bg-red-600 hover:bg-red-700 text-white py-4 rounded-lg font-semibold text-lg shadow-lg transition-colors">
+                  Activate Emergency Mode
+                </button>
+
+                <div className="mt-4 text-center text-sm text-gray-500">
+                  This will alert nearby ambulances and emergency contacts
+                </div>
               </motion.div>
-            </AnimatePresence>
+            </div>
           </div>
         </div>
       </section>
 
-  {/* ================= FAQs Section ================= */}
-  {/* Frequently asked questions about AmboRapid */}
-      <section className="py-20 bg-black relative" style={cursorStyle}>
-        <div style={particleBackgroundStyle}><div className="noise"></div></div>
-        <div className="container mx-auto px-4 relative z-10" style={cursorStyle}>
+
+
+      {/* ================= FAQs Section ================= */}
+      <section id="faqs" className="py-16 bg-gray-950">
+        <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-white mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-100 mb-4">
               Frequently Asked Questions
             </h2>
-            <p className="text-xl text-gray-300">
-              Answering your AmboRapid queries
+            <p className="text-xl text-gray-400">
+              Everything you need to know about AmboRapid
             </p>
           </div>
-          <div className="max-w-3xl mx-auto space-y-6">
+
+          <div className="max-w-3xl mx-auto">
             {faqs.map((faq, idx) => (
               <motion.div
                 key={idx}
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.08 }}
-                whileHover={{ scale: 1.01, borderColor: "rgba(255,255,255,0.18)" }}
-                className="bg-black/40 backdrop-blur-md rounded-xl p-6 shadow-lg border border-white/10"
+                transition={{ delay: idx * 0.1 }}
+                className="mb-6 last:mb-0"
               >
-                <h3 className="text-lg font-semibold text-white mb-3">
-                  {faq.question}
-                </h3>
-                <p className="text-gray-300">{faq.answer}</p>
+                <div className="bg-gray-900 rounded-lg p-6 shadow-sm border border-gray-800">
+                  <h3 className="text-lg font-semibold text-gray-100 mb-3 flex items-start">
+                    <span className="bg-blue-900 text-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">?</span>
+                    {faq.question}
+                  </h3>
+                  <p className="text-gray-400 pl-9">{faq.answer}</p>
+                </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-  {/* ================= Final Call-to-Action Section ================= */}
-  {/* Final CTA and contact info */}
-      <section
-        className="py-20 bg-gradient-to-r from-emerald-900/70 to-blue-800/70 backdrop-blur-md relative"
-        style={cursorStyle}
-      >
-        <div style={particleBackgroundStyle}><div className="noise"></div></div>
-        <div className="container mx-auto px-4 text-center relative z-10" style={cursorStyle}>
+      {/* ================= Final CTA Section ================= */}
+      <section id="contact" className="py-16 bg-gradient-to-r from-blue-900 to-blue-700 text-white">
+        <div className="container mx-auto px-4 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             className="max-w-3xl mx-auto"
           >
-            <h2 className="text-4xl font-bold text-white mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
               Need Emergency Assistance Now?
             </h2>
-            <p className="text-xl text-emerald-100 mb-8">
+            <p className="text-xl text-blue-200 mb-8">
               Use AmboRapid to get real-time ambulance response and hospital care
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-white text-emerald-900 hover:bg-gray-200 px-8 py-4 rounded-lg text-lg font-semibold transition-colors shadow-lg"
+                className="bg-red-600 text-white hover:bg-red-700 px-8 py-4 rounded-lg text-lg font-semibold transition-colors shadow-lg flex items-center justify-center"
               >
+                <AlertCircle className="mr-2" size={24} />
                 Request Ambulance Now
               </motion.button>
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="border border-white text-white hover:bg-emerald-800/50 px-8 py-4 rounded-lg text-lg font-semibold transition-colors backdrop-blur-sm"
+                className="border border-white text-white hover:bg-blue-900 px-8 py-4 rounded-lg text-lg font-semibold transition-colors"
               >
                 Contact Support
               </motion.button>
             </div>
-            <div className="mt-8 text-emerald-100 text-sm">
+            <div className="mt-8 text-blue-200 text-sm">
               <p>
                 Questions? Contact us at{" "}
                 <a
-                  href="mailto:wellip@nirveonx.com"
+                  href="mailto:amborapid@nirveonx.com"
                   className="underline hover:text-white"
                 >
                   amborapid@nirveonx.com
@@ -435,27 +453,26 @@ const AmboRapidLandingPage = () => {
         </div>
       </section>
 
-  {/* ================= Footer Section ================= */}
-  {/* Footer with company info, links, and copyright */}
-      <footer
-        className="bg-black text-white py-12 border-t border-white/10"
-        style={cursorStyle}
-      >
+      {/* ================= Footer Section ================= */}
+      <footer className="bg-gray-950 text-white py-12">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
-              <h3 className="text-xl font-bold mb-4">NirveonX Omnicare</h3>
+              <div className="flex items-center space-x-2 mb-4">
+                <Ambulance className="text-blue-400" size={24} />
+                <span className="text-xl font-bold text-blue-200">Ambo<span className="text-red-400">Rapid</span></span>
+              </div>
               <p className="text-gray-400">
                 Enabling fast and reliable emergency medical response with cutting-edge technology.
               </p>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Services</h4>
+              <h4 className="font-semibold mb-4 text-gray-200">Services</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>
                   <Link
                     href="/HealthMateLanding"
-                    className="hover:text-white transition-colors"
+                    className="hover:text-blue-200 transition-colors"
                   >
                     HealthMate
                   </Link>
@@ -476,25 +493,17 @@ const AmboRapidLandingPage = () => {
                     GoldenCare
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    href="/pet-ai"
-                    className="hover:text-white transition-colors"
-                  >
-                    PetAI
-                  </Link>
-                </li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Community</h4>
+              <h4 className="font-semibold mb-4 text-gray-200">Company</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>
                   <Link
-                    href="/forum"
-                    className="hover:text-white transition-colors"
+                    href="/about"
+                    className="hover:text-blue-200 transition-colors"
                   >
-                    CuraForgeX
+                    About Us
                   </Link>
                 </li>
                 <li>
@@ -507,21 +516,21 @@ const AmboRapidLandingPage = () => {
                 </li>
                 <li>
                   <Link
-                    href="/Pioneers"
+                    href="/careers"
                     className="hover:text-white transition-colors"
                   >
-                    Leadership
+                    Careers
                   </Link>
                 </li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Support</h4>
+              <h4 className="font-semibold mb-4 text-gray-200">Support</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>
                   <a
                     href="mailto:support@nirveonx.com"
-                    className="hover:text-white transition-colors"
+                    className="hover:text-blue-200 transition-colors"
                   >
                     Contact Support
                   </a>
@@ -529,7 +538,7 @@ const AmboRapidLandingPage = () => {
                 <li>
                   <a
                     href="tel:+919491689462"
-                    className="hover:text-white transition-colors"
+                    className="hover:text-blue-200 transition-colors"
                   >
                     +91 94916 89462
                   </a>
@@ -542,18 +551,10 @@ const AmboRapidLandingPage = () => {
                     Privacy Policy
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    href="/terms"
-                    className="hover:text-white transition-colors"
-                  >
-                    Terms of Service
-                  </Link>
-                </li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500">
             <p>
               &copy; 2025 NirveonX. All rights reserved. | Empowering Wellness by Design
             </p>
