@@ -1,93 +1,105 @@
 "use client";
 import React, { useRef } from "react";
-import axios from "axios";
-import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { SquareArrowOutDownLeft } from "lucide-react";
+
 import ParticlesBackground from "@/components/shared/particle-background";
 import CustomCursor from "@/components/shared/custom-cursor";
 import BackButton from "@/components/Auth/BackButton";
-import "tailboot-lite/css/responsive.css";
-import { SquareArrowOutDownLeft } from "lucide-react";
-import Link from "next/link";
 
-const page = () => {
+import "tailboot-lite/css/responsive.css";
+
+const services = [
+  {
+    id: 1,
+    title: "VirzeonX",
+    description:
+      "Powerful platform with cutting-edge solutions designed to simplify your workflow and boost productivity.",
+    link: "/VirzeonX",
+    image: "https://res.cloudinary.com/dnfq7ty1x/image/upload/v1757929622/virzeonX-removebg-preview_mrxv3t.png",
+  },
+  {
+    id: 2,
+    title: "MedhaCare",
+    description:
+      "Smart healthcare service ensuring seamless patient management, faster diagnostics, and better accessibility.",
+    link: "/MedhaCare",
+    image: "https://res.cloudinary.com/dnfq7ty1x/image/upload/v1757929627/medhacare-removebg-preview_ww3r5y.png",
+  },
+];
+
+const Page = () => {
   const containerRef = useRef(null);
 
   return (
-    <div className="px-[0rem] lg:px-[3rem] py-[3rem] lg:py-[0rem] flex flex-col justify-center items-center">
+    <div className="relative min-h-screen w-full bg-[#0a0a0a] text-white flex flex-col items-center justify-center overflow-hidden">
+      {/* Background Particles */}
       <ParticlesBackground />
-      <BackButton />
-      <div className="flex justify-center items-center">
-        <CustomCursor containerRef={containerRef} />
-        {/* // Page content */}
-        <div className="min-h-[100vh] w-[70%] flex flex-col justify-center items-center ">
-          <div className="service-card-wrapper row flex justify-center">
-            {/* Card 1 */}
-            <div className="service-card group relative text-[#ffffff75] hover:text-black transition-colors duration-500 ease-in-out col-lg-6 col-md-12 p-[1rem] mb-[2rem]">
-              <Link href="/VirzeonX">
-              <div className="p-[2rem] overflow-hidden pt-[6rem] bg-gray-100/5 hover:bg-white/90 backdrop-blur-sm transition-bg duration-500 ease-in-out rounded-xl shadow-lg relative">
-                <img
-                  className="absolute opacity-25 group-hover:opacity-100 transition-opacity duration-500 ease-in-out w-[10rem] bottom-[60%] right-[-1rem]"
-                  src="https://res.cloudinary.com/dnfq7ty1x/image/upload/v1757830417/nirveon-white_agtczf.png"
-                  alt="Image"
-                />
-                <h2 className="text-[2.8rem] transition-colors duration-500 ease-in-out">
-                  01
-                </h2>
-                <p className="text-[0.8rem] transition-colors duration-500 ease-in-out">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
-                  deserunt et modi, atque tempora voluptatum
-                </p>
-                <div className="flex justify-between items-end mt-[2rem]">
-                  <h1 className="text-[2rem] transition-colors duration-500 ease-in-out">
-                    VirzeonX
-                  </h1>
-                  <div>
-                    <SquareArrowOutDownLeft size={26} />
-                  </div>
-                </div>
-              </div>
-              </Link>
-            </div>
 
-            {/* Card 2 */}
-            <div className="service-card group relative text-[#ffffff75] hover:text-black transition-colors duration-500 ease-in-out col-lg-6 col-md-12 p-[1rem] mb-[2rem]">
-              <Link href="/MedhaCare">
-              <div className="p-[2rem] overflow-hidden pt-[6rem] bg-gray-100/5 hover:bg-white/90 backdrop-blur-sm transition-bg duration-500 ease-in-out  rounded-xl shadow-lg relative">
+      {/* Back Button */}
+      <div className="absolute top-6 left-6 z-20">
+        <BackButton />
+      </div>
+
+      {/* Custom Cursor */}
+      <CustomCursor containerRef={containerRef} />
+
+      {/* Main Content */}
+      <div
+        ref={containerRef}
+        className="relative z-10 w-full max-w-6xl px-4 lg:px-12 flex flex-col items-center"
+      >
+        {/* Cards Section */}
+        <div className="service-card-wrapper row flex flex-wrap justify-center gap-8 mt-16">
+          {services.map((service) => (
+            <Link
+              key={service.id}
+              href={service.link}
+              className="group col-lg-6 col-md-12 w-full md:w-[45%]"
+            >
+              <div className="p-8 pt-20 relative rounded-2xl shadow-lg bg-white/5 hover:bg-white/10 backdrop-blur-md border border-white/10 transition-all duration-500 ease-in-out overflow-hidden">
+                {/* Decorative BG Logo */}
                 <img
-                  className="absolute opacity-25 group-hover:opacity-100 transition-opacity duration-500 ease-in-out w-[10rem] bottom-[60%] right-[-1rem]"
-                  src="https://res.cloudinary.com/dnfq7ty1x/image/upload/v1757830417/nirveon-white_agtczf.png"
-                  alt="Image"
+                  className="absolute opacity-10 group-hover:opacity-50 transition-opacity duration-500 ease-in-out w-40 bottom-[55%] scale-[2] right-[-1rem] pointer-events-none"
+                  src={service.image}
+                  alt="Background Logo"
                 />
-                <h2 className="text-[2.8rem] transition-colors duration-500 ease-in-out">
-                  02
+
+                {/* Service Number */}
+                <h2 className="text-4xl font-bold text-gray-400 group-hover:text-white transition-colors duration-500">
+                  {String(service.id).padStart(2, "0")}
                 </h2>
-                <p className="text-[0.8rem] transition-colors duration-500 ease-in-out">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
-                  deserunt et modi, atque tempora voluptatum
+
+                {/* Description */}
+                <p className="mt-4 text-sm text-gray-400 group-hover:text-gray-200 transition-colors duration-500 leading-relaxed">
+                  {service.description}
                 </p>
-                <div className="flex justify-between items-end mt-[2rem]">
-                  <h1 className="text-[2rem] transition-colors duration-500 ease-in-out">
-                    MedhaCare
+
+                {/* Footer */}
+                <div className="flex justify-between items-center mt-8">
+                  <h1 className="text-2xl font-semibold group-hover:text-white transition-colors duration-500">
+                    {service.title}
                   </h1>
-                  <div>
-                    <SquareArrowOutDownLeft size={26} />
-                  </div>
+                  <SquareArrowOutDownLeft
+                    size={28}
+                    className="text-gray-400 group-hover:text-white transition-colors duration-500"
+                  />
                 </div>
               </div>
-              </Link>
-            </div>
-          </div>
-          <div className="service-para text-[#777777] px-[1rem]">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-            Dignissimos aspernatur recusandae officiis est facilis iste quo
-            corporis nulla culpa beatae distinctio, maiores, minima incidunt
-            laborum reprehenderit similique tenetur cupiditate odio?
-          </div>
+            </Link>
+          ))}
+        </div>
+
+        {/* Paragraph */}
+        <div className="service-para text-gray-400 text-center max-w-3xl mt-12 px-4 leading-relaxed">
+          Our mission is to build impactful digital products that empower
+          individuals and organizations to work smarter, live healthier, and
+          achieve more with technology.
         </div>
       </div>
     </div>
   );
 };
 
-export default page;
+export default Page;
