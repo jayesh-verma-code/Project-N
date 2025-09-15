@@ -66,16 +66,21 @@ const page = () => {
               </p>
             </div>
 
-            <div className="flex flex-col max-h-[75vh] overflow-auto col-lg-6 col-md-12">
+            <div className="flex flex-col max-h-[75vh] lg:overflow-auto col-lg-6 col-md-12">
               <div className="row">
                 {virzeonXServiceData.map((service) => (
-                    <div className="col-lg-6 col-md-6 col-sm-12 pr-[1rem] pb-[1rem]">
-                    <div className="flex flex-col bg-gray-100/5 hover:bg-white/90 text-white hover:text-black backdrop-blur-sm transition-bg duration-500 ease-in-out rounded-xl shadow-lg p-[2rem]">
-                        <div className="p-[0.8rem] w-fit rounded-[50%] bg-white/90 text-black mb-[3rem]">
+                    <div className="col-lg-6 col-md-6 col-sm-12 pr-[2rem] pb-[2rem]">
+                    <div className="flex flex-col overflow-hidden bg-gray-100/5 hover:bg-white/90 text-white hover:text-black backdrop-blur-sm transition-bg duration-500 ease-in-out rounded-xl shadow-lg">
+                        {/* <div className="p-[0.8rem] w-fit rounded-[50%] bg-white/90 text-black mb-[3rem]">
                             <HeartPulse />
+                        </div> */}
+                        <div>
+                          <img className="" src="https://res.cloudinary.com/dnfq7ty1x/image/upload/v1757917496/curaForgex_bbqna9.jpg" alt="Image" />
                         </div>
-                        <h1 className="text-[1.3rem] mb-[1rem] font-[500]">{service.title}</h1>
-                        <p className="text-[0.8rem]">{service.description}</p>
+                        <div className="px-[2rem] py-[1.5rem]">
+                          <h1 className="text-[1.3rem] mb-[1rem] font-[500]">{service.title}</h1>
+                          <p className="text-[0.8rem]">{service.description}</p>
+                        </div>
                     </div>
                 </div>
                 ))}
