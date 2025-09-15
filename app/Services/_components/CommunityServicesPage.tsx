@@ -28,6 +28,22 @@ const chatBotServices: ChatBotService[] = [
       "",
     getStarted: "/forum",
   },
+
+  //FastMediX
+
+  {
+    chatbot_name: "FastMediX",
+    image: "https://res.cloudinary.com/dyzpbubpy/image/upload/v1757920655/telemedicine-promise-medical-utah-03B_gvlanm.webp",
+    description:
+      "Rapid access healthcare system for urgent consultations and instant prescriptions.",
+    getStarted: "/FastMediX",
+  },
+
+
+
+
+
+
 ];
 
 const useMediaQuery = (query: string) => {
