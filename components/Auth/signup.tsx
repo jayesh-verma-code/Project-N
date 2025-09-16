@@ -33,18 +33,25 @@ const signup = () => {
 
  //16.2
   useEffect(() => {
-    const base = process.env.NEXT_PUBLIC_API_URL;
-    axios
-      .get(`${base}/auth/user`, {
-        withCredentials: true, //  cookie send to backend to deserialize user
-      })
-      .then((res) => {
-        setUser(res.data.user);
-      })
-      .catch(() => {
-        setUser(null);
-      });
-  }, []);
+  const base = process.env.NEXT_PUBLIC_API_URL;
+  console.log('Making request to:', `${base}/auth/user`);
+  
+  axios
+    .get(`${base}/auth/user`, {
+      withCredentials: true,
+    })
+    .then((res) => {
+      console.log('✅ SUCCESS - User data received:', res.data);
+      setUser(res.data.user);
+      
+    })
+    .catch((error) => {
+      console.log('❌ ERROR - Auth check failed:', error.response?.status, error.response?.data);
+      setUser(null);
+      
+      router.push("/signup");
+    });
+}, [router]);
 
   return (
     <div className='absolute top-[2.2rem] right-[7rem] text-[0.8rem] md:text-[1rem] md:right-[3rem] z-[500]'>
