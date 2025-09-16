@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import ParticlesBackground from "@/components/shared/particle-background";
 import CustomCursor from "@/components/shared/custom-cursor";
 import BackButton from "@/components/Auth/BackButton";
-import "../../node_modules/tailboot-lite/css/responsive.css";
+import "@/styles/responsive.css";
 import { HeartPulse } from "lucide-react";
 import path from "path";
 import Link from "next/link";
