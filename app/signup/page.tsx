@@ -38,10 +38,19 @@ const page = () => {
     };
 
   const handleGoogleLogin = () => {
-    // redirect user to backend google auth route
-    const base = process.env.NEXT_PUBLIC_API_URL;
-    console.log("Redirecting to:", `${base}/auth/google`);
-    window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/google`;
+    const popup = window.open(
+    `${process.env.NEXT_PUBLIC_API_URL}/auth/google`,
+    'google-auth',
+    'width=500,height=600'
+  );
+  
+  // Check if popup is closed (user completed auth)
+  const checkClosed = setInterval(() => {
+    if (popup.closed) {
+      clearInterval(checkClosed);
+      window.location.reload(); // Reload to get the session
+    }
+  }, 1000);
   };
   
   return (
