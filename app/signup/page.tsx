@@ -41,7 +41,7 @@ const page = () => {
     // redirect user to backend google auth route
     const base = process.env.NEXT_PUBLIC_API_URL;
     console.log("Redirecting to:", `${base}/auth/google`);
-    window.open(`${base}/auth/google`, "_self");
+    window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/google`;
   };
   
   return (
