@@ -8,7 +8,8 @@ import ParticlesBackground from "@/components/shared/particle-background";
 import CustomCursor from "@/components/shared/custom-cursor";
 import BackButton from "@/components/Auth/BackButton";
 
-import "tailboot-lite/css/responsive.css";
+
+import "@/styles/responsive.css";
 
 const services = [
   {
