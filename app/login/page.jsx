@@ -2,6 +2,7 @@
 // Project-N/app/login/page.jsx
 //26.0 
 "use client";
+
 import React, { useRef } from "react";
 import axios from 'axios';
 import { useState } from 'react';
@@ -25,7 +26,7 @@ export default function Page() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const base = 'http://localhost:8080'; // Replace with your backend URL
+            const base = process.env.NEXT_PUBLIC_API_URL; // Replace with your backend URL
             const response = await axios.post( `${base}/auth/login`, newLoginForm, {
                 withCredentials: true
             });
@@ -41,7 +42,7 @@ export default function Page() {
 
   const handleGoogleLogin = () => {
     // redirect user to backend google auth route
-    window.open("http://localhost:8080/auth/google", "_self");
+    window.open(`${process.env.NEXT_PUBLIC_API_URL}/auth/google`, "_self");
   };
 
   

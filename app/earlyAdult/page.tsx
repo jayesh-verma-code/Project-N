@@ -1,4 +1,5 @@
 "use client";
+
 import axios from "axios";
 
 import { ThemeProvider } from "next-themes";
@@ -57,8 +58,9 @@ export default function AyurvedaChat() {
 
      //checking user authentication
   useEffect(() => {
+    const base = process.env.NEXT_PUBLIC_API_URL;
     axios
-      .get("http://localhost:8080/auth/user", {
+      .get(`${base}/auth/user`, {
         withCredentials: true,
       })
       .then((res) => {

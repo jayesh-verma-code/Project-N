@@ -1,6 +1,7 @@
 //3.1 
 // Project-N/app/signup/page.tsx
 "use client";
+
 import React, { useRef, useState } from "react";
 import ParticlesBackground from "@/components/shared/particle-background";
 import CustomCursor from "@/components/shared/custom-cursor";
@@ -20,7 +21,7 @@ const page = () => {
   const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const base = 'http://localhost:8080'; // Replace with your backend URL
+            const base = process.env.NEXT_PUBLIC_API_URL;// Replace with your backend URL
             const response = await axios.post( `${base}/auth/local`, newSignupForm);
             if (response.status === 201) {
                 alert('User created successfully!');
@@ -38,7 +39,9 @@ const page = () => {
 
   const handleGoogleLogin = () => {
     // redirect user to backend google auth route
-    window.open("http://localhost:8080/auth/google", "_self");
+    const base = process.env.NEXT_PUBLIC_API_URL;
+    console.log("Redirecting to:", `${base}/auth/google`);
+    window.open(`${base}/auth/google`, "_self");
   };
   
   return (

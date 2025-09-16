@@ -1,6 +1,7 @@
 //15.1
 //Project-N/components/Auth/signup.tsx
 "use client"
+
 import React from 'react'
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -32,8 +33,9 @@ const signup = () => {
 
  //16.2
   useEffect(() => {
+    const base = process.env.NEXT_PUBLIC_API_URL;
     axios
-      .get("http://localhost:8080/auth/user", {
+      .get(`${base}/auth/user`, {
         withCredentials: true, //  cookie send to backend to deserialize user
       })
       .then((res) => {

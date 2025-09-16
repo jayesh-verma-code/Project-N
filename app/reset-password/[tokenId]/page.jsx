@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useRef, useState } from "react";
 import ParticlesBackground from "@/components/shared/particle-background";
 import CustomCursor from "@/components/shared/custom-cursor";
@@ -21,8 +22,9 @@ const Page = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const base = process.env.NEXT_PUBLIC_API_URL;
       const response = await axios.post(
-        `http://localhost:8080/auth/reset-password/${tokenId}`,
+        `${base}/auth/reset-password/${tokenId}`,
         { password }
       );
       console.log(response.data);

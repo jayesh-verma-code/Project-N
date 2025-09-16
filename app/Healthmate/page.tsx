@@ -1,4 +1,5 @@
 "use client";
+
 import { useRef } from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -20,8 +21,9 @@ export default function Home() {
 
   //19.1 if not logged in, redirect to signup
   useEffect(() => {
+    const base = process.env.NEXT_PUBLIC_API_URL;
     axios
-      .get("http://localhost:8080/auth/user", {
+      .get(`${base}/auth/user`, {
         withCredentials: true,
       })
       .then((res) => {

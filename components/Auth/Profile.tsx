@@ -1,6 +1,7 @@
 //17.4
 // Project-N/components/Auth/Profile.tsx
 "use client"
+
 import React from 'react'
 import { CircleUserRound, LogOut } from 'lucide-react'
 import axios from "axios";
@@ -12,7 +13,8 @@ const Profile = ({user}) => {
     //18.2
     const handleLogout = async () => {
     try {
-      await axios.get("http://localhost:8080/auth/logout", {
+      const base = process.env.NEXT_PUBLIC_API_URL;
+      await axios.get(`${base}/auth/logout`, {
         withCredentials: true, // cookie bhejna zaroori hai
       });
   

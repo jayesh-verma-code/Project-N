@@ -1,5 +1,6 @@
 //27.0 
 "use client";
+
 import React, { useRef, useState } from "react";
 import ParticlesBackground from "@/components/shared/particle-background";
 import CustomCursor from "@/components/shared/custom-cursor";
@@ -21,7 +22,7 @@ export default function ForgotPasswordPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const base = 'http://localhost:8080'; // Replace with your backend URL
+            const base = process.env.NEXT_PUBLIC_API_URL; // Replace with your backend URL
             const response = await axios.post( `${base}/auth/forgot-password`, newLoginForm, {
                 withCredentials: true
             });

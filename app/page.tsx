@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useState, useRef } from "react";
 import IntroAnimation from "@/components/shared/intro-animation";
 import Navbar from "@/sections/marginals/navbar";
