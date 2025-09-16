@@ -49,9 +49,9 @@ const signup = () => {
       console.log('❌ ERROR - Auth check failed:', error.response?.status, error.response?.data);
       setUser(null);
       
-      router.push("/signup");
+      
     });
-}, [router]);
+}, []);
 
   return (
     <div className='absolute top-[2.2rem] right-[7rem] text-[0.8rem] md:text-[1rem] md:right-[3rem] z-[500]'>
