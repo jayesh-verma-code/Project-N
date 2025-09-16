@@ -1,13 +1,13 @@
 import { ANIMATIONS, NAV_ITEMS } from "@/sections/marginals/navbar";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "../ui/button";
-import {
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
+// import {
+//   SignInButton,
+//   SignUpButton,
+//   SignedIn,
+//   SignedOut,
+//   UserButton,
+// } from "@clerk/nextjs";
 
 export const MobileMenu = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (open: boolean) => void }) => (
     <AnimatePresence>
