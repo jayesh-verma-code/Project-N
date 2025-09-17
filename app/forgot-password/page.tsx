@@ -1,4 +1,3 @@
-//27.0 
 "use client";
 import React, { useRef, useState } from "react";
 import ParticlesBackground from "@/components/shared/particle-background";
@@ -48,7 +47,7 @@ export default function ForgotPasswordPage() {
               Enter your email address to reset your password.
             </p>
 
-            {/* Forgot Password form */}
+            {/* Forgot Password Form */}
             <form onSubmit={handleSubmit}  className="flex flex-col gap-[1rem] pt-6 w-full">
               <input
               onChange={handleChange}
