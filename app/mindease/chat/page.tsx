@@ -20,7 +20,7 @@ import {
 import Link from 'next/link';
 import ParticlesBackground from "@/components/shared/particle-background";
 
-// Define message type and chat session types
+// Define message type and chat session types.
 type Message = {
   id: string;
   text: string;
@@ -38,10 +38,10 @@ type ChatSession = {
 
 export default function MindEasePage() {
   const [user, setUser] = useState(null);
-    const [authloading, setAuthLoading] = useState(true);
-    const router = useRouter();
+  const [authloading, setAuthLoading] = useState(true);
+  const router = useRouter();
 
-    //checking user authentication
+  // Check user authentication
   useEffect(() => {
     axios
       .get("http://localhost:8080/auth/user", {
@@ -57,7 +57,7 @@ export default function MindEasePage() {
         router.push("/signup");
       });
   }, [router]);
-    
+
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [sidebarDrawerOpen, setSidebarDrawerOpen] = useState(false);
   const [input, setInput] = useState('');
@@ -67,13 +67,13 @@ export default function MindEasePage() {
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // API URL
+  // API URL.
   const API_URL = 'https://mindease-api-latest.onrender.com/chat';
 
-  // Get current chat
+  // Get the current chat.
   const currentChat = chatSessions.find((chat) => chat.id === currentChatId) || null;
 
-  // Load chat sessions from localStorage on initial render
+  // Load chat sessions from localStorage on initial render.
   useEffect(() => {
     const savedSessions = localStorage.getItem("mindease-chat-sessions");
     if (savedSessions) {
@@ -89,7 +89,7 @@ export default function MindEasePage() {
     }
   }, []);
 
-  // Scroll to bottom when messages change
+  // Scroll to the bottom when messages change.
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [currentChat?.messages]);
@@ -148,7 +148,7 @@ export default function MindEasePage() {
       timestamp: Date.now(),
     };
 
-    // Update chat title if it's the first user message
+    // Update the chat title if this is the first user message.
     const isFirstUserMessage =
       currentChat?.messages.filter((m) => m.sender === "user").length === 0;
     const updatedMessages = [...(currentChat?.messages || []), newUserMsg];
@@ -162,7 +162,7 @@ export default function MindEasePage() {
         : currentChat?.title || "Chat Session",
     };
 
-    // Update state
+    // Update the state.
     const updatedSessions = chatSessions.map((chat) =>
       chat.id === currentChatId ? updatedChat : chat
     );
@@ -186,7 +186,7 @@ export default function MindEasePage() {
 
       const data = await response.json();
       setLoading(false)
-      // Simulate typing effect
+      // Simulate the typing effect.
       let typedResponse = "";
       const typingInterval = setInterval(() => {
         if (typedResponse.length < data.response.length) {
@@ -215,7 +215,7 @@ export default function MindEasePage() {
           setIsTyping(false);
           setLoading(false);
 
-          // Final update with complete message
+          // Apply the final update with the complete message.
           const finalMessages = [
             ...updatedMessages,
             {
@@ -427,7 +427,7 @@ export default function MindEasePage() {
         {/* Fixed header bar that spans the entire width */}
         <div className="bg-gray-900 pt-2 pb-8 px-2  md:p-2 md:left-0 sm:left-1/2 sm:right-0 fixed w-full z-20">
           <div className="flex items-center justify-between max-w-screen-xl mx-auto">
-            {/* Left side - menu button */}
+            {/* Left side: menu button */}
             <div className="flex items-center justify-start w-10">
               {!sidebarOpen && (
                 <Button
@@ -448,7 +448,7 @@ export default function MindEasePage() {
               )}
             </div>
 
-            {/* Center - title and status - FIXED WIDTH AND POSITION */}
+            {/* Center: title and status (fixed width and position) */}
             <div className="lg:relative  lg:left-16 sm:absolute absolute left-1/2 sm:left-1/2 transform -translate-x-1/2 flex flex-col items-center mt-7 md:mt-1">
               <div className="text-3xl sm:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-600 ">
                 MindEase
@@ -464,7 +464,7 @@ export default function MindEasePage() {
               </div>
             </div>
 
-            {/* Right side - empty space to balance the layout */}
+            {/* Right side: empty space to balance the layout */}
             <div className="w-10"></div>
           </div>
         </div>
@@ -525,8 +525,8 @@ export default function MindEasePage() {
                 onClick={handleSend}
                 size="icon"
                 className={`rounded-lg w-7 h-7 transition-all duration-200 p-4 text-center cursor-pointer ${input.trim()
-                    ? "bg-indigo-600 hover:bg-indigo-700 text-white"
-                    : "bg-gray-700 text-gray-400"
+                  ? "bg-indigo-600 hover:bg-indigo-700 text-white"
+                  : "bg-gray-700 text-gray-400"
                   }`}
                 disabled={loading || isTyping || !input.trim()}
               >

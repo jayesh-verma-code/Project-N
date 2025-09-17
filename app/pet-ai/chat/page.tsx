@@ -52,7 +52,7 @@ export default function PetAIPage() {
     const [authloading, setAuthLoading] = useState(true);
     const router = useRouter();
 
-    //checking user authentication
+    // Check user authentication.
   useEffect(() => {
     axios
       .get("http://localhost:8080/auth/user", {
@@ -83,11 +83,11 @@ export default function PetAIPage() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Get current chat
+  // Get the current chat.
   const currentChat =
     chatSessions.find((chat) => chat.id === currentChatId) || null;
 
-  // Load chat sessions from localStorage on initial render
+  // Load chat sessions from localStorage on initial render.
   useEffect(() => {
     const savedSessions = localStorage.getItem("petai-chat-sessions");
     if (savedSessions) {
@@ -105,7 +105,7 @@ export default function PetAIPage() {
     }
   }, []);
 
-  // Scroll to bottom when messages change
+  // Scroll to the bottom when messages change.
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [currentChat?.messages]);
@@ -156,7 +156,7 @@ export default function PetAIPage() {
     setCurrentChatId(chatId);
     const chat = chatSessions.find((c) => c.id === chatId);
     if (chat?.petType) setPetType(chat.petType);
-    // Clear any pending file selection when switching chats
+    // Clear any pending file selection when switching chats.
     setSelectedFile(null);
     setImagePreview(null);
   };
@@ -169,8 +169,8 @@ export default function PetAIPage() {
     const file = event.target.files?.[0];
     if (file && file.type.startsWith('image/')) {
       setSelectedFile(file);
-      
-      // Create preview
+
+      // Create a preview.
       const reader = new FileReader();
       reader.onload = (e) => {
         setImagePreview(e.target?.result as string);
@@ -193,9 +193,9 @@ export default function PetAIPage() {
     const currentChatData = currentChat!;
     let newUserMsg: Message;
 
-    // Create user message
+    // Create the user message.
     if (selectedFile && input.trim()) {
-      // Both image and text
+      // Both image and text.
       newUserMsg = {
         id: Date.now().toString(),
         text: input,
@@ -204,7 +204,7 @@ export default function PetAIPage() {
         image_preview: imagePreview || undefined,
       };
     } else if (selectedFile) {
-      // Image only
+      // Image only.
       newUserMsg = {
         id: Date.now().toString(),
         text: "📷 Uploaded image for analysis",
@@ -213,7 +213,7 @@ export default function PetAIPage() {
         image_preview: imagePreview || undefined,
       };
     } else {
-      // Text only
+      // Text only.
       newUserMsg = {
         id: Date.now().toString(),
         text: input,
@@ -222,7 +222,7 @@ export default function PetAIPage() {
       };
     }
 
-    // Check if this is the pet type response
+    // Check if this is the pet type response.
     if (
       !petType &&
       input &&
@@ -233,7 +233,7 @@ export default function PetAIPage() {
       setPetType(input.toLowerCase());
     }
 
-    // Update chat title if it's the first user message
+    // Update the chat title if it's the first user message.
     const isFirstUserMessage =
       currentChatData.messages.filter((m) => m.sender === "user").length === 0;
     const updatedMessages = [...currentChatData.messages, newUserMsg];
@@ -248,13 +248,13 @@ export default function PetAIPage() {
       petType: petType || currentChatData.petType,
     };
 
-    // Update state
+    // Update state.
     const updatedSessions = chatSessions.map((chat) =>
       chat.id === currentChatId ? updatedChat : chat
     );
     setChatSessions(updatedSessions);
     
-    // Clear input and file
+    // Clear input and file.
     const messageText = input;
     const fileToSend = selectedFile;
     setInput("");
@@ -271,7 +271,7 @@ export default function PetAIPage() {
       let response;
       
       if (fileToSend) {
-        // Send with FormData for file upload
+        // Send with FormData for file upload.
         const formData = new FormData();
         formData.append('file', fileToSend);
         formData.append('session_id', currentChatData.session_id);
@@ -284,7 +284,7 @@ export default function PetAIPage() {
           body: formData,
         });
       } else {
-        // Send as JSON for text-only
+        // Send as JSON for text-only.
         response = await fetch("https://animal-skin-1093207603442.us-central1.run.app/health", {
           method: "POST",
           headers: {
@@ -301,12 +301,12 @@ export default function PetAIPage() {
 
       const data = await response.json();
 
-      // Update session_id if it's new
+      // Update session_id if it's new.
       if (data.session_id && data.session_id !== currentChatData.session_id) {
         updatedChat.session_id = data.session_id;
       }
 
-      // Create bot response message
+      // Create the bot response message.
       const botMessage: Message = {
         id: Date.now().toString(),
         text: data.response,
@@ -315,7 +315,7 @@ export default function PetAIPage() {
         analysis_data: data.new_analysis || undefined,
       };
 
-      // Simulate typing effect
+      // Simulate the typing effect.
       let typedResponse = "";
       const typingInterval = setInterval(() => {
         if (typedResponse.length < data.response.length) {
@@ -343,7 +343,7 @@ export default function PetAIPage() {
           setIsTyping(false);
           setLoading(false);
 
-          // Final update with complete message
+          // Final update with the complete message.
           const finalMessages = [...updatedMessages, botMessage];
 
           const finalSessions = updatedSessions.map((chat) =>
@@ -403,7 +403,7 @@ export default function PetAIPage() {
   return (
     <div className="flex h-screen overflow-hidden relative bg-gradient-to-br from-gray-900 to-gray-950">
       <ParticlesBackground/>
-      {/* Hidden file input */}
+      {/* Hidden file input. */}
       <input
         type="file"
         ref={fileInputRef}
@@ -412,7 +412,7 @@ export default function PetAIPage() {
         className="hidden"
       />
 
-      {/* Sidebar for desktop */}
+      {/* Sidebar for desktop. */}
       <div
         className={`fixed top-0 left-0 h-full z-30 transition-all duration-300 overflow-hidden hidden lg:block border-r border-gray-800
     ${sidebarOpen ? "w-64" : "w-0"}
@@ -494,7 +494,7 @@ export default function PetAIPage() {
         )}
       </div>
 
-      {/* Sidebar for mobile */}
+      {/* Sidebar for mobile. */}
       <div
         className={`fixed top-0 left-0 h-screen w-64 bg-gradient-to-b from-gray-900 via-gray-900 to-gray-950 text-white p-4 z-40 transform transition-transform duration-300 ease-in-out ${
           sidebarDrawerOpen ? "translate-x-0" : "-translate-x-full"
@@ -577,9 +577,9 @@ export default function PetAIPage() {
         </div>
       </div>
 
-      {/* Main Chat Area */}
+      {/* Main Chat Area. */}
       <div className="flex-1 flex flex-col h-screen overflow-hidden">
-        {/* Fixed header bar */}
+        {/* Fixed header bar. */}
         <div className="bg-gray-900 pt-2 pb-8 px-2 md:p-2 fixed w-full z-20">
           <div className="flex items-center justify-between max-w-screen-xl mx-auto">
             <div className="flex items-center justify-start w-10">
@@ -621,7 +621,7 @@ export default function PetAIPage() {
           </div>
         </div>
 
-        {/* Chat messages */}
+        {/* Chat messages. */}
         <section
           className={`flex-1 min-h-screen overflow-y-auto pt-24 pb-32 px-2 sm:px-4 md:px-8 lg:px-12 xl:px-16 w-full scroll-smooth ${
             sidebarDrawerOpen ? "blur-xs" : ""
@@ -640,7 +640,7 @@ export default function PetAIPage() {
           </div>
         </section>
 
-        {/* File preview */}
+        {/* File preview. */}
         {imagePreview && (
           <div className="fixed bottom-32 left-1/2 transform -translate-x-1/2 bg-gray-800 rounded-lg p-2 border border-gray-700 z-20">
             <div className="flex items-center gap-2">
@@ -661,7 +661,7 @@ export default function PetAIPage() {
           </div>
         )}
 
-        {/* Input area */}
+        {/* Input area. */}
         <div className="fixed bottom-0 left-0 w-full bg-gradient-to-t from-gray-900 to-gray-950 border-t border-gray-800 py-3 px-4 z-10">
           <div className="relative w-full max-w-3xl mx-auto">
             <textarea

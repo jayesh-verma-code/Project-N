@@ -116,7 +116,7 @@ export default function LandingPage() {
           <Card
             title="Guided Meditation" imagePath="/Guided-mindease.png" />
           <Card
-            title="Hobby-Based Theraphy"
+            title="Hobby-Based Therapy"
             imagePath="/Hobby-mindease.png"
           />
           <Card

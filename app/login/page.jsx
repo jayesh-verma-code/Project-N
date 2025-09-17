@@ -1,5 +1,5 @@
 //3.0 
-// Project-N/app/login/page.jsx
+// Project-N/app/login/page.jsx 
 //26.0 
 "use client";
 import React, { useRef } from "react";
@@ -12,39 +12,39 @@ import BackButton from "@/components/Auth/BackButton";
 
 export default function Page() {
   const router = useRouter();
-    const [newLoginForm, setNewLoginForm] = useState({
-        username: '',
-        password: ''
-    });
+  const [newLoginForm, setNewLoginForm] = useState({
+    username: '',
+    password: ''
+  });
   const containerRef = useRef(null);
 
   const handleChange = (e) => {
-        setNewLoginForm({ ...newLoginForm, [e.target.name]: e.target.value });
-    };
+    setNewLoginForm({ ...newLoginForm, [e.target.name]: e.target.value });
+  };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const base = 'http://localhost:8080'; // Replace with your backend URL
-            const response = await axios.post( `${base}/auth/login`, newLoginForm, {
-                withCredentials: true
-            });
-            if (response.status === 200) {
-                alert('User login successfully!');
-                router.push('/'); // Redirect to listings page
-            }
-        } catch (error) {
-            console.error('Error in logging User:', error);
-            alert('Failed to login user. Please try again.');
-        }
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const base = 'http://localhost:8080'; // Replace with your backend URL
+      const response = await axios.post(`${base}/auth/login`, newLoginForm, {
+        withCredentials: true
+      });
+      if (response.status === 200) {
+        alert('User logged in successfully!');
+        router.push('/'); // Redirect to the home page
+      }
+    } catch (error) {
+      console.error('Error logging in user:', error);
+      alert('Failed to log in. Please try again.');
+    }
+  };
 
   const handleGoogleLogin = () => {
-    // redirect user to backend google auth route
+    // Redirect the user to the backend Google authentication route
     window.open("http://localhost:8080/auth/google", "_self");
   };
 
-  
+
 
   return (
     <div suppressHydrationWarning>
@@ -60,7 +60,7 @@ export default function Page() {
             {/* Login form */}
             <form onSubmit={handleSubmit} className="flex flex-col gap-2 pt-6 w-full">
               <input
-              onChange={handleChange}
+                onChange={handleChange}
                 name="username"
                 type="email"
                 placeholder="Email"
@@ -69,7 +69,7 @@ export default function Page() {
                 className="py-2 px-3 border border-white/20 rounded-xl bg-transparent"
               />
               <input
-              onChange={handleChange}
+                onChange={handleChange}
                 name="password"
                 type="password"
                 placeholder="Password"
@@ -111,6 +111,6 @@ export default function Page() {
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>
+  );
 }

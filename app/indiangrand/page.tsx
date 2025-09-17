@@ -3,10 +3,10 @@ import axios from "axios";
 
 import { ThemeProvider } from "next-themes";
 import ParticlesBackground from "@/components/shared/particle-background";
-import NoiseTexture from "@/components/shared/noise-texture";
+// Unused import removed: NoiseTexture
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { Menu, X, MessageSquarePlus, Settings, LogOut, HeartPulse, Trash2, User, Globe } from 'lucide-react';
+import { Menu, X, MessageSquarePlus, Settings, LogOut, HeartPulse, Trash2, Globe } from 'lucide-react';
 import CustomCursor from "@/components/shared/custom-cursor";
 
 type Message = {
@@ -26,10 +26,10 @@ type ChatHistoryItem = {
   language: string;
 };
 
-// Backend API configuration - Updated to match your Flask APIf
+// Backend API configuration. Update this to match your Flask API.
 const API_BASE_URL = "https://indiangrandparent-662622027382.europe-west1.run.app"; // Update this to your deployed URL when ready
 
-// Supported languages from your backend
+// Supported languages from the backend
 const SUPPORTED_LANGUAGES = {
   'en': { name: 'English', address: 'beta' },
   'hi': { name: 'Hindi', address: 'beta' },
@@ -43,7 +43,7 @@ export default function IndianGrandparentChat() {
     const [authloading, setAuthLoading] = useState(true);
     const router = useRouter();
 
-    //checking user authentication
+  // Check user authentication
   useEffect(() => {
     axios
       .get("http://localhost:8080/auth/user", {
@@ -77,7 +77,7 @@ export default function IndianGrandparentChat() {
 
   // Initialize session and load chat history
   useEffect(() => {
-    // Generate a unique session ID for this user
+  // Generate a unique session ID for the user
     const savedSessionId = localStorage.getItem('grandparentChatSessionId');
     if (savedSessionId) {
       setSessionId(savedSessionId);
@@ -87,7 +87,7 @@ export default function IndianGrandparentChat() {
       localStorage.setItem('grandparentChatSessionId', newSessionId);
     }
 
-    // Load chat history from localStorage
+  // Load chat history from localStorage
     const storedHistory = localStorage.getItem('grandparentChatHistory');
     if (storedHistory) {
       try {
@@ -106,13 +106,13 @@ export default function IndianGrandparentChat() {
       }
     }
 
-    // Load saved language
+  // Load the saved language
     const savedLanguage = localStorage.getItem('grandparentChatLanguage');
     if (savedLanguage && SUPPORTED_LANGUAGES[savedLanguage as keyof typeof SUPPORTED_LANGUAGES]) {
       setSelectedLanguage(savedLanguage);
     }
 
-    // Set initial welcome message
+  // Set the initial welcome message
     setMessages([{
       id: generateId(),
       text: initialMessage,
@@ -121,7 +121,7 @@ export default function IndianGrandparentChat() {
     }]);
   }, [initialMessage]);
 
-  // Auto-scroll to bottom of chat when new messages arrive
+  // Automatically scroll to the bottom of the chat when new messages arrive
   useEffect(() => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
@@ -135,7 +135,7 @@ export default function IndianGrandparentChat() {
     }
   }, [chatHistory]);
 
-  // Save language to localStorage
+  // Save the selected language to localStorage
   useEffect(() => {
     localStorage.setItem('grandparentChatLanguage', selectedLanguage);
   }, [selectedLanguage]);
@@ -151,7 +151,7 @@ export default function IndianGrandparentChat() {
   const toggleSidebar = () => setIsOpen(!isOpen);
 
   const handleLogout = () => {
-    // Clear session data on logout
+    // Clear session data and log out the user
     localStorage.removeItem('grandparentChatSessionId');
     localStorage.removeItem('grandparentChatHistory');
     localStorage.removeItem('grandparentChatLanguage');
@@ -159,7 +159,7 @@ export default function IndianGrandparentChat() {
   };
 
   const handleNewChat = () => {
-    if (messages.length > 1) { // Only save if there's more than just the initial message
+    if (messages.length > 1) { // Save only if there is more than the initial message
       const firstUserMessage = messages.find(msg => msg.sender === 'user');
       const chatTitle = firstUserMessage 
         ? firstUserMessage.text.slice(0, 30) + (firstUserMessage.text.length > 30 ? '...' : '')
@@ -177,10 +177,10 @@ export default function IndianGrandparentChat() {
       setChatHistory(prev => [newChatItem, ...prev]);
     }
 
-    // Clear current chat
+    // Clear the current chat
     clearChat();
     
-    // Generate new session ID for new chat
+    // Generate a new session ID for the new chat
     const newSessionId = generateSessionId();
     setSessionId(newSessionId);
     localStorage.setItem('grandparentChatSessionId', newSessionId);
@@ -192,7 +192,7 @@ export default function IndianGrandparentChat() {
       setMessages(chatToLoad.messages);
       setSessionId(chatToLoad.sessionId);
       setSelectedLanguage(chatToLoad.language || 'en');
-      setIsOpen(false); // Close sidebar after loading
+  setIsOpen(false); // Close the sidebar after loading
     }
   };
 
@@ -222,7 +222,7 @@ export default function IndianGrandparentChat() {
       const messageToSend = inputValue;
       setInputValue('');
       
-      // Call your Indian Grandparent Chatbot API
+      // Call the Indian Grandparent Chatbot API
       const response = await fetch(`${API_BASE_URL}/chat`, {
         method: 'POST',
         headers: {
@@ -255,7 +255,7 @@ export default function IndianGrandparentChat() {
       
       setMessages(prev => [...prev, botMessage]);
       
-      // Update language if detected differently
+      // Update the language if a different one is detected
       if (data.detected_language && data.detected_language !== selectedLanguage) {
         setSelectedLanguage(data.detected_language);
       }
@@ -290,7 +290,7 @@ export default function IndianGrandparentChat() {
     setShowLanguageSelector(false);
   };
 
-  // Check API health
+  // Check the API health
   const checkAPIHealth = async () => {
     try {
       const response = await fetch(`${API_BASE_URL}/health`);
@@ -536,7 +536,7 @@ export default function IndianGrandparentChat() {
           </div>
         </main>
 
-        {/* Click outside to close dropdowns */}
+        {/* Click outside to close the dropdowns */}
         {showLanguageSelector && (
           <div
             className="fixed inset-0 z-5"

@@ -86,18 +86,18 @@ export default function HealthMatePage() {
   const categories: MedicalCategory[] = [
     {
       id: "kidney-ct",
-      title: "Kidney - CT",
+      title: "Kidney CT",
       image: "/imagekidney.png",
       icon: "kidney",
     },
     {
       id: "chest-xray",
-      title: "Chest - Xray",
+      title: "Chest X-ray",
       image: "/image chest xray.png",
       icon: "chest",
     },
     { id: "mri", title: "MRI", image: "/image mri.png", icon: "mri" },
-    { id: "xray", title: "Xray", image: "/image xray.png", icon: "xray" },
+    { id: "xray", title: "X-ray", image: "/image xray.png", icon: "xray" },
     {
       id: "thyroid",
       title: "Thyroid",
@@ -171,7 +171,7 @@ export default function HealthMatePage() {
       </div>
 
       <div className="container mx-auto px-4 py-6 relative z-10">
-        {/* Header - Centered */}
+  {/* Header (centered) */}
         <header className="flex flex-col items-center mb-16 mt-8">
           <motion.h1
             initial={{ opacity: 0, y: -20 }}
@@ -192,9 +192,9 @@ export default function HealthMatePage() {
           </motion.div>
         </header>
 
-        {/* Medical Categories Grid - Matches screenshot */}
+  {/* Medical categories grid (matches screenshot) */}
         <div className="max-w-4xl mx-auto">
-          {/* First 4 cards */}
+          {/* First four cards */}
           <motion.div
             variants={container}
             initial="hidden"
@@ -206,7 +206,7 @@ export default function HealthMatePage() {
             ))}
           </motion.div>
 
-          {/* Last 3 cards centered */}
+          {/* Last three cards (centered) */}
           {/* <div className="flex justify-center">
               <motion.div 
                 variants={container}
@@ -223,7 +223,7 @@ export default function HealthMatePage() {
             </div> */}
         </div>
 
-        {/* Bottom particle cluster */}
+  {/* Bottom particle cluster */}
         <div className="absolute bottom-0 left-0 z-10 opacity-40">
           <div className="w-64 h-64 rounded-full"></div>
         </div>
@@ -260,8 +260,8 @@ function CategoryCard({ category }: { category: MedicalCategory }) {
   };
 
   const renderIcon = () => {
-    const iconSize = 20; // Smaller size for these cards
-    const iconColor = "rgba(59, 130, 246, 0.9)"; // blue-500
+  const iconSize = 20; // Small size for these cards
+  const iconColor = "rgba(59, 130, 246, 0.9)"; // blue-500
 
     switch (category.icon) {
       case "kidney":
@@ -414,7 +414,7 @@ function CategoryCard({ category }: { category: MedicalCategory }) {
         before:z-0 before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500
         hover:shadow-[0_0_25px_rgba(59,130,246,0.45)] hover:border-blue-500/30"
     >
-      {/* Ambient glow effect */}
+  {/* Ambient glow effect */}
       <motion.div
         className="absolute inset-0 -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 
                   bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.25),transparent_70%)]"
@@ -423,7 +423,7 @@ function CategoryCard({ category }: { category: MedicalCategory }) {
         transition={{ duration: 0.7 }}
       />
 
-      {/* Moving highlight */}
+  {/* Moving highlight */}
       <motion.div
         className="absolute -inset-1/2 z-0 transition-opacity duration-700 
                    bg-gradient-conic from-blue-900 via-blue-700 to-cyan-400 blur-3xl"
@@ -440,7 +440,7 @@ function CategoryCard({ category }: { category: MedicalCategory }) {
         }}
       />
 
-      {/* SVG Icon in top right corner - only visible on hover */}
+  {/* SVG icon in the top-right corner; visible on hover */}
       <motion.div
         className="absolute top-2 right-2"
         initial={{ opacity: 0, scale: 0 }}
@@ -453,12 +453,12 @@ function CategoryCard({ category }: { category: MedicalCategory }) {
         {renderIcon()}
       </motion.div>
 
-      {/* Circular image */}
+  {/* Circular image */}
       <div
         className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden mb-4 flex items-center justify-center relative transform-gpu"
         style={{ transformStyle: "preserve-3d" }}
       >
-        {/* Image glow effect */}
+  {/* Image glow effect */}
         <motion.div
           className="absolute inset-2 rounded-full bg-gradient-to-tr from-white/20 to-white/5 blur-md transition-opacity duration-500 z-0"
           initial={{ opacity: 0 }}

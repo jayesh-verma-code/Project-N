@@ -19,7 +19,7 @@ export default function LandingPage() {
             </div>
           </Link>
  
-          {/* Title and subtitle */}
+          {/* Title and subtitle. */}
           <div className="absolute left-1/2 transform -translate-x-1/2  top-20  md:top-4">
             <h1 className="text-[#DBEAFE] text-4xl md:text-5xl lg:text-6xl font-bold mb-2 text-center">
               Pet AI
