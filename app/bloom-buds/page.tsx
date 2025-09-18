@@ -1,5 +1,4 @@
 'use client';
-
 import CustomCursor from '@/components/shared/custom-cursor';
 import { useEffect, useRef, useState } from 'react';
 import {
@@ -18,7 +17,6 @@ import {
     DrawerDescription,
     DrawerTrigger,
 } from "@/components/ui/drawer";
-
 import { History } from 'lucide-react';
 type Bud = {
     id: number;
@@ -26,12 +24,10 @@ type Bud = {
     isBloomed: boolean;
     activatedAt: number | null;
 };
-
 const GRID_SIZE = 24;
 const ACTIVATION_INTERVAL = 1500;
 const ACTIVE_DURATION = 2000;
 const GAME_DURATION = 30;
-
 export default function BloomGame() {
     const containerRef = useRef<HTMLDivElement>(null);
     const [buds, setBuds] = useState<Bud[]>([]);
@@ -49,13 +45,11 @@ export default function BloomGame() {
     const playCorrect = useSound('/sounds/correct-tap.mp3');
     const playMiss = useSound('/sounds/wrong-tap.mp3');
     const playGameOver = useSound('/sounds/game-over.mp3');
-
     useEffect(() => {
         const stored = localStorage.getItem('bloomGameBestStats');
         const allHistory = localStorage.getItem('bloomGameHistory');
         if (stored) setHighScore(JSON.parse(stored));
     }, []);
-
     useEffect(() => {
         const initialBuds = Array.from({ length: GRID_SIZE }, (_, i) => ({
             id: i,
@@ -65,7 +59,6 @@ export default function BloomGame() {
         }));
         setBuds(initialBuds);
     }, []);
-
     useEffect(() => {
         if (!hasStarted || isGameOver) return;
 
@@ -79,10 +72,8 @@ export default function BloomGame() {
                 return prev - 1;
             });
         }, 1000);
-
         return () => clearInterval(timer);
     }, [hasStarted, isGameOver]);
-
     // set the minimum response time
     useEffect(() => {
         if (isGameOver) {
@@ -90,7 +81,6 @@ export default function BloomGame() {
                 reactionTimes.length > 0
                     ? Math.round(reactionTimes.reduce((a, b) => a + b) / reactionTimes.length)
                     : 0;
-
             const stats = {
                 tapCount,
                 bloomCount,
@@ -99,15 +89,12 @@ export default function BloomGame() {
                 averageReactionTime: currentAvgTime,
                 date: new Date().toISOString(),
             };
-
             // Save last stats
             const history = JSON.parse(localStorage.getItem('bloomGameHistory') || '[]');
             const updatedHistory = [stats, ...history];
             const limitedHistory = updatedHistory.slice(0, 10);
-
             // history
             localStorage.setItem('bloomGameHistory', JSON.stringify(limitedHistory));
-
             // Compare to best score
             const bestStats = JSON.parse(localStorage.getItem('bloomGameBestStats') || 'null');
             if (!bestStats || currentAvgTime < bestStats.averageReactionTime) {
@@ -115,11 +102,8 @@ export default function BloomGame() {
             }
         }
     }, [isGameOver]);
-
-
     useEffect(() => {
         if (!hasStarted || isGameOver) return;
-
         const interval = setInterval(() => {
             const index = Math.floor(Math.random() * GRID_SIZE);
             setBuds(prev =>
@@ -129,7 +113,6 @@ export default function BloomGame() {
                         : bud
                 )
             );
-
             setTimeout(() => {
                 setBuds(prev =>
                     prev.map((bud, i) => {
@@ -144,21 +127,16 @@ export default function BloomGame() {
                 );
             }, ACTIVE_DURATION);
         }, ACTIVATION_INTERVAL);
-
         return () => clearInterval(interval);
     }, [hasStarted, isGameOver]);
-
     const handleTap = (bud: Bud) => {
         if (isGameOver || !hasStarted) return;
-
         playTap();
         setTapCount(c => c + 1);
-
         if (bud.isActive && !bud.isBloomed) {
             const reactionTime = bud.activatedAt ? Date.now() - bud.activatedAt : 0;
             playCorrect();
             setReactionTimes(prev => [...prev, reactionTime]);
-
             setBuds(prev =>
                 prev.map(b =>
                     b.id === bud.id
@@ -172,12 +150,10 @@ export default function BloomGame() {
             setWrongTaps(prev => prev + 1);
         }
     };
-
     const averageReactionTime =
         reactionTimes.length > 0
             ? Math.round(reactionTimes.reduce((a, b) => a + b) / reactionTimes.length)
             : 0;
-
     const handleStart = () => {
         setHasStarted(true);
         setTimeLeft(GAME_DURATION);
@@ -187,7 +163,6 @@ export default function BloomGame() {
         setWrongTaps(0);
         setReactionTimes([]);
         setIsGameOver(false);
-
         // Reset all buds
         setBuds(prev =>
             prev.map(bud => ({
@@ -201,7 +176,6 @@ export default function BloomGame() {
     const handleRestartGame = () => {
         window.location.reload();
     };
-
     return (
         <div
             ref={containerRef}
@@ -209,7 +183,6 @@ export default function BloomGame() {
         >
             <CustomCursor containerRef={containerRef} />
             <div className='absolute top-8 right-5 md:right-10'>
-
                 <HistoryDrawer />
             </div>
             {!hasStarted ? (
@@ -229,16 +202,13 @@ export default function BloomGame() {
                     <div className="text-xl font-semibold text-white mb-4">
                         ⏳ Time Left: {timeLeft}s
                     </div>
-
                     {isGameOver && (
                         <div className="text-center text-red-600 text-2xl font-bold mt-4">
                             ⛔ Game Over
                         </div>
                     )}
-
                     <div className=" flex items-center justify-cente my-5">
                         <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-6 gap-6 md:gap-6 p-6 rounded-2xl border border-purple-600 bg-gradient-to-br from-[#1f1b2e] via-[#2c223f] to-[#1a162a] shadow-[inset_0_0_12px_#6b21a8] backdrop-blur-md transition-all duration-300">
-
                             {buds.map((bud) => (
                                 <img
                                     key={bud.id}
@@ -274,7 +244,6 @@ export default function BloomGame() {
                                     <p><strong>⚡ Avg Reaction Time:</strong> {averageReactionTime} ms</p>
                                 </DialogDescription>
                             </DialogHeader>
-
                             <div className="mt-6 flex justify-center">
                                 <button
                                     onClick={handleRestartGame}
@@ -285,13 +254,11 @@ export default function BloomGame() {
                             </div>
                         </DialogContent>
                     </Dialog>
-
                 </>
             )}
         </div>
     );
 }
-
 const useSound = (src: string) => {
     const play = () => {
         const audio = new Audio(src);
@@ -299,8 +266,6 @@ const useSound = (src: string) => {
     };
     return play;
 };
-
-
 interface GameSession {
   date: string;
   tapCount: number;
@@ -309,11 +274,9 @@ interface GameSession {
   wrongTaps: number;
   averageReactionTime: number;
 }
-
  function HistoryDrawer() {
   const [history, setHistory] = useState<GameSession[]>([]);
   const [bestScore, setBestScore] = useState<GameSession | null>(null);
-
   useEffect(() => {
     if (typeof window !== "undefined") {
       const stored = JSON.parse(localStorage.getItem('bloomGameHistory') || '[]');
@@ -322,13 +285,11 @@ interface GameSession {
       setBestScore(highScore);
     }
   }, []);
-
   return (
     <Drawer>
       <DrawerTrigger title='History'>
         <History className='size-7' />
       </DrawerTrigger>
-
       <DrawerContent className="bg-gradient-to-br from-[#1f1b2e] via-[#2c223f] to-[#1a162a] text-white border-t border-purple-700">
         <DrawerHeader>
           <DrawerTitle className="text-purple-300 text-xl">🎮 Game History</DrawerTitle>
@@ -336,7 +297,6 @@ interface GameSession {
             Here's your performance in past sessions:
           </DrawerDescription>
         </DrawerHeader>
-
         {bestScore && bestScore.date && (
           <div className="border border-pink-400 bg-[#3b2a3f] text-pink-200 rounded-2xl p-5 shadow-[0_0_20px_rgba(244,114,182,0.1)] mb-4 mx-4 flex items-center gap-4">
             <div className="text-4xl md:text-8xl leading-none pt-1">🏆</div>
@@ -354,7 +314,6 @@ interface GameSession {
             </div>
           </div>
         )}
-
         {history.length === 0 ? (
           <p className="text-center text-sm text-gray-400 mt-6">No games played yet.</p>
         ) : (
@@ -382,7 +341,6 @@ interface GameSession {
     </Drawer>
   );
 }
-
 function StatItem({ label, value, span = false }: { label: string, value: string | number, span?: boolean }) {
   return (
     <div className={`flex items-center gap-1 ${span ? "col-span-2 sm:col-span-3" : ""}`}>

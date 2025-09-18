@@ -1,5 +1,4 @@
 "use client";
-
 import { useParams, useRouter } from "next/navigation";
 import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
@@ -27,21 +26,18 @@ import {
   getDefaultCertificates,
   type CertificateDocument,
 } from "@/contents/certificates-data";
-
 export default function EmployeeCertificatePage() {
   const params = useParams();
   const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
   const [member, setMember] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     if (params.employeename) {
       const employeeName =
         typeof params.employeename === "string"
           ? params.employeename.replace(/-/g, " ")
           : "";
-
       const allMembers = [
         ...pioneers.map((p) => ({ ...p, category: "leadership" as const })),
         ...additionalPioneer.map((p) => ({
@@ -50,11 +46,9 @@ export default function EmployeeCertificatePage() {
         })),
         ...teamMembers,
       ];
-
       const foundMember = allMembers.find(
         (m) => m.name.toLowerCase() === employeeName.toLowerCase()
       );
-
       if (foundMember) {
         setMember(foundMember);
       } else {
@@ -63,20 +57,16 @@ export default function EmployeeCertificatePage() {
       setLoading(false);
     }
   }, [params.employeename, router]);
-
   const getCertificates = (
     memberName: string,
     category: string
   ): CertificateDocument[] => {
     const realCertificates = getCertificatesForEmployee(memberName);
-
     if (realCertificates.length > 0) {
       return realCertificates;
     }
-
     return getDefaultCertificates(memberName, category);
   };
-
   const getDocumentIcon = (type: string) => {
     switch (type) {
       case "offer_letter":
@@ -91,7 +81,6 @@ export default function EmployeeCertificatePage() {
         return <FileText className="w-5 h-5 text-gray-400" />;
     }
   };
-
   const getDocumentTypeColor = (type: string) => {
     switch (type) {
       case "offer_letter":
@@ -106,7 +95,6 @@ export default function EmployeeCertificatePage() {
         return "from-gray-500/20 to-gray-600/20 border-gray-500/30";
     }
   };
-
   if (loading) {
     return (
       <ThemeProvider attribute="class" defaultTheme="dark">
@@ -116,13 +104,10 @@ export default function EmployeeCertificatePage() {
       </ThemeProvider>
     );
   }
-
   if (!member) {
     return null;
   }
-
   const certificates = getCertificates(member.name, member.category);
-
   return (
     <ThemeProvider attribute="class" defaultTheme="dark">
       <main
@@ -132,7 +117,6 @@ export default function EmployeeCertificatePage() {
         <CustomCursor containerRef={containerRef} />
         <NoiseTexture />
         <ParticlesBackground />
-
         <div className="relative z-10 min-h-screen">
           <div className="flex items-center justify-between p-6 md:p-8">
             <Link
@@ -143,7 +127,6 @@ export default function EmployeeCertificatePage() {
               <span>Back to Certificates</span>
             </Link>
           </div>
-
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -166,7 +149,6 @@ export default function EmployeeCertificatePage() {
                       />
                     </div>
                   </div>
-
                   <div className="flex-1 text-center md:text-left">
                     <h1 className="text-3xl md:text-4xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
                       {member.name}
@@ -185,7 +167,6 @@ export default function EmployeeCertificatePage() {
                         </div>
                       )}
                     </div>
-
                     <div className="flex justify-center md:justify-start">
                       <span
                         className={`px-3 py-1 text-sm rounded-full ${
@@ -208,7 +189,6 @@ export default function EmployeeCertificatePage() {
               </div>
             </div>
           </motion.div>
-
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -222,7 +202,6 @@ export default function EmployeeCertificatePage() {
                   Available Certificates
                 </h2>
               </div>
-
               <div className="grid gap-6">
                 {certificates.map((certificate, index) => (
                   <motion.div
@@ -239,7 +218,6 @@ export default function EmployeeCertificatePage() {
                         <div className="p-3 rounded-lg bg-gray-800/50">
                           {getDocumentIcon(certificate.type)}
                         </div>
-
                         <div className="flex-1">
                           <h3 className="text-xl font-semibold text-white mb-2">
                             {certificate.name}
@@ -260,7 +238,6 @@ export default function EmployeeCertificatePage() {
                           </div>
                         </div>
                       </div>
-
                       <div className="flex gap-2 ml-4">
                         <a
                           href={certificate.driveUrl}
@@ -288,7 +265,6 @@ export default function EmployeeCertificatePage() {
                   </motion.div>
                 ))}
               </div>
-
               {certificates.length === 0 && (
                 <div className="text-center py-12">
                   <div className="text-gray-400 mb-4">

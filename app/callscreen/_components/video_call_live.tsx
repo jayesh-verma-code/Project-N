@@ -28,7 +28,6 @@ import {
   MeVideoMobile,
   DocVideoMobile,
 } from "../_assets/call_icons";
-
 const VideoCallLiveContent: React.FC = () => {
   const [isDocMain, setIsDocMain] = useState(true);
   const [isMeMain, setIsMeMain] = useState(false);
@@ -40,10 +39,8 @@ const VideoCallLiveContent: React.FC = () => {
   const searchParams = useSearchParams();
   const callerName = searchParams.get("callerName") || "Doc";
   const app = searchParams.get("app");
-
   // Debug: Log app value
   console.log("Upstream app in video_call_live:", app);
-
   const toggleMute = () => setIsMuteClicked((prev) => !prev);
   const toggleVideo = () => setIsVideoOn((prev) => !prev);
   const toggleSpeaker = () => setIsSpeakerClicked((prev) => !prev);
@@ -52,12 +49,10 @@ const VideoCallLiveContent: React.FC = () => {
     setIsDocMain(!isDocMain);
     setIsMeMain(!isMeMain);
   };
-
   const MainComponentDesktop = isDocMain ? DocVideo : MeVideo;
   const ThumbnailComponentDesktop = isDocMain ? MeVideo : DocVideo;
   const MainComponentMobile = isMeMain ? MeVideoMobile : DocVideoMobile;
   const ThumbnailComponentMobile = isMeMain ? DocVideoMobile : MeVideoMobile;
-
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-center bg-gradient-to-br from-slate-900 via-gray-900 to-black">
       {/* Desktop View */}
@@ -106,7 +101,6 @@ const VideoCallLiveContent: React.FC = () => {
             </button>
           </div>
         </div>
-
         {/* Video Area */}
         <div className="flex-1 relative bg-black rounded-xl mx-6 mb-6 overflow-hidden shadow-inner">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-purple-900/20"></div>
@@ -149,7 +143,6 @@ const VideoCallLiveContent: React.FC = () => {
             </div>
           </div>
         </div>
-
         {/* Controls */}
         <div className="bg-gradient-to-r from-gray-800/90 to-gray-700/90 backdrop-blur-md border-t border-gray-600/30 px-8 py-6">
           <div className="flex items-center justify-between max-w-4xl mx-auto">
@@ -202,7 +195,6 @@ const VideoCallLiveContent: React.FC = () => {
                 )}
               </button>
             </div>
-
             {/* Center Controls */}
             <div className="flex items-center space-x-6">
               <button
@@ -218,7 +210,6 @@ const VideoCallLiveContent: React.FC = () => {
                 <PersonAdd className="w-5 h-5 text-gray-300" />
               </button>
             </div>
-
             {/* Right Controls */}
             <div className="flex items-center">
               <Link
@@ -234,17 +225,14 @@ const VideoCallLiveContent: React.FC = () => {
           </div>
         </div>
       </div>
-
       {/* Mobile View */}
       <div className="md:hidden w-full h-screen bg-gradient-to-br from-gray-900 via-slate-900 to-black relative overflow-hidden">
         {/* Background Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-purple-900/10 to-pink-900/10 z-0" />
-
         {/* Main Video */}
         <div className="absolute inset-0 flex items-center justify-center z-0">
           <MainComponentMobile className="min-w-full min-h-full w-full h-full object-cover transition-all duration-700 ease-in-out" />
         </div>
-
         {/* Top Status Bar */}
         <div className="absolute top-0 left-0 right-0 z-30 bg-gradient-to-b from-black/60 to-transparent pt-safe-top">
           <div className="flex items-center justify-between px-6 py-4">
@@ -260,7 +248,6 @@ const VideoCallLiveContent: React.FC = () => {
             </div>
           </div>
         </div>
-
         {/* Caller Info */}
         <div className="absolute top-20 left-0 right-0 z-20 text-center px-6">
           <div className="bg-black/30 backdrop-blur-md rounded-2xl px-6 py-4 mx-auto max-w-xs border border-white/10">
@@ -276,7 +263,6 @@ const VideoCallLiveContent: React.FC = () => {
             </div>
           </div>
         </div>
-
         {/* Right Side Controls */}
         <div className="absolute top-1/2 -translate-y-1/2 right-4 z-20 flex flex-col space-y-4">
           <button
@@ -298,7 +284,6 @@ const VideoCallLiveContent: React.FC = () => {
             <FilterEffectMobile className="w-6 h-6" />
           </button>
         </div>
-
         {/* Thumbnail Video */}
         <div
           onClick={handleSwap}
@@ -322,7 +307,6 @@ const VideoCallLiveContent: React.FC = () => {
             </svg>
           </div>
         </div>
-
         {/* Bottom Controls */}
         <div className="absolute bottom-0 left-0 right-0 z-30 bg-gradient-to-t from-black/80 to-transparent pb-safe-bottom">
           <div className="px-6 py-6">
@@ -345,7 +329,6 @@ const VideoCallLiveContent: React.FC = () => {
                 </Link>
               </div>
             )}
-
             {/* Main Control Bar */}
             <div className="bg-black/50 backdrop-blur-md rounded-full py-3 px-4 border border-white/20">
               <div className="flex justify-around items-center">
@@ -367,7 +350,6 @@ const VideoCallLiveContent: React.FC = () => {
                     pathFill={isExtraBClicked ? "#000000" : "#FFFFFF"}
                   />
                 </button>
-
                 <button
                   className={`p-3 rounded-full transition-all duration-300 ${
                     isVideoOn
@@ -383,7 +365,6 @@ const VideoCallLiveContent: React.FC = () => {
                     <VideoOffMobile className="w-7 h-7" />
                   )}
                 </button>
-
                 <button
                   className={`p-3 rounded-full transition-all duration-300 ${
                     isSpeakerClicked
@@ -401,7 +382,6 @@ const VideoCallLiveContent: React.FC = () => {
                     pathFill={isSpeakerClicked ? "#FFFFFF" : "#FFFFFF"}
                   />
                 </button>
-
                 <button
                   className={`p-3 rounded-full transition-all duration-300 ${
                     isMuteClicked
@@ -417,7 +397,6 @@ const VideoCallLiveContent: React.FC = () => {
                     pathFill={isMuteClicked ? "#065F46" : "#FFFFFF"}
                   />
                 </button>
-
                 <Link
                   href={`/callscreen/end_call?callerName=${encodeURIComponent(
                     callerName
@@ -435,7 +414,6 @@ const VideoCallLiveContent: React.FC = () => {
     </div>
   );
 };
-
 const VideoCallLive: React.FC = () => {
   return (
     <Suspense
@@ -449,6 +427,5 @@ const VideoCallLive: React.FC = () => {
     </Suspense>
   );
 };
-
 export default VideoCallLive;
  

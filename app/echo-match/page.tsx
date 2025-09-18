@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useRef, useState } from "react";
 import { emotionAudios, EmotionType } from "./helper/emotionAudios";
 import CustomCursor from "@/components/shared/custom-cursor";
@@ -8,14 +7,11 @@ import Image from "next/image";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import { Slider } from "@/components/ui/slider";
-
 const emotions: EmotionType[] = ["Happy", "Sad", "Love"];
-
 export default function GamePage() {
     const containerRef = useRef<HTMLDivElement>(null);
     const audioRef = useRef<HTMLAudioElement | null>(null);
     const playerRef = useRef<any>(null);
-
     const [currentAudio, setCurrentAudio] = useState<string | null>(null);
     const [correctEmotion, setCorrectEmotion] = useState<EmotionType | null>(null);
     const [selectedEmotion, setSelectedEmotion] = useState<EmotionType | null>(null);
@@ -26,7 +22,6 @@ export default function GamePage() {
     const [startTime, setStartTime] = useState<number | null>(null); 
     const [responseTime, setResponseTime] = useState<number | null>(null); 
     const [isPlaying, setIsPlaying] = useState(false);
-
     const startGame = () => {
         setResult(null);
         setSelectedEmotion(null);
@@ -39,8 +34,6 @@ export default function GamePage() {
         setStartTime(null); // reset
         setResponseTime(null);
     };
-
-
     const handlePlayAgain = () => {
         setShowPlayAgain(false);
         let seconds = 3;
@@ -57,22 +50,18 @@ export default function GamePage() {
     };
     const handleSelection = (emotion: EmotionType) => {
         setSelectedEmotion(emotion);
-
         if (startTime !== null) {
             const timeTaken = Date.now() - startTime; // ⏱️ in ms
             setResponseTime(timeTaken);
             console.log(`⏱️ Response time: ${timeTaken}ms`);
         }
-
         if (emotion === correctEmotion) {
             setResult("✅ Correct!");
         } else {
             setResult(`❌ Wrong! It was ${correctEmotion}`);
         }
-
         setShowPlayAgain(true);
     };
-
     return (
         <div
             ref={containerRef}
@@ -91,7 +80,6 @@ export default function GamePage() {
                     />
                 ))}
             </>
-
             <motion.h1
                 className="text-4xl font-extrabold mb-6 text-center text-white tracking-wide"
                 initial={{ opacity: 0, y: -30 }}
@@ -100,7 +88,6 @@ export default function GamePage() {
             >
                 🎧  Echo Match
             </motion.h1>
-
             {
                 !currentAudio && (
                     <motion.button
@@ -113,7 +100,6 @@ export default function GamePage() {
                     </motion.button>
                 )
             }
-
             <AnimatePresence>
                 {countdown !== null && (
                     <motion.div
@@ -138,7 +124,6 @@ export default function GamePage() {
                     </motion.div>
                 )}
             </AnimatePresence>
-
             {currentAudio && (
                 <motion.div
                     className="mb-6 text-center flex flex-col items-center gap-6 w-full max-w-md"
@@ -149,7 +134,6 @@ export default function GamePage() {
                     <p className="text-lg text-white">
                         🔊 Listen to the audio and select the emotion:
                     </p>
-
                     {/* Spinning Disc */}
                     <div className="relative w-40 h-40 flex items-center justify-center">
                         <Image
@@ -160,7 +144,6 @@ export default function GamePage() {
                             className={`animate-spin-slow pointer-events-none ${isPlaying && 'animate-spin-slow'}`}
                         />
                     </div>
-
                     {/* Audio Player */}
                     <AudioPlayer
                         ref={playerRef}
@@ -173,7 +156,6 @@ export default function GamePage() {
                         layout="horizontal"
                         className="!bg-slate-700 !text-white !border-none !rounded-xl"
                     />
-
                     {/* Volume Slider */}
                     <div className="w-full max-w-sm">
                         <label className="text-white text-sm mb-1 block">Volume</label>
@@ -196,7 +178,6 @@ export default function GamePage() {
                     </div>
                 </motion.div>
             )}
-
             {currentAudio && (
                 <div className="flex space-x-4 mt-2 flex-wrap justify-center">
                     {emotions.map((emotion) => (
@@ -223,9 +204,6 @@ export default function GamePage() {
                     ⏱️ Response Time: {(responseTime / 1000).toFixed(2)}s
                 </div>
             )}
-
-       
-
             <AnimatePresence>
                 {result && (
                     <motion.div

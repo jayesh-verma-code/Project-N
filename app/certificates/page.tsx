@@ -1,5 +1,4 @@
 "use client";
-
 import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ThemeProvider } from "next-themes";
@@ -10,12 +9,10 @@ import Link from "next/link";
 import { Search, Download, Users, Award, ArrowLeft } from "lucide-react";
 import { teamMembers } from "@/contents/team-section";
 import { pioneers, additionalPioneer } from "@/contents/pioneer-section";
-
 export default function CertificatesPage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
-
   const allMembers = [
     ...pioneers.map((p) => ({ ...p, category: "leadership" as const })),
     ...additionalPioneer.map((p) => ({
@@ -24,7 +21,6 @@ export default function CertificatesPage() {
     })),
     ...teamMembers,
   ];
-
   // Filter members based on search and category
   const filteredMembers = allMembers.filter((member) => {
     const matchesSearch =
@@ -34,7 +30,6 @@ export default function CertificatesPage() {
       selectedCategory === "all" || member.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -45,7 +40,6 @@ export default function CertificatesPage() {
       },
     },
   };
-
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
@@ -57,7 +51,6 @@ export default function CertificatesPage() {
       },
     },
   };
-
   return (
     <ThemeProvider attribute="class" defaultTheme="dark">
       <main
@@ -67,7 +60,6 @@ export default function CertificatesPage() {
         <CustomCursor containerRef={containerRef} />
         <NoiseTexture />
         <ParticlesBackground />
-
         <div className="relative z-10 min-h-screen">
           <div className="flex items-center justify-between p-6 md:p-8">
             <Link
@@ -84,7 +76,6 @@ export default function CertificatesPage() {
               </h1>
             </div>
           </div>
-
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -99,7 +90,6 @@ export default function CertificatesPage() {
               documents for our team members, interns, and employees.
             </p>
           </motion.div>
-
           <div className="px-6 md:px-8 mb-8">
             <div className="max-w-6xl mx-auto">
               <div className="flex flex-col md:flex-row gap-4 mb-6">
@@ -113,7 +103,6 @@ export default function CertificatesPage() {
                     className="w-full pl-10 pr-4 py-3 bg-gray-800/50 border border-gray-700/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white placeholder-gray-400 backdrop-blur-sm"
                   />
                 </div>
-
                 <select
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
@@ -125,7 +114,6 @@ export default function CertificatesPage() {
                   <option value="intern">Intern</option>
                 </select>
               </div>
-
               <div className="flex items-center gap-4 text-sm text-gray-400 mb-6">
                 <div className="flex items-center gap-1">
                   <Users className="w-4 h-4" />
@@ -134,7 +122,6 @@ export default function CertificatesPage() {
               </div>
             </div>
           </div>
-
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -168,7 +155,6 @@ export default function CertificatesPage() {
                             />
                           </div>
                         </div>
-
                         <div className="text-center">
                           <h3 className="font-semibold text-white mb-1 group-hover:text-blue-400 transition-colors">
                             {member.name}
@@ -176,7 +162,6 @@ export default function CertificatesPage() {
                           <p className="text-sm text-gray-400 mb-2">
                             {member.role}
                           </p>
-
                           <div className="flex justify-center">
                             <span
                               className={`px-2 py-1 text-xs rounded-full ${
@@ -195,14 +180,12 @@ export default function CertificatesPage() {
                             </span>
                           </div>
                         </div>
-
                         <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                       </div>
                     </Link>
                   </motion.div>
                 ))}
               </div>
-
               {filteredMembers.length === 0 && (
                 <motion.div
                   initial={{ opacity: 0 }}

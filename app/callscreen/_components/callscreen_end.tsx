@@ -10,15 +10,12 @@ import {
   MessageIcon,
   EndToEndMobile,
 } from "../_assets/call_icons";
-
 const CallScreenEnd: React.FC = () => {
   const searchParams = useSearchParams();
   const callerName = searchParams.get("callerName") || "Doc";
   const app = searchParams.get("app");
-
   // Debug: Log app value
   console.log("App parameter:", app);
-
   // Explicitly type app keys
   type AppKey = "goldencare" | "healthmate" | "pet-ai" | "mindease";
   const appRoutes: Record<AppKey, { landing: string; chat: string }> = {
@@ -30,13 +27,11 @@ const CallScreenEnd: React.FC = () => {
     "pet-ai": { landing: "/pet-ai", chat: "/pet-ai/chat" },
     mindease: { landing: "/mindease", chat: "/mindease/chat" },
   };
-
   // Get routes for the current app, default to homepage if app is invalid
   const { landing, chat } =
     app && app in appRoutes
       ? appRoutes[app as AppKey]
       : { landing: "/", chat: "/chat" };
-
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-center bg-gradient-to-br from-slate-900 via-gray-900 to-black">
       {/* Desktop Frame (hidden on mobile) */}
@@ -85,7 +80,6 @@ const CallScreenEnd: React.FC = () => {
             </button>
           </div>
         </div>
-
         {/* Inner Screen */}
         <div className="flex-1 relative bg-black rounded-xl mx-6 mb-6 overflow-hidden shadow-inner">
           <div className="absolute inset-0 bg-gradient-to-br from-red-900/20 to-gray-900/40"></div>
@@ -169,18 +163,15 @@ const CallScreenEnd: React.FC = () => {
           </div>
         </div>
       </div>
-
       {/* Mobile Layout (hidden on desktop) */}
       <div className="md:hidden w-full h-screen bg-gradient-to-br from-gray-900 via-slate-900 to-black relative overflow-hidden">
         {/* Background Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-red-900/10 via-gray-900/10 to-black/20 z-0" />
-
         {/* Background Image */}
         <div
           className="absolute inset-0 bg-center bg-cover opacity-20 z-0"
           style={{ backgroundImage: "url('/callScreen_bg.png')" }}
         />
-
         {/* Top Status Bar */}
         <div className="absolute top-0 left-0 right-0 z-30 bg-gradient-to-b from-black/60 to-transparent pt-safe-top">
           <div className="flex items-center justify-between px-6 py-4">
@@ -196,7 +187,6 @@ const CallScreenEnd: React.FC = () => {
             </div>
           </div>
         </div>
-
         {/* Main Content */}
         <div className="flex flex-col items-center justify-center h-full px-6 z-10 relative">
           {/* Avatar Section */}
@@ -224,7 +214,6 @@ const CallScreenEnd: React.FC = () => {
               </svg>
             </div>
           </div>
-
           {/* Call Info */}
           <div className="bg-black/30 backdrop-blur-md rounded-2xl px-6 py-4 mb-8 border border-white/10">
             <h2 className="text-white text-2xl font-semibold mb-2 text-center">
@@ -238,7 +227,6 @@ const CallScreenEnd: React.FC = () => {
               <span className="text-red-300 text-sm">Call ended</span>
             </div>
           </div>
-
           {/* Action Buttons */}
           <div className="flex flex-wrap justify-center gap-6 max-w-sm">
             <Link
@@ -273,5 +261,4 @@ const CallScreenEnd: React.FC = () => {
     </div>
   );
 };
-
 export default CallScreenEnd;

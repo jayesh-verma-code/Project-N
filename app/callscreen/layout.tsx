@@ -4,14 +4,12 @@ import { ThemeProvider } from "next-themes";
 import CustomCursor from "@/components/shared/custom-cursor";
 import NoiseTexture from "@/components/shared/noise-texture";
 import ParticlesBackground from "@/components/shared/particle-background";
-
 export default function CallScreenLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
-
   return (
     <ThemeProvider attribute="class" defaultTheme="dark">
       <main

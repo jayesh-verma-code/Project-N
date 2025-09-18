@@ -1,7 +1,6 @@
 "use client";
 import { Suspense } from "react";
 import EndCallScreen from "../_components/callscreen_end";
-
 export default function EndCallPage() {
   return (
     <Suspense

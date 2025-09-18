@@ -1,5 +1,4 @@
 import React from "react";
-
 interface IconProps {
   className?: string;
   style?: React.CSSProperties;
@@ -7,7 +6,6 @@ interface IconProps {
   pathFill?: string;
   reactFill?: string;
 }
-
 export const MuteIcon: React.FC<IconProps> = ({
   className,
   style,
@@ -46,7 +44,6 @@ export const MuteIcon: React.FC<IconProps> = ({
     />
   </svg>
 );
-
 export const MicIcon: React.FC<IconProps> = ({
   className,
   style,
@@ -85,7 +82,6 @@ export const MicIcon: React.FC<IconProps> = ({
     />
   </svg>
 );
-
 export const CallAgain: React.FC<IconProps> = ({ className, style }) => (
   <svg
     className={className}
@@ -103,7 +99,6 @@ export const CallAgain: React.FC<IconProps> = ({ className, style }) => (
     />
   </svg>
 );
-
 export const CloseCall: React.FC<IconProps> = ({ className, style }) => (
   <svg
     className={className}
@@ -121,7 +116,6 @@ export const CloseCall: React.FC<IconProps> = ({ className, style }) => (
     />
   </svg>
 );
-
 export const DocVideo: React.FC<IconProps> = ({ className, style }) => (
   <svg
     className={className}
@@ -158,7 +152,6 @@ export const DocVideo: React.FC<IconProps> = ({ className, style }) => (
     </defs>
   </svg>
 );
-
 export const EndCall: React.FC<IconProps> = ({ className, style }) => (
   <svg
     className={className}
@@ -176,7 +169,6 @@ export const EndCall: React.FC<IconProps> = ({ className, style }) => (
     />
   </svg>
 );
-
 export const MeVideo: React.FC<IconProps> = ({ className, style }) => (
   <svg
     className={className}
@@ -212,7 +204,6 @@ export const MeVideo: React.FC<IconProps> = ({ className, style }) => (
     </defs>
   </svg>
 );
-
 export const MessageIcon: React.FC<IconProps> = ({ className, style }) => (
   <svg
     className={className}
@@ -230,7 +221,6 @@ export const MessageIcon: React.FC<IconProps> = ({ className, style }) => (
     />
   </svg>
 );
-
 export const PersonAdd: React.FC<IconProps> = ({ className, style }) => (
   <svg
     className={className}
@@ -247,7 +237,6 @@ export const PersonAdd: React.FC<IconProps> = ({ className, style }) => (
     />
   </svg>
 );
-
 export const ShareScreen: React.FC<IconProps> = ({ className, style }) => (
   <svg
     className={className}
@@ -264,7 +253,6 @@ export const ShareScreen: React.FC<IconProps> = ({ className, style }) => (
     />
   </svg>
 );
-
 export const VideoCallOn: React.FC<IconProps> = ({
   className,
   style,
@@ -303,7 +291,6 @@ export const VideoCallOn: React.FC<IconProps> = ({
     />
   </svg>
 );
-
 export const VideoCallOff: React.FC<IconProps> = ({
   className,
   style,
@@ -342,7 +329,6 @@ export const VideoCallOff: React.FC<IconProps> = ({
     />
   </svg>
 );
-
 export const CameraFlipMobile: React.FC<IconProps> = ({ className, style }) => (
   <svg
     className={className}
@@ -360,7 +346,6 @@ export const CameraFlipMobile: React.FC<IconProps> = ({ className, style }) => (
     />
   </svg>
 );
-
 export const EndCallMobile: React.FC<IconProps> = ({ className, style }) => (
   <svg
     className={className}
@@ -378,7 +363,6 @@ export const EndCallMobile: React.FC<IconProps> = ({ className, style }) => (
     />
   </svg>
 );
-
 export const ExtraMenuMobile: React.FC<IconProps> = ({
   className,
   style,
@@ -401,7 +385,6 @@ export const ExtraMenuMobile: React.FC<IconProps> = ({
     />
   </svg>
 );
-
 export const FilterEffectMobile: React.FC<IconProps> = ({
   className,
   style,
@@ -422,7 +405,6 @@ export const FilterEffectMobile: React.FC<IconProps> = ({
     />
   </svg>
 );
-
 export const MuteMobile: React.FC<IconProps> = ({
   className,
   style,
@@ -445,7 +427,6 @@ export const MuteMobile: React.FC<IconProps> = ({
     />
   </svg>
 );
-
 export const AddPersonMobile: React.FC<IconProps> = ({ className, style }) => (
   <svg
     className={className}
@@ -463,7 +444,6 @@ export const AddPersonMobile: React.FC<IconProps> = ({ className, style }) => (
     />
   </svg>
 );
-
 export const SpeakerMobile: React.FC<IconProps> = ({
   className,
   style,
@@ -486,7 +466,6 @@ export const SpeakerMobile: React.FC<IconProps> = ({
     />
   </svg>
 );
-
 export const VideoOnMobile: React.FC<IconProps> = ({
   className,
   style,
@@ -509,7 +488,6 @@ export const VideoOnMobile: React.FC<IconProps> = ({
     />
   </svg>
 );
-
 export const VideoOffMobile: React.FC<IconProps> = ({
   className,
   style,
@@ -532,7 +510,6 @@ export const VideoOffMobile: React.FC<IconProps> = ({
     />
   </svg>
 );
-
 export const DocVideoMobile: React.FC<IconProps> = ({ className, style }) => (
   <svg
     className={className}
@@ -558,7 +535,6 @@ export const DocVideoMobile: React.FC<IconProps> = ({ className, style }) => (
     </defs>
   </svg>
 );
-
 export const MeVideoMobile: React.FC<IconProps> = ({ className, style }) => (
   <svg
     className={className}
@@ -589,7 +565,6 @@ export const MeVideoMobile: React.FC<IconProps> = ({ className, style }) => (
     </defs>
   </svg>
 );
-
 export const EntToEndEncrypt: React.FC<IconProps> = ({ className, style }) => (
   <svg
     className={className}
@@ -610,7 +585,6 @@ export const EntToEndEncrypt: React.FC<IconProps> = ({ className, style }) => (
     />
   </svg>
 );
-
 export const EndToEndMobile: React.FC<IconProps> = ({ className, style }) => (
   <svg
     className={className}
@@ -629,7 +603,6 @@ export const EndToEndMobile: React.FC<IconProps> = ({ className, style }) => (
     />
   </svg>
 );
-
 export const SwitchToVoiceCallMobile: React.FC<IconProps> = ({
   className,
   style,

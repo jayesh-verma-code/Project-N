@@ -6,7 +6,6 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Menu, X, MessageSquarePlus, Settings, LogOut, HeartPulse, Trash2, User, Globe } from 'lucide-react';
 import CustomCursor from "@/components/shared/custom-cursor";
-
 type Message = {
   id: string;
   text: string;
@@ -16,7 +15,6 @@ type Message = {
   sources?: string[]; // Added for source documents
   advice?: string;   // Added for structured advice
 };
-
 type ChatHistoryItem = {
   id: string;
   title: string;
@@ -26,10 +24,8 @@ type ChatHistoryItem = {
   persona: string;
   language: string;
 };
-
 // Backend API configuration
 const API_BASE_URL = "https://indianearlyadult-662622027382.europe-west1.run.app"; // Update this to your Flask API URL
-
 // Supported personas and languages from backend
 const SUPPORTED_PERSONAS = {
   'best_friend': 'Best Friend',
@@ -39,7 +35,6 @@ const SUPPORTED_PERSONAS = {
   'younger_brother': 'Younger Brother',
   'younger_sister': 'Younger Sister'
 };
-
 const SUPPORTED_LANGUAGES = {
   'en': 'English',
   'hi': 'Hindi',
@@ -47,7 +42,6 @@ const SUPPORTED_LANGUAGES = {
   'ta': 'Tamil',
   'te': 'Telugu'
 };
-
 export default function AyurvedaChat() {
   const [inputValue, setInputValue] = useState<string>('');
   const [initialMessage] = useState<string>('Hey! Choose your preferred persona and language to get started. How can I help you today?');
@@ -60,13 +54,11 @@ export default function AyurvedaChat() {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
-
   // New state for persona and language
   const [selectedPersona, setSelectedPersona] = useState<string>('best_friend');
   const [selectedLanguage, setSelectedLanguage] = useState<string>('en');
   const [showPersonaSelector, setShowPersonaSelector] = useState(false);
   const [showLanguageSelector, setShowLanguageSelector] = useState(false);
-
   // Initialize session and load chat history
   useEffect(() => {
     // Try to get session ID from localStorage first
@@ -77,7 +69,6 @@ export default function AyurvedaChat() {
       // Create new session if none exists
       createNewSession();
     }
-
     // Load chat history from localStorage
     const storedHistory = localStorage.getItem('chatbotChatHistory');
     if (storedHistory) {
@@ -97,7 +88,6 @@ export default function AyurvedaChat() {
         console.error('Error parsing chat history:', error);
       }
     }
-
     // Load saved persona and language
     const savedPersona = localStorage.getItem('chatbotPersona');
     const savedLanguage = localStorage.getItem('chatbotLanguage');
@@ -107,7 +97,6 @@ export default function AyurvedaChat() {
     if (savedLanguage && SUPPORTED_LANGUAGES[savedLanguage as keyof typeof SUPPORTED_LANGUAGES]) {
       setSelectedLanguage(savedLanguage);
     }
-
     // Set initial welcome message
     setMessages([{
       id: generateId(),
@@ -116,48 +105,39 @@ export default function AyurvedaChat() {
       timestamp: new Date()
     }]);
   }, [initialMessage]);
-
   // Auto-scroll to bottom of chat when new messages arrive
   useEffect(() => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
     }
   }, [messages]);
-
   // Save chat history to localStorage when it changes
   useEffect(() => {
     if (chatHistory.length > 0) {
       localStorage.setItem('chatbotChatHistory', JSON.stringify(chatHistory));
     }
   }, [chatHistory]);
-
   // Save session ID to localStorage when it changes
   useEffect(() => {
     if (sessionId) {
       localStorage.setItem('chatbotSessionId', sessionId);
     }
   }, [sessionId]);
-
   // Save persona and language to localStorage
   useEffect(() => {
     localStorage.setItem('chatbotPersona', selectedPersona);
   }, [selectedPersona]);
-
   useEffect(() => {
     localStorage.setItem('chatbotLanguage', selectedLanguage);
   }, [selectedLanguage]);
-
   const createNewSession = async () => {
     // Generate a local session ID since we're using a different backend
     setSessionId(generateId());
   };
-
   const generateId = () => {
     return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
   };
-
   const toggleSidebar = () => setIsOpen(!isOpen);
-
   const handleLogout = () => {
     // Clear session data on logout
     localStorage.removeItem('chatbotSessionId');
@@ -166,14 +146,12 @@ export default function AyurvedaChat() {
     localStorage.removeItem('chatbotLanguage');
     router.push("/HealthMatesecondLanding");
   };
-
   const handleNewChat = () => {
     if (messages.length > 1) { // Only save if there's more than just the initial message
       const firstUserMessage = messages.find(msg => msg.sender === 'user');
       const chatTitle = firstUserMessage 
         ? firstUserMessage.text.slice(0, 30) + (firstUserMessage.text.length > 30 ? '...' : '')
         : 'New Chat';
-      
       const newChatItem: ChatHistoryItem = {
         id: generateId(),
         title: chatTitle,
@@ -183,20 +161,15 @@ export default function AyurvedaChat() {
         persona: selectedPersona,
         language: selectedLanguage
       };
-
       setChatHistory(prev => [newChatItem, ...prev]);
     }
-
     // Clear current chat
     clearChat();
-    
     // Create a new session for the new chat
     createNewSession();
-    
     // Reset conversation history
     setConversation([]);
   };
-
   const loadChat = (chatId: string) => {
     const chatToLoad = chatHistory.find(chat => chat.id === chatId);
     if (chatToLoad) {
@@ -215,21 +188,16 @@ export default function AyurvedaChat() {
       setIsOpen(false); // Close sidebar after loading
     }
   };
-
   const deleteChat = (chatId: string, e: React.MouseEvent) => {
     e.stopPropagation(); // Prevent triggering loadChat
     setChatHistory(prev => prev.filter(chat => chat.id !== chatId));
   };
-
   const formatDate = (date: Date) => {
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
-
   const handleSendMessage = async () => {
-    if (!inputValue.trim() || !sessionId) return;
-    
-    setIsLoading(true);
-    
+    if (!inputValue.trim() || !sessionId) return; 
+    setIsLoading(true); 
     try {
       const userMessage: Message = {
         id: generateId(),
@@ -237,11 +205,9 @@ export default function AyurvedaChat() {
         sender: 'user',
         timestamp: new Date()
       };
-      
       setMessages(prev => [...prev, userMessage]);
       const messageToSend = inputValue;
       setInputValue('');
-      
       const response = await fetch(`${API_BASE_URL}/chat`, {
         method: 'POST',
         headers: {
@@ -254,23 +220,17 @@ export default function AyurvedaChat() {
           lang: selectedLanguage
         })
       });
-      
       if (!response.ok) throw new Error('API request failed');
-      
       const data = await response.json();
-      
       const botMessage: Message = {
         id: generateId(),
         text: data.reply,
         sender: 'bot',
         timestamp: new Date()
       };
-      
       setMessages(prev => [...prev, botMessage]);
-      
       // Update conversation history
-      setConversation(data.conversation || []);
-      
+      setConversation(data.conversation || []); 
     } catch (error) {
       console.error('Error sending message:', error);
       const errorMessage: Message = {
@@ -278,14 +238,12 @@ export default function AyurvedaChat() {
         text: "Sorry, I couldn't process your message. Please check if the backend server is running and try again.",
         sender: 'bot',
         timestamp: new Date()
-      };
-      
+      }; 
       setMessages(prev => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
     }
   };
-
   const clearChat = () => {
     setMessages([{
       id: generateId(),
@@ -296,17 +254,14 @@ export default function AyurvedaChat() {
     setInputValue('');
     setConversation([]);
   };
-
   const handlePersonaChange = (persona: string) => {
     setSelectedPersona(persona);
     setShowPersonaSelector(false);
   };
-
   const handleLanguageChange = (language: string) => {
     setSelectedLanguage(language);
     setShowLanguageSelector(false);
   };
-
   return (
     <ThemeProvider attribute="class" defaultTheme="dark">
       <ParticlesBackground />
@@ -330,7 +285,6 @@ export default function AyurvedaChat() {
           <Menu className="text-white w-5 h-5" />
         )}
       </button>
-
       {/* Sidebar */}
       <div
         className={`fixed h-screen w-72 bg-white/10 backdrop-blur-lg border-r border-gray-700/20 flex flex-col z-40 transition-all duration-300 ${
@@ -341,7 +295,6 @@ export default function AyurvedaChat() {
           <HeartPulse className="text-indigo-600 w-10 h-10" />
           <h1 className="font-semibold text-lg text-white">Chatbot</h1>
         </div>
-
         <div className="flex-1 flex flex-col justify-between p-4">
           <div className="space-y-1">
             <button 
@@ -351,7 +304,6 @@ export default function AyurvedaChat() {
               <MessageSquarePlus className="w-5 h-5" />
               <span>New Chat</span>
             </button>
-
             <div className="mt-4">
               <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 px-2">Recent Chats</h3>
               <div className="space-y-1 max-h-[50vh] overflow-y-auto">
@@ -383,7 +335,6 @@ export default function AyurvedaChat() {
               </div>
             </div>
           </div>
-
           <div className="space-y-1">
             <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-white/5 hover:text-white transition-colors">
               <Settings className="w-5 h-5" />
@@ -399,14 +350,12 @@ export default function AyurvedaChat() {
           </div>
         </div>
       </div>
-
       {isOpen && (
         <div
           className="fixed inset-0 bg-black/30 z-30"
           onClick={toggleSidebar}
         />
       )}
-
       {/* Main content */}
       <main className="flex-1 flex flex-col max-w-4xl mx-auto w-full p-4 rounded-lg my-4">
         {/* Header */}
@@ -417,7 +366,6 @@ export default function AyurvedaChat() {
             <span className="text-sm text-green-500">Online</span>
           </div>
         </div>
-
         {/* Persona and Language Selection */}
         <div className="flex flex-wrap gap-4 mb-4 justify-center">
           {/* Persona Selector */}
@@ -448,7 +396,6 @@ export default function AyurvedaChat() {
               </div>
             )}
           </div>
-
           {/* Language Selector */}
           <div className="relative">
             <button
@@ -478,7 +425,6 @@ export default function AyurvedaChat() {
             )}
           </div>
         </div>
-
         {/* Chat Area */}
         <div ref={chatContainerRef} className="flex-1 mb-4 overflow-y-auto max-h-[50vh] px-2">
           <div className="flex flex-col space-y-4">
@@ -494,7 +440,6 @@ export default function AyurvedaChat() {
                 <p className="whitespace-pre-line">{message.text}</p>
               </div>
             ))}
-            
             {isLoading && (
               <div className="bg-gray-800 text-white p-3 rounded-lg self-start flex items-center space-x-2">
                 <span>Processing</span>
@@ -507,7 +452,6 @@ export default function AyurvedaChat() {
             )}
           </div>
         </div>
-
         {/* Input Area */}
         <div className="relative bottom-0 bg-gray-800 text-white rounded-full px-4 py-3 pr-36 focus:outline-none focus:ring-2 focus:ring-blue-500">
           <input
@@ -543,7 +487,6 @@ export default function AyurvedaChat() {
           </div>
         </div>
       </main>
-
       {/* Click outside to close dropdowns */}
       {(showPersonaSelector || showLanguageSelector) && (
         <div

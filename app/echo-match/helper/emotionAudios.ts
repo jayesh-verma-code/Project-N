@@ -1,5 +1,4 @@
 export type EmotionType = 'Happy' | 'Sad' | 'Love';
-
 export const emotionAudios: Record<EmotionType, string[]> = {
   Happy: [
     '/audio-data/happy1.mp3',
